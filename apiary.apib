@@ -1,0 +1,1495 @@
+FORMAT: 1A
+HOST: http://www.google.com
+
+# MXcloud Generic
+Notes API is a *short texts saving* service similar to its physical paper presence on your table.
+
+# Group Ethernet
+Notes related resources of the **Ethernet API**
+
+## Ethernet Collection [/network/ethernets]
+### List all Ethernets [GET]
+
+The Collection response has following attributes:
+
++ Response 200 (application/json)
+
+        [
+            {
+                "id":1,
+                "name":"eth0",
+                "ip":"192.168.3.127",
+                "mac":"FF:FF:FF:FF:FF:FF",
+                "netmask":"255.255.255.0",
+                "subnet":"192.168.3.0",
+                "gateway":"192.168.3.254",
+                "dns":["8.8.8.8", "8.8.4.4"],
+                "currentStatus":1,
+                "enable":1,
+                "enableDhcp":0
+            },
+            {
+                "id":2,
+                "name":"eth1",
+                "ip":"192.168.3.127",
+                "mac":"FF:FF:FF:FF:FF:FF",
+                "netmask":"255.255.255.0",
+                "subnet":"192.168.3.0",
+                "gateway":"192.168.3.254",
+                "dns":["8.8.8.8", "8.8.4.4"],
+                "currentStatus":1,
+                "enable":1,
+                "enableDhcp":0
+            }
+        ]
+    
+### Update some Ethernets [PUT]
+
+The collection request/response for update has following attributes:
+
++ Request (application/json)
+
+        [
+            {
+                "id":1,
+                "ip":"192.168.3.127",
+                "netmask":"255.255.255.0",
+                "subnet":"192.168.3.0",
+                "gateway":"192.168.3.254",
+                "dns":["8.8.8.8", "8.8.4.4"],
+                "enable":1,
+                "enableDhcp":0
+            },
+            {
+                "id":2,
+                "ip":"192.168.3.127",
+                "netmask":"255.255.255.0",
+                "subnet":"192.168.3.0",
+                "gateway":"192.168.3.254",
+                "dns":["8.8.8.8", "8.8.4.4"],
+                "enable":1,
+                "enableDhcp":0
+            }
+        ]
+
++ Response 200 (application/json)
+
+        [
+            {
+                "id":1,
+                "name":"eth0",
+                "ip":"192.168.3.127",
+                "mac":"FF:FF:FF:FF:FF:FF",
+                "netmask":"255.255.255.0",
+                "subnet":"192.168.3.0",
+                "gateway":"192.168.3.254",
+                "dns":["8.8.8.8", "8.8.4.4"],
+                "currentStatus":1,
+                "enable":1,
+                "enableDhcp":0
+            },
+            {
+                "id":2,
+                "name":"eth1",
+                "ip":"192.168.3.127",
+                "mac":"FF:FF:FF:FF:FF:FF",
+                "netmask":"255.255.255.0",
+                "subnet":"192.168.3.0",
+                "gateway":"192.168.3.254",
+                "dns":["8.8.8.8", "8.8.4.4"],
+                "currentStatus":1,
+                "enable":1,
+                "enableDhcp":0
+            }
+        ]
+
+
+## Ethernet [/network/ethernets/{id}]
+A single Ethernet object with all its details
+
++ Parameters
+    + id (required, number, `1`) ... Numeric `id` of the Ethernet to perform action with. Has example value.
+
+### Retrieve an Ethernet [GET]
+
+The response for GET has following attributes:
+
+- **id** (required, number, `1`): Identifier for an Ethernet interface.
+- **name** (required, string, `eth0`): Indicate the interface name.
+- **ip** (required, IP address, `192.168.3.127`): IP address for the Ethernet interface.
+- **mac** (required, MAC, `FF:FF:FF:FF:FF:FF`): The identical MAC address.
+- **netmask** (required, IP address, `255.255.255.0`): Subnet mask for the Ethernet interface.
+- **subnet** (required, IP address, `192.168.3.0`): A subnet (short for "subnetwork") is an identifiably separate part of an organization's network.
+- **gateway** (required, IP address, `192.168.3.254`): Gateway is a router or a proxy server that routes between networks.
+- **dns** (required, IP address array): The Domain Name System (DNS) is a hierarchical distributed naming system for computers, services, or any resource connected to the Internet or a private network.
+- **currentStatus** (required, number `1`): Current status for the Ethernet interface, 0 for down and 1 for up.
+- **enable** (required, number, `1`): Indicate the link status of Ethernet interface should be set to up (`1`) or down (`0`).
+- **enableDhcp** (required, number, `0`): Enable (`1`) the dhcp client or using the static IP (`0`).
+
++ Response 200 (application/json)
+
+    + Header
+
+            X-My-Header: The Value
+
+    + Body
+
+            {
+                "id":1,
+                "name":"eth0",
+                "ip":"192.168.3.127",
+                "mac":"FF:FF:FF:FF:FF:FF",
+                "netmask":"255.255.255.0",
+                "subnet":"192.168.3.0",
+                "gateway":"192.168.3.254",
+                "dns":["8.8.8.8", "8.8.4.4"],
+                "currentStatus":1,
+                "enable":1,
+                "enableDhcp":0
+            }
+
+### Update an Ethernet [PUT]
+
+The request for PUT has following attributes:
+
+- **ip** (required, IP address, `192.168.3.127`): IP address for the Ethernet interface.
+- **netmask** (required, IP address, `255.255.255.0`): Subnet mask for the Ethernet interface.
+- **subnet** (required, IP address, `192.168.3.0`): A subnet (short for "subnetwork") is an identifiably separate part of an organization's network.
+- **gateway** (required, IP address, `192.168.3.254`): Gateway is a router or a proxy server that routes between networks.
+- **dns** (required, IP address array): The Domain Name System (DNS) is a hierarchical distributed naming system for computers, services, or any resource connected to the Internet or a private network.
+- **enable** (required, number, `1`): Indicate the link status of Ethernet interface should be set to up (`1`) or down (`0`).
+- **enableDhcp** (required, number, `0`): Enable (`1`) the dhcp client or using the static IP (`0`).
+
+The response for PUT is same as that for GET.
+
+The error response has following attributes:
+
+- **status** (required, number, `1100`): Status code for error message.
+- **message** (required, string): Error message in English.
+
++ Request (application/json)
+
+        {
+            "ip":"192.168.3.127",
+            "netmask":"255.255.255.0",
+            "subnet":"192.168.3.0",
+            "gateway":"192.168.3.254",
+            "dns":["8.8.8.8", "8.8.4.4"],
+            "enable":1,
+            "enableDhcp":0
+        }
+            
++ Response 200 (application/json)
+
+        {
+            "id":1,
+            "name":"eth0",
+            "ip":"192.168.3.127",
+            "mac":"FF:FF:FF:FF:FF:FF",
+            "netmask":"255.255.255.0",
+            "subnet":"192.168.3.0",
+            "gateway":"192.168.3.254",
+            "dns":["8.8.8.8", "8.8.4.4"],
+            "currentStatus":1,
+            "enable":1,
+            "enableDhcp":0
+        }
+        
++ Response 404 (application/json)
+
+        {
+            "status": 2101,
+            "message": "Interface not found!"
+        }
+
+## Ethernet's DHCP [/network/ethernets/{id}/dhcp]
+Update the dhcp client information for a single Ethernet object
+
++ Parameters
+    + id (required, number, `1`) ... Numeric `id` of the Ethernet to perform action with. Has example value.
+
+### Update the DHCP information [PUT]
+
+The request for PUT has following attributes (this is an **event** message):
+
+- **ip** (required, IP address, `192.168.3.127`): IP address for the Ethernet interface.
+- **netmask** (required, IP address, `255.255.255.0`): Subnet mask for the Ethernet interface.
+- **subnet** (required, IP address, `192.168.3.0`): A subnet (short for "subnetwork") is an identifiably separate part of an organization's network.
+- **gateway** (required, IP address, `192.168.3.254`): Gateway is a router or a proxy server that routes between networks.
+- **dns** (required, IP address array): The Domain Name System (DNS) is a hierarchical distributed naming system for computers, services, or any resource connected to the Internet or a private network.
+
++ Request (application/json)
+
+        {
+            "ip":"192.168.3.127",
+            "netmask":"255.255.255.0",
+            "subnet":"192.168.3.0",
+            "gateway":"192.168.3.254",
+            "dns":["8.8.8.8", "8.8.4.4"],
+        }
+        
++ Response 200 (application/json)
+
+        {
+        }
+
+# Group WiFi
+Notes related resources of the **WiFi API**
+
+## WiFi Collection [/network/wifis]
+### List all WiFi Interfaces [GET]
+
++ Response 200 (application/json)
+
+        [
+            {
+                "id":1,
+                "name":"wlan0",
+                "mode":1,
+                "enable":1,
+                "currentStatus":1,
+                "mac":"FF:FF:FF:FF:FF:FF",
+                "client": {
+                    "ip":"192.168.41.127",
+                    "netmask":"255.255.255.0",
+                    "subnet":"192.168.41.0",
+                    "gateway":"192.168.41.254",
+                    "enableDhcp": 1,
+                    "network": [
+                        {
+                            "enable": 1,
+                            "priority": 0,
+                            "mode": 2,
+                            "keyFormat": 0,
+                            "ssid": "MOXA-MAR-1",
+                            "psk": "moxamoxa",
+                            "txKey": 0,
+                            "key": ["", "", "", ""],
+                            "identity": "",
+                            "password": ""
+                        }
+                    ]
+                }
+            },
+            {
+                "id":2,
+                "name":"wlan1",
+                "mode":1,
+                "enable":0,
+                "currentStatus":0,
+                "mac":"FF:FF:FF:FF:FF:FF",
+                "client": {
+                    "ip":"192.168.42.127",
+                    "netmask":"255.255.255.0",
+                    "subnet":"192.168.42.0",
+                    "gateway":"192.168.42.254",
+                    "enableDhcp": 0,
+                    "network": []
+                }
+            }
+        ]
+    
+### Update some WiFi Interfaces [PUT]
+
+The collection request/response for update has following attributes:
+
+
++ Request (application/json)
+
+        [
+            {
+                "id":1,
+                "mode":1,
+                "enable":1,
+                "client": {
+                    "ip":"192.168.41.127",
+                    "netmask":"255.255.255.0",
+                    "subnet":"192.168.41.0",
+                    "gateway":"192.168.41.254",
+                    "enableDhcp": 1,
+                    "network": [
+                        {
+                            "enable": 1,
+                            "priority": 0,
+                            "mode": 2,
+                            "keyFormat": 0,
+                            "ssid": "MOXA-MAR-1",
+                            "psk": "moxamoxa",
+                            "txKey": 0,
+                            "key": ["", "", "", ""],
+                            "identity": "",
+                            "password": ""
+                        }
+                    ]
+                }
+            },
+            {
+                "id":2,
+                "mode":1,
+                "enable":0,
+                "client": {
+                    "ip":"192.168.42.127",
+                    "netmask":"255.255.255.0",
+                    "subnet":"192.168.42.0",
+                    "gateway":"192.168.42.254",
+                    "enableDhcp": 0,
+                    "network": []
+                }
+            }
+        ]
+
++ Response 200 (application/json)
+
+        [
+            {
+                "id":1,
+                "name":"wlan0",
+                "mode":1,
+                "enable":1,
+                "currentStatus":1,
+                "mac":"FF:FF:FF:FF:FF:FF",
+                "client": {
+                    "ip":"192.168.41.127",
+                    "netmask":"255.255.255.0",
+                    "subnet":"192.168.41.0",
+                    "gateway":"192.168.41.254",
+                    "enableDhcp": 1,
+                    "network": [
+                        {
+                            "enable": 1,
+                            "priority": 0,
+                            "mode": 2,
+                            "keyFormat": 0,
+                            "ssid": "MOXA-MAR-1",
+                            "psk": "moxamoxa",
+                            "txKey": 0,
+                            "key": ["", "", "", ""],
+                            "identity": "",
+                            "password": ""
+                        }
+                    ]
+                }
+            },
+            {
+                "id":2,
+                "name":"wlan1",
+                "mode":1,
+                "enable":0,
+                "currentStatus":0,
+                "mac":"FF:FF:FF:FF:FF:FF",
+                "client": {
+                    "ip":"192.168.42.127",
+                    "netmask":"255.255.255.0",
+                    "subnet":"192.168.42.0",
+                    "gateway":"192.168.42.254",
+                    "enableDhcp": 0,
+                    "network": []
+                }
+            }
+        ]
+
+## WiFi [/network/wifis/{id}]
+A single WiFi object with all its details
+
++ Parameters
+    + id (required, number, `1`) ... Numeric `id` of the Ethernet to perform action with. Has example value.
+
+### Retrieve an WiFi Interface [GET]
+
+The response for GET has following attributes:
+
+- **id** (required, number, `1`): Identifier for a Wireless interface.
+- **name** (required, string, `eth0`): Indicate the interface name.
+- **mode** (required, number, `1`): `0` for AP mode and `1` for client mode, in MXcloud, the value is always `1`.
+- **enable** (required, number, `1`): Indicate the link status of the Wireless interface should be set to up (`1`) or down (`0`).
+- **currentStatus** (required, number `1`): Current status for the Wireless interface, 0 for down and 1 for up.
+- **mac** (required, MAC, `FF:FF:FF:FF:FF:FF`): The identical MAC address.
+- **client.ssid** (optional, string, `MIRF-AP`): Current connected SSID (updated by bundle).
+- **client.signal** (optional, number, `-79`): Signal for current cnnected SSID (updated by bundle).
+- **client.ip** (required, IP address, `192.168.3.127`): IP address for the Wireless interface.
+- **client.netmask** (required, IP address, `255.255.255.0`): Subnet mask for the Wireless interface.
+- **client.subnet** (required, IP address, `192.168.3.0`): A subnet (short for "subnetwork") is an identifiably separate part of an organization's network.
+- **client.gateway** (required, IP address, `192.168.3.254`): Gateway is a router or a proxy server that routes between networks.
+- **client.enableDhcp** (required, number, `0`): Enable (`1`) the dhcp client or using the static IP (`0`).
+- **client.network[].enable** (required, number, `1`): Indicate the network status, `0` for disable and `1` for enable.
+- **client.network[].priority** (required, number, `0`): Priority to connect to the network, the larger the priority value, the sooner the network is matched against the scan results.
+- **client.network[].ssid** (required, string): A Wireless AP name to connect to.
+- **client.network[].mode** (required, enum{NONE, WEP, WPA-PSK, WPA-EAP}, `0`): Security mode of the Wireless AP.
+- **client.network[].keyFormat** (optional, enum{ASCII, HEX}, `0`): Key format for WEP or WPA-PSK.
+- **client.network[].psk** (optional, string, `moxamoxa`): Pre-shared key.
+- **client.network[].txKey** (optional, enum{0, 1, 2, 3}, `0`): Default key index for WEP.
+- **client.network[].key** (optional, string array): 4 WEP keys.
+- **client.network[].identity** (optional, string): Identity for WPA-EAP.
+- **client.network[].password** (optional, string): Password for WPA-EAP.
+
++ Response 200 (application/json)
+
+    + Header
+
+            X-My-Header: The Value
+
+    + Body
+
+            {
+                "id":1,
+                "name":"wlan0",
+                "mode":1,
+                "enable":1,
+                "currentStatus":1,
+                "mac":"FF:FF:FF:FF:FF:FF",
+                "client": {
+                    "ssid": "MOXA-MAR-1",
+                    "signal": -79,
+                    "ip":"192.168.41.127",
+                    "netmask":"255.255.255.0",
+                    "subnet":"192.168.41.0",
+                    "gateway":"192.168.41.254",
+                    "enableDhcp": 1,
+                    "network": [
+                        {
+                            "enable": 1,
+                            "priority": 0,
+                            "ssid": "MOXA-MAR-1",
+                            "mode": 2,
+                            "keyFormat": 0,
+                            "psk": "moxamoxa",
+                            "txKey": 0,
+                            "key": ["", "", "", ""],
+                            "identity": "",
+                            "password": ""
+                        }
+                    ]
+                }
+            }
+
+### Update an WiFi Interface [PUT]
+
+The request for PUT has following attributes:
+
+- **mode** (required, number, `1`): `0` for AP mode and `1` for client mode, in MXcloud, the value is always `1`.
+- **enable** (required, number, `1`): Indicate the link status of the Wireless interface should be set to up (`1`) or down (`0`).
+- **client.ip** (required, IP address, `192.168.3.127`): IP address for the Wireless interface.
+- **client.netmask** (required, IP address, `255.255.255.0`): Subnet mask for the Wireless interface.
+- **client.subnet** (required, IP address, `192.168.3.0`): A subnet (short for "subnetwork") is an identifiably separate part of an organization's network.
+- **client.gateway** (required, IP address, `192.168.3.254`): Gateway is a router or a proxy server that routes between networks.
+- **client.enableDhcp** (required, number, `0`): Enable (`1`) the dhcp client or using the static IP (`0`).
+- **client.network[].enable** (required, number, `1`): Indicate the network status, `0` for disable and `1` for enable.
+- **client.network[].priority** (required, number, `0`): Priority to connect to the network, the larger the priority value, the sooner the network is matched against the scan results.
+- **client.network[].ssid** (required, string): A Wireless AP name to connect to.
+- **client.network[].mode** (required, enum{NONE, WEP, WPA-PSK, WPA-EAP}, `0`): Security mode of the Wireless AP.
+- **client.network[].keyFormat** (optional, enum{ASCII, HEX}, `0`): Key format for WEP or WPA-PSK.
+- **client.network[].psk** (optional, string, `moxamoxa`): Pre-shared key.
+- **client.network[].txKey** (optional, enum{0, 1, 2, 3}, `0`): Default key index for WEP.
+- **client.network[].key** (optional, string array): 4 WEP keys.
+- **client.network[].identity** (optional, string): Identity for WPA-EAP.
+- **client.network[].password** (optional, string): Password for WPA-EAP.
+
+The response for PUT is same as that for GET.
+
+The error response has following attributes:
+
+- **status** (required, number, `1100`): Status code for error message.
+- **message** (required, string): Error message in English.
+
++ Request (application/json)
+
+        {
+            "mode":1,
+            "enable":1,
+            "client": {
+                "ip":"192.168.41.127",
+                "netmask":"255.255.255.0",
+                "subnet":"192.168.41.0",
+                "gateway":"192.168.41.254",
+                "enableDhcp": 1,
+                "network": [
+                    {
+                        "enable": 1,
+                        "priority": 0,
+                        "mode": 2,
+                        "keyFormat": 0,
+                        "ssid": "MOXA-MAR-1",
+                        "psk": "moxamoxa",
+                        "txKey": 0,
+                        "key": ["", "", "", ""],
+                        "identity": "",
+                        "password": ""
+                    }
+                ]
+            }
+        }
+            
++ Response 200 (application/json)
+
+        {
+            "id":1,
+            "name":"wlan0",
+            "mode":1,
+            "enable":1,
+            "currentStatus":1,
+            "mac":"FF:FF:FF:FF:FF:FF",
+            "client": {
+                "ip":"192.168.41.127",
+                "netmask":"255.255.255.0",
+                "subnet":"192.168.41.0",
+                "gateway":"192.168.41.254",
+                "enableDhcp": 1,
+                "network": [
+                    {
+                        "enable": 1,
+                        "priority": 0,
+                        "mode": 2,
+                        "keyFormat": 0,
+                        "ssid": "MOXA-MAR-1",
+                        "psk": "moxamoxa",
+                        "txKey": 0,
+                        "key": ["", "", "", ""],
+                        "identity": "",
+                        "password": ""
+                    }
+                ]
+            }
+        }
+        
++ Response 404 (application/json)
+
+        {
+            "status": 2101,
+            "message": "Interface not found!"
+        }
+
+
+# Group GPS
+Notes related resources of the **GPS API** (future work will retrieve the location by GPS device, currently will be user input)
+
+## GPS [/system/gps]
+The GPS location information with all its details
+
+### Retrieve a GPS location [GET]
+
+The response for GET has following attributes:
+
+- **lat** (required, number, `26.983949495`): Latitude
+- **lon** (required, number, `121.551980142`): Longitude
+- **device** (required, string, `/dev/ttyACM0`, future): Indicate the GPS device name.
+- **time** (required, string, `2014-06-06T07:04:24.000Z`, future): Timestamp of the retrieved GPS location.
+
++ Response 200 (application/json)
+
+    + Header
+
+            X-My-Header: The Value
+
+    + Body
+
+            {
+                "lat": 26.983949495,
+                "lon": 121.551980142,
+                "device": "/dev/ttyACM0",
+                "time": "2014-06-06T07:04:24.000Z"
+            }
+
+### Update the GPS status [PUT]
+
+The response for PUT has following attributes:
+
+- **device** (required, string, `/dev/ttyACM0`, future): Indicate the GPS device name to be used.
+- **lat** (required, number, `26.983949495`): Latitude
+- **lon** (required, number, `121.551980142`): Longitude
+
++ Request  (application/json)
+
+        {
+            "device": "/dev/ttyACM0"
+        }
+
++ Response 200 (application/json)
+
+        {
+            "device": "/dev/ttyACM0"
+        }
+
++ Response 404 (application/json)
+
+        {
+            "status": 2101,
+            "message": "Device not found!"
+        }
+
++ Request  (application/json)
+
+        {
+            "lat": 26.983949495,
+            "lon": 121.551980142
+        }
+
++ Response 200 (application/json)
+
+        {
+            "lat": 26.983949495,
+            "lon": 121.551980142
+        }
+
++ Response 404 (application/json)
+
+        {
+            "status": 2201,
+            "message": "Invalid value!"
+        }
+
+
+# Group Firmware
+Notes related resources of the **Firmware API**
+
+## Firmware [/system/firmware]
+The firmware information with all its details
+
+### Retrieve the firmware information [GET]
+
+The response for GET has following attributes:
+
+- **version** (required, string, `1.0`): The firmware version.
+- **server** (required, string, `www.moxa.com`): Server to download the latest version of firmware.
+
++ Response 200 (application/json)
+
+    + Header
+
+            X-My-Header: The Value
+
+    + Body
+
+            {
+                "version": "1.0",
+                "server": "www.moxa.com"
+            }
+
+### Update the firmware [PUT]
+
+The response for PUT has following attributes:
+
+- **reset** (required, number, `1`): Indicate the system will be reset to factory default.
+- **upgrade** (required, number, `1`): The system will start to do firmware upgrading.
+- **server** (required, string, `www.moxa.com`): Server to download the latest version of firmware.
+
++ Request  (application/json)
+
+        {
+            "reset": 1
+        }
+
++ Response 200 (application/json)
+
+        {
+            "reset": 1
+        }
+
++ Request  (application/json)
+
+        {
+            "upgrade": 1,
+            "server": "www.moxa.com"
+        }
+        
++ Response 200 (application/json)
+
+        {
+            "upgrade": 1,
+            "server": "www.moxa.com"
+        }
+
++ Response 404 (application/json)
+
+        {
+            "status": 1002,
+            "message": "Resource busy!"
+        }
+
+
+# Group Reboot
+Notes related resources of the **Reboot API**
+
+## Reboot [/system/reboot]
+The reboot object allows user to reboot the system
+
+### Reboot the system [PUT]
+
+The response for PUT has following attributes:
+
+- **enable** (required, number, `1`): Indicate the system will be reboot soon.
+
++ Request  (application/json)
+
+        {
+            "enable": 1
+        }
+
++ Response 200 (application/json)
+
+        {
+            "enable": 1
+        }
+
++ Response 404 (application/json)
+
+        {
+            "status": 1002,
+            "message": "Resource busy!"
+        }
+
+
+# Group Time
+Notes related resources of the **Time API**
+
+## Time [/system/time]
+The system time information include NTP client settings
+
+### Retrieve system time information [GET]
+
+The response for GET has following attributes:
+
+- **time** (string, `2014-10-21 00:00:00`): Current system time. (iso 8601)
+- **timezone** (string, `+08,00,0`): System timezone settings.
+- **ntp.enable** (boolean, `enable`): Enable/Disable Ntp client.
+- **ntp.servers** (array, `pool.ntp.org`): Ntp servers.
+- **ntp.interval** (integer, `86400`): Ntp update interval in seconds.
+
++ Response 200 (application/json)
+
+    + Header
+
+            X-My-Header: The Value
+
+    + Body
+
+            {
+                "time": "2014-10-21 00:00:00",
+                "timezone": "+08:00,0",
+                "ntp": {
+                    "enable": 1,
+                    "servers": ["pool.ntp.org"],
+                    "interval": 86400
+                }
+            }
+
+### Update system time properties [PUT]
+
+The response for PUT has following attributes:
+
+- **message** (optinoal, string): If request failed, it would indicate error message.
+
++ Request  (application/json)
+
+        {
+            "ntp": {
+                "enable": 0
+            }
+        }
+
++ Response 200 (application/json)
+
+        {}
+
++ Response 400 (application/json)
+
+        {
+            "status": 1002,
+            "message": "Resource busy!"
+        }
+
++ Response 500 (application/json)
+
+        {
+            "status": 1002,
+            "message": "Resource busy!"
+        }
+        
+# Group Jobs
+Notes related resources of the **Jobs API**
+
+## Job Collection [/jobs]
+A set of jobs meta information
+
+### Create a job [POST]
+
+The request for POST has following attributes:
+- **timeout** (optional, integer, `infinity`): Set job's timeout.
+- **requests[].method** (required, enum): Http method (GET, POST, PUT, DELETE)
+- **requests[].resource** (required, string): Http uri
+- **requests[].data** (optional, object): Request content.
+- **requests[].__destination** (required, array|string): Create job for whom. If passed an array it will automatically expand for you and create tasks per destination.
+
+The response for POST has following attributes:
+- **requests** (array): IDs of tasks belongs to this job.
+
+Reboot 3 devices `00:0c:29:1c:e8:01`, `00:0c:29:1c:e8:02`, `00:0c:29:1c:e8:03` at once.
+
++ Request  (application/json)
+
+        {
+          "requests": [
+            {
+              "method": "post",
+              "resource", "/system/reboot",
+              "data": {},
+              "__destination": ["00:0c:29:1c:e8:01", "00:0c:29:1c:e8:02", "00:0c:29:1c:e8:03"]
+            }
+          ]
+        }
+
++ Response 200 (application/json)
+
+        {
+          "id": 123145,
+          "createdAt": "2011-12-19T15:28:46.493Z",
+          "finishAt": null,
+          "timeout": 36000,
+          "status": "dispatching",
+          "progress": 0,
+          "totalCount": 3,
+          "finishCount": 0,
+          "errorCount": 0,
+          "requests": [3452, 365, 546345]
+        }
+
+
+## Job [/jobs/:id]
+Single job information
+
+### Retrieve a job information [GET]
+
+The response for GET has following attributes:
+
+- **progress** (integer, `0`): Current progres of all tasks in this job.
+- **status** (string, `pending`): System timezone settings.
+- **timeout** (integer, `infinity`): Set job's timeout.
+- **createdAt** (string, `currenttime`): Job's creation time.
+- **finishAt** (string, `null`): Job's finish time.
+- **totalCount** (integer): Total count of tasks.
+- **doneCount** (integer): Done count of tasks.
+- **errorCount** (integer): Error count of tasks.
+- **requests** (array): Tasks in this job.
+
+
++ Response 200 (application/json)
+
+    + Header
+
+            X-My-Header: The Value
+
+    + Body
+
+            {
+              "id": 123145,
+              "createdAt": "2011-12-19T15:28:46.493Z",
+              "finishAt": "2011-12-19T15:55:46.493Z",
+              "timeout": 36000,
+              "status": "dispatching",
+              "progress": 100,
+              "totalCount": 5,
+              "finishCount": 3,
+              "errorCount": 2,
+              "requests": [
+                {
+                  "id": 5648943,
+                  "method": "post",
+                  "resource", "/system/reboot",
+                  "tunnel": "/remote",
+                  "data": {},
+                  "__destination": "00:0c:29:1c:e8:01",
+                  "__request": {
+                    "createdAt": "2011-12-19T15:28:46.493Z",
+                    "finishAt": null,
+                    "status": "sent",
+                    "progress": 0,
+                    "result": {}
+                  }
+                },
+                {
+                  "id": 5648944,
+                  "method": "post",
+                  "resource", "/system/reboot",
+                  "tunnel": "/remote",
+                  "data": {},
+                  "__destination": "00:0c:29:1c:e8:02",
+                  "__request": {
+                    "createdAt": "2011-12-19T15:28:46.493Z",
+                    "finishAt": null,
+                    "status": "sent",
+                    "progress": 0,
+                    "result": {}
+                  }
+                },
+                {
+                  "id": 5648945,
+                  "method": "post",
+                  "resource", "/system/reboot",
+                  "tunnel": "/remote",
+                  "data": {},
+                  "__destination": "00:0c:29:1c:e8:03",
+                  "__request": {
+                    "createdAt": "2011-12-19T15:28:46.493Z",
+                    "finishAt": null,
+                    "status": "sent",
+                    "progress": 0,
+                    "result": {}
+                  }
+                }
+              ]
+            }
+
+## Request [/requests/:id]
+
+Request is a command/data/event from server to client (one-to-one).
+
+### Retrieve a job information [GET]
+
+The response for GET has following attributes:
+
+Basically, just extend original *Sanji Message (one-to-one)* with adding two properties: `__request`, `__destination` for dispatching/monitoring it.
+
+- **id** (integer): Sanji Message ID.
+- **method** (enum): Sanji Message's method field.
+- **resource** (string): Sanji Message's resource field.
+- **data** (object): Sanji Message's data field.
+- **__destination** (string): This Sanji Message is belong to whom.
+- **__request.createdAt** (object): Creatation time of Request.
+- **__request.finishAt** (object): Finish time of Request.
+- **__request.status** (object): Current status.
+- **__request.progress** (object): Progress.
+- **__request.result** (object): Result of this Request.
+
+
++ Response 200 (application/json)
+
+    + Header
+
+            X-My-Header: The Value
+
+    + Body
+
+            {
+              "id": 5648943,
+              "method": "post",
+              "resource", "/system/reboot",
+              "data": {},
+              "__destination": "00:0c:29:1c:e8:01",
+              "__request": {
+                "createdAt": "2011-12-19T15:28:46.493Z",
+                "finishAt": null,
+                "status": "sent",
+                "progress": 0,
+                "result": {}
+              }
+            }
+            
+            
+# Group SSH
+Status related resources of the **SSH API**
+
+## SSH [/network/ssh]
+
+### Retreive SSH Settings [GET]
+
+The response for GET has following attributes:
+
+- **enable** (required, integer, 1): enable ssh daemon
+
++ Response 200 (application/json)
+
+    + Body
+            
+            {
+                "enable": 1
+            }
+
+
+### Update system time properties [PUT]
+
+The response for PUT has following attributes:
+
+- **enable** (required, integer, 1): enable ssh daemon
+
++ Request  (application/json)
+
+        {
+            "enable": 1
+        }
+
++ Response 200 (application/json)
+
+        {}
+
+# Group DHCP Server
+Notes related resources of the **DHCP Server API**
+
+## DHCP server Collection [/network/dhcp]
+### List all DHCP Interfaces [GET]
+
+The Collection response has following attributes:
+
+- **currentStatus** (required, integer, 1): DHCP server status, 1: server is on, 0: server is off.
+- **collection** (required, object array): An object array to perform all queried entries.
+
++ Response 200 (application/json)
+
+        {
+            "currentStatus": 1,
+            "collection": [
+                {
+                    "id": 1,
+                    "name": "eth0",
+                    "enable": 0,
+                    "subnet": "192.168.3.0",
+                    "netmask": "255.255.255.0",
+                    "startIP": "192.168.3.100",
+                    "endIP": "192.168.3.150",
+                    "dns": ["8.8.8.8", "1.1.1.1", "2.2.2.2"],
+                    "domainName": "cloud 5566",
+                    "leaseTime": "3600"
+                }
+            ]
+        }
+
+        
+## DHCP server [/network/dhcp/{id}]
+### List request DHCP Interfaces [GET]
+
+The response has following attributes:
+
+- **currentStatus** (required, integer, 1):  1: server is on, 0: server is off.
+- **collection** (required, object array): An object array to perform all queried entries.
+
++ Response 200 (application/json)
+
+        {
+            "id": 1,
+            "name": "eth0",
+            "enable": 0,
+            "subnet": "192.168.3.0",
+            "netmask": "255.255.255.0",
+            "startIP": "192.168.3.100",
+            "endIP": "192.168.3.150",
+            "dns": ["8.8.8.8", "1.1.1.1", "2.2.2.2"],
+            "domainName": "cloud 5566",
+            "leaseTime": "3600"
+        }
+
+### Update some DHCP Interfaces [PUT]
+
+The collection request/response for update has following attributes:
+
+
+- **currentStatus** (required, integer, 1): server status, 1: server is on, 0: server is off.
+- **collection** (required, object array): An object array to perform all queried entries.
+- **collection[]id** (required, integer): index
+- **collection[]name** (required, string): interfece of DHCP server
+- **collection[]enable** (required, integer): interfece DHCP server enable bit
+- **collection[]subnet** (required, string): subnet
+- **collection[]netmask** (required, string): netmask
+- **collection[]startIP** (required, string): start IP of DHCP server
+- **collection[]endIP** (required, string): end IP of DHCP server
+- **collection[]dns** (optional, object array): an object array to save dns list
+- **collection[]domainName** (optional, string): DHCP server domain name
+- **collection[]leaseTime** (required, string): leasetime of DHCP server
+
+
+Suppose user want to update DHCP server of eth0 interface
+
++ Response 200 (application/json)
+
+        {
+            "id": 1,
+            "name": "eth0",
+            "enable": 0,
+            "subnet": "192.168.3.0",
+            "netmask": "255.255.255.0",
+            "startIP": "192.168.3.100",
+            "endIP": "192.168.3.150",
+            "dns": ["8.8.8.8", "1.1.1.1", "2.2.2.2"],
+            "domainName": "cloud 5566",
+            "leaseTime": "3600"
+        }
+
+        
+# Group DNS
+Notes related resources of the **DNS API**
+
+## DNS [/network/dns]
+### List DNS Settings [GET]
+
+The response has following attributes:
+
+- **dnsEnable** (required, integer): 0 for disable, 1 for enable.
+- **dns** (required, object array): list of current dns servers.
+
++ Response 200 (application/json)
+
+        {
+            "dns": ["8.8.8.8", "8.8.4.4", "192.168.50.33"]
+        }
+        
+### Update DNS List [PUT]
+
++ Request  (application/json)
+
+        {
+            "dns": ["168.95.1.1"]
+        }
+        
+
++ Response 200 (application/json)
+
+        {}
+        
+
+# Group Bandwidth
+Notes related resources of the **Bandwidth API**
+
+## Bandwidth [/network/bandwidth]
+Monitor the cellular bandwidth and send notification if exceed the threshold.
+
+### Retrieve the bandwidth setting and information [GET]
+
+The response for GET has following attributes:
+
+- **id** (required, number, `1`): Identifier for a cellular interface.
+- **enable** (required, number, `1`): Indicate the monitoring of the interface should be started (`1`) or not (`0`).
+- **interface** (required, string, "ppp0"): Indicate the monitoring interface name
+- **info** (required, number, 50000): Indicate current 3G network bandwidth (Kbits).
+- **threshold** (required, number, `50000`): Water mark to send the notification (Kbits).
+
++ Response 200 (application/json)
+
+    + Header
+
+            X-My-Header: The Value
+
+    + Body
+
+            {
+                "enable": 0,
+                "interface": "ppp0",
+                "info": 80000,
+                "threshold": 50000
+            }
+
+### Update the Bandwidth monitoring setting [PUT]
+
+The response for PUT has following attributes:
+
+- **id** (required, number, `1`): Identifier for a cellular interface.
+- **enable** (required, number, `1`): Indicate the monitoring of the interface should be started (`1`) or not (`0`).
+- **threshold** (option, number, `50000`): Water mark to send the notification (Kbits).
+- **reset** (option, number, 1 ): Notify bundle to reset the counter.
+
++ Request  (application/json)
+
+        {
+            "enable": 1,
+            "reset": 0,
+            "threshold": 50000
+        }
+
++ Response 200 (application/json)
+
+        {
+            "enable": 1,
+            "info": 123450,
+            "reset": 0,
+            "threshold": 50000
+        }
+
++ Response 400 (application/json)
+
+        {
+            "status": 400,
+            "message": "Invalid Input"
+        }
+
+# Group Migration
+Notes related resources of the **Migration API**
+
+## Migration [/system/migration]
+For exporting or importing the configurations of all bundles.
+
+### Execute the export or import [PUT]
+
+The response for PUT has following attributes:
+
+- **export** (required, number, `1`): Indicate the system will be exported for backup.
+- **import** (required, number, `1`): The system will be recovered by the imported configurations.
+
++ Request  (application/json)
+
+        {
+            "export": 1
+        }
+
++ Response 200 (application/json)
+
+        {
+            "export": 1
+        }
+
++ Request  (application/json)
+
+        {
+            "import": 1,
+        }
+        
++ Response 200 (application/json)
+
+        {
+            "import": 1,
+        }
+
++ Response 404 (application/json)
+
+        {
+            "status": 1002,
+            "message": "Resource busy!"
+        }
+
+        
+# Group Status
+Notes related resources of the **Status API**
+
+## CPU status [/system/status/cpu?push=true]
+### Get CPU Status data [GET]
+
+The response has following attributes:
+
+- **cpuPush** (required, integer): 0 for disable, 1 for enable server push.
+- **data** (required, object array): list of cpu status data.
+
++ Response 200 (application/json)
+
+        {
+            "cpuPush": 1,
+            "data": [
+                {"time": "2014/09/14 15:18:48", "value": 54.1},
+                {"time": "2014/09/14 15:19:48", "value": 40.2},
+                {"time": "2014/09/14 15:20:48", "value": 35.9}
+            ]
+        }
+
+## Stop CPU status [/system/status/cpu] 
+### Stop CPU status server push [PUT]
+
+
++ Request  (application/json)
+
+        {
+            "cpuPush": 0
+        }
+        
+
++ Response 200 (application/json)
+
+        {
+            "code": 200,
+            "cpuPush": 0
+        }
+
+
+## Memory status [/system/status/memory?push=true]
+### Get Memory Status data [GET]
+
+The response has following attributes:
+
+- **memoryPush** (required, integer): 0 for disable, 1 for enable server push.
+- **data** (required, object array): list of memory status data.
+
++ Response 200 (application/json)
+
+        {
+            "memoryPush": 1,
+            "data":　[
+                {
+                    "time": "2014/09/14 15:18:48",
+                    "total": "200MB",
+                    "used": "50MB",
+                    "free": "150MB",
+                    "usedPercentage": 25
+                },
+                {
+                    "time": "2014/09/14 15:19:48",
+                    "total": "200MB",
+                    "used": "50MB",
+                    "free": "150MB",
+                    "usedPercentage": 25
+                }
+            ]
+        }
+
+## Stop Memory status [/system/status/memory] 
+### Stop Memory status server push [PUT]
+
+
++ Request  (application/json)
+
+        {
+            "memoryPush": 0
+        }
+        
+
++ Response 200 (application/json)
+
+        {
+            "code": 200,
+            "memoryPush": 0
+        }
+
+
+## Disk status [/system/status/disk?push=true]
+### Get Disk Status data [GET]
+
+The response has following attributes:
+
+- **diskPush** (required, integer): 0 for disable, 1 for enable server push.
+- **data** (required, object array): list of disk status data.
+
++ Response 200 (application/json)
+
+        {
+            "diskPush": 1,
+            "data":　[
+                {
+                    "time": "2014/09/14 15:18:48",
+                    "total": "100MB",
+                    "used": "50MB",
+                    "free": "50MB",
+                    "usedPercentage": 50
+                },
+                {
+                    "time": "2014/09/14 15:19:48",
+                    "total": "100MB",
+                    "used": "60MB",
+                    "free": "40MB",
+                    "usedPercentage": 60
+                }
+            ]
+        }
+
+## Stop Disk status [/system/status/disk] 
+### Stop Disk status server push [PUT]
+
+
++ Request  (application/json)
+
+        {
+            "diskPush": 0
+        }
+        
+
++ Response 200 (application/json)
+
+        {
+            "code": 200,
+            "diskPush": 0
+        }
+
+## System status [/system/status/showdata]
+### Get Syatem Status data [GET]
+
+The response has following attributes:
+
+- **hostname** (required, string): show hostname
+- **firmware** (required, string): show firmware by kversion
+- **uptime** (required, string): show up time of machine
+- **storage** (required, string): show free storage size 
+
+
++ Response 200 (application/json)
+
+        {
+            "hostname": "Moxa",
+            "firmware": "MXcloudv1.0",
+            "uptime": "3day, 14:55:56",
+            "storage": "556MB"
+        }
+
+### Set system hostname [PUT]
+
+
++ Request  (application/json)
+
+        {
+            "hostname": "new_hostname"
+        }
+        
+
++ Response 200 (application/json)
+
+        {
+            "hostname": "new_hostname"
+        }
+
+
+# Group Watchdog
+Notes related resources of the **Watchdog API**
+
+## Watchdog [/system/watchdog]
+### List Watchdog Register Process [GET]
+
+The response has following attributes:
+
+- **process** (required, object array): list of register watchdog.
+
++ Response 200 (application/json)
+
+        [
+            {
+                "id" : 1,
+                "process" : "process name",
+                "path" : "/usr/bin/process_name"
+            }
+            {
+                "id" : 2,
+                "process" : "process name",
+                "path" : "/usr/bin/process_name"
+    
+            }
+        ]
+
+### Add Process to watchdog [PUT]
+
+
++ Request  (application/json)
+
+        {
+            "process": "process_name",
+            "path": "/usr/bin/process_name"
+        }
+        
+
++ Response 200 (application/json)
+
+        {
+            "id": 1,
+            "message": "success"
+        }
+
++ Response 400 (application/json)
+
+        {
+            "id": 1,
+            "message": "Process already register"
+        }
+
+### Delete Monitor Process from watchdog [DELETE]
+/system/watchdog/1
+
++ Request  (application/json)
+
+        {
+            "process": "process_name"
+        }
+        
+
++ Response 200 (application/json)
+
+        {
+            "status": 200
+        }
