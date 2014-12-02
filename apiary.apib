@@ -1493,3 +1493,70 @@ The response has following attributes:
         {
             "status": 200
         }
+
+
+# Group IP Route
+Notes related resources of the **IPRoute API**
+
+## IPRoute [/network/routes/interfaces]
+### List Available Interfaces [GET]
+
++ Response 200 (application/json)
+
+        ["eth0", "eth1"]
+
+## IPRoute [/network/routes/default]
+### Retrieve Default Gateway [GET]
+
+The response has following attributes:
+
+- **interface** (optional, string, `eth0`): interface to be set as the default gateway.
+- **gateway** (optional, IP address, `192.168.31.254`): gateway address.
+
++ Response 200 (application/json)
+
+        {}
+
++ Response 200 (application/json)
+
+        {
+            "interface": "eth0",
+            "gateway": "192.168.31.254"
+        }
+
+### Update Default Gateway [PUT]
+
+The request and response has following attributes:
+
+- **interface** (optional, string, `eth0`): interface to be set as the default gateway.
+- **gateway** (optional, IP address, `192.168.31.254`): gateway address.
+
++ Request  (application/json)
+
+        {}
+
++ Response 200 (application/json)
+
+        {}
+
++ Request  (application/json)
+
+        {
+            "interface": "eth1",
+            "gateway": "192.168.4.254"
+        }
+
++ Response 200 (application/json)
+
+        {
+            "interface": "eth1",
+            "gateway": "192.168.4.254"
+        }
+
++ Response 404 (application/json)
+
+        {
+            "status": "40451",
+            "message": "Update default gateway failed: Cellular is connected, the default gateway cannot be changed."
+        }
+
