@@ -42,7 +42,7 @@ The Collection response has following attributes:
                 "enableDhcp":0
             }
         ]
-    
+
 ### Update some Ethernets [PUT]
 
 The collection request/response for update has following attributes:
@@ -178,7 +178,7 @@ The error response has following attributes:
             "enable":1,
             "enableDhcp":0
         }
-            
+
 + Response 200 (application/json)
 
         {
@@ -194,7 +194,7 @@ The error response has following attributes:
             "enable":1,
             "enableDhcp":0
         }
-        
+
 + Response 404 (application/json)
 
         {
@@ -227,7 +227,7 @@ The request for PUT has following attributes (this is an **event** message):
             "gateway":"192.168.3.254",
             "dns":["8.8.8.8", "8.8.4.4"],
         }
-        
+
 + Response 200 (application/json)
 
         {
@@ -288,7 +288,7 @@ Notes related resources of the **WiFi API**
                 }
             }
         ]
-    
+
 ### Update some WiFi Interfaces [PUT]
 
 The collection request/response for update has following attributes:
@@ -518,7 +518,7 @@ The error response has following attributes:
                 ]
             }
         }
-            
+
 + Response 200 (application/json)
 
         {
@@ -550,7 +550,7 @@ The error response has following attributes:
                 ]
             }
         }
-        
+
 + Response 404 (application/json)
 
         {
@@ -690,7 +690,7 @@ The response for PUT has following attributes:
             "upgrade": 1,
             "server": "www.moxa.com"
         }
-        
+
 + Response 200 (application/json)
 
         {
@@ -803,7 +803,7 @@ The response for PUT has following attributes:
             "status": 1002,
             "message": "Resource busy!"
         }
-        
+
 # Group Jobs
 Notes related resources of the **Jobs API**
 
@@ -982,8 +982,8 @@ Basically, just extend original *Sanji Message (one-to-one)* with adding two pro
                 "result": {}
               }
             }
-            
-            
+
+
 # Group SSH
 Status related resources of the **SSH API**
 
@@ -998,7 +998,7 @@ The response for GET has following attributes:
 + Response 200 (application/json)
 
     + Body
-            
+
             {
                 "enable": 1
             }
@@ -1051,7 +1051,7 @@ The Collection response has following attributes:
             ]
         }
 
-        
+
 ## DHCP server [/network/dhcp/{id}]
 ### List request DHCP Interfaces [GET]
 
@@ -1111,7 +1111,7 @@ Suppose user want to update DHCP server of eth0 interface
             "leaseTime": "3600"
         }
 
-        
+
 # Group DNS
 Notes related resources of the **DNS API**
 
@@ -1128,7 +1128,7 @@ The response has following attributes:
         {
             "dns": ["8.8.8.8", "8.8.4.4", "192.168.50.33"]
         }
-        
+
 ### Update DNS List [PUT]
 
 + Request  (application/json)
@@ -1136,12 +1136,12 @@ The response has following attributes:
         {
             "dns": ["168.95.1.1"]
         }
-        
+
 
 + Response 200 (application/json)
 
         {}
-        
+
 
 # Group Bandwidth
 Notes related resources of the **Bandwidth API**
@@ -1237,7 +1237,7 @@ The response for PUT has following attributes:
         {
             "import": 1,
         }
-        
+
 + Response 200 (application/json)
 
         {
@@ -1251,7 +1251,7 @@ The response for PUT has following attributes:
             "message": "Resource busy!"
         }
 
-        
+
 # Group Status
 Notes related resources of the **Status API**
 
@@ -1274,7 +1274,7 @@ The response has following attributes:
             ]
         }
 
-## Stop CPU status [/system/status/cpu] 
+## Stop CPU status [/system/status/cpu]
 ### Stop CPU status server push [PUT]
 
 
@@ -1283,7 +1283,7 @@ The response has following attributes:
         {
             "cpuPush": 0
         }
-        
+
 
 + Response 200 (application/json)
 
@@ -1323,7 +1323,7 @@ The response has following attributes:
             ]
         }
 
-## Stop Memory status [/system/status/memory] 
+## Stop Memory status [/system/status/memory]
 ### Stop Memory status server push [PUT]
 
 
@@ -1332,7 +1332,7 @@ The response has following attributes:
         {
             "memoryPush": 0
         }
-        
+
 
 + Response 200 (application/json)
 
@@ -1372,7 +1372,7 @@ The response has following attributes:
             ]
         }
 
-## Stop Disk status [/system/status/disk] 
+## Stop Disk status [/system/status/disk]
 ### Stop Disk status server push [PUT]
 
 
@@ -1381,7 +1381,7 @@ The response has following attributes:
         {
             "diskPush": 0
         }
-        
+
 
 + Response 200 (application/json)
 
@@ -1398,7 +1398,7 @@ The response has following attributes:
 - **hostname** (required, string): show hostname
 - **firmware** (required, string): show firmware by kversion
 - **uptime** (required, string): show up time of machine
-- **storage** (required, string): show free storage size 
+- **storage** (required, string): show free storage size
 
 
 + Response 200 (application/json)
@@ -1418,7 +1418,7 @@ The response has following attributes:
         {
             "hostname": "new_hostname"
         }
-        
+
 
 + Response 200 (application/json)
 
@@ -1449,7 +1449,7 @@ The response has following attributes:
                 "id" : 2,
                 "process" : "process name",
                 "path" : "/usr/bin/process_name"
-    
+
             }
         ]
 
@@ -1462,7 +1462,7 @@ The response has following attributes:
             "process": "process_name",
             "path": "/usr/bin/process_name"
         }
-        
+
 
 + Response 200 (application/json)
 
@@ -1486,7 +1486,7 @@ The response has following attributes:
         {
             "process": "process_name"
         }
-        
+
 
 + Response 200 (application/json)
 
@@ -1512,10 +1512,6 @@ The response has following attributes:
 
 - **interface** (optional, string, `eth0`): interface to be set as the default gateway.
 - **gateway** (optional, IP address, `192.168.31.254`): gateway address.
-
-+ Response 200 (application/json)
-
-        {}
 
 + Response 200 (application/json)
 
