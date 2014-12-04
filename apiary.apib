@@ -4,6 +4,178 @@ HOST: http://www.google.com
 # MXcloud Generic
 Notes API is a *short texts saving* service similar to its physical paper presence on your table.
 
+# Group Cellular
+Notes related resources of the **Cellular API**
+
+## Cellular Collection [/network/cellulars]
+### List all Cellulars [GET]
+
+The Collection response has following attributes:
+
++ Response 200 (application/json)
+
+        [
+            {
+              "apn": "internet",
+              "dialNumber": "*99#",
+              "enable": 0,
+              "id": 0,
+              "modemPort": "/dev/cdc-wdm0",
+              "name": "ppp",
+              "password": "",
+              "gateway": "",
+              "dns": "",
+              "ip": "",
+              "pinCode": "",
+              "signal": "-95",
+              "username": "",
+              "modes": "default",
+              "delay": 40
+            },
+            {
+              "apn": "internet",
+              "dialNumber": "*99#",
+              "enable": 0,
+              "id": 1,
+              "modemPort": "/dev/cdc-wdm1",
+              "name": "ppp",
+              "password": "",
+              "gateway": "",
+              "dns": "",
+              "ip": "",
+              "pinCode": "",
+              "signal": "-95",
+              "username": "",
+              "modes": "default",
+              "delay": 40
+            }
+  ]
+
+
+## Cellular [/network/cellulars/{id}]
+A single Cellular object with all its details
+
++ Parameters
+    + id (required, number, `1`) ... Numeric `id` of the Cellular to perform action with. Has example value.
+
+### Retrieve an Cellular [GET]
+
+The response for GET has following attributes:
+
+- **id** (required, number, `1`): Identifier for an Cellular interface.
+- **name** (required, string, `eth0`): Indicate the interface name.
+- **ip** (required, IP address, `192.168.3.127`): IP address for the Cellular interface.
+- **gateway** (required, IP address, `192.168.3.254`): Gateway is a router or a proxy server that routes between networks.
+- **dns** (required, IP address array): The Domain Name System (DNS) is a hierarchical distributed naming system for computers, services, or any resource connected to the Internet or a private network.
+- **currentStatus** (required, number `1`): Current status for the Cellular interface, 0 for down and 1 for up.
+- **enable** (required, number, `1`): Indicate the link status of Cellular interface should be set to up (`1`) or down (`0`).
+- **dialNumber** (required, string, `*99#`): Dial up modem number.
+- **pinCode** (optional, string, `0000`): Use this code to auth when exits.
+- **username** (optional, string, ``): Indicate the username to enter pap/chap.
+- **password** (optional, string, ``): Indicate the password to enter pap/chap.
+- **apn** (required, string, ``): Indicate apn of SIM card.
+- **signal** (required, number, `1`): Indicate apn of SIM card.
+- **modes** (required, string, ''): Allowed network modes, comma separated list of: all, lte, umts, gsm, cdma, td-scdma
+- **delay** (required, number `31`): Seconds to wait before trying to interact with the modem (some ZTE modems require up to 30 s.)
+
+
++ Response 200 (application/json)
+
+    + Header
+
+            X-My-Header: The Value
+
+    + Body
+
+            {
+              "apn": "internet",
+              "dialNumber": "*99#",
+              "enable": 0,
+              "id": 0,
+              "modemPort": "/dev/cdc-wdm0",
+              "name": "ppp",
+              "password": "",
+              "gateway": "",
+              "dns": "",
+              "ip": "",
+              "pinCode": "",
+              "signal": "-95",
+              "username": "",
+              "modes": "default",
+              "delay": 40
+            }
+            
+            
+### Update an Cellular [PUT]
+
+The request for PUT has following attributes:
+
+- **id** (required, number, `1`): Identifier for an Cellular interface.
+- **name** (required, string, `eth0`): Indicate the interface name.
+- **dns** (required, IP address array): The Domain Name System (DNS) is a hierarchical distributed naming system for computers, services, or any resource connected to the Internet or a private network.
+- **currentStatus** (required, number `1`): Current status for the Cellular interface, 0 for down and 1 for up.
+- **enable** (required, number, `1`): Indicate the link status of Cellular interface should be set to up (`1`) or down (`0`).
+- **dialNumber** (required, string, `*99#`): Dial up modem number.
+- **pinCode** (optional, string, `0000`): Use this code to auth when exits.
+- **username** (optional, string, ``): Indicate the username to enter pap/chap.
+- **password** (optional, string, ``): Indicate the password to enter pap/chap.
+- **apn** (required, string, ``): Indicate apn of SIM card.
+- **modes** (required, string, ''): Allowed network modes, comma separated list of: all, lte, umts, gsm, cdma, td-scdma
+- **delay** (required, number `31`): Seconds to wait before trying to interact with the modem (some ZTE modems require up to 30 s.)
+
+
+The response for PUT is same as that for GET.
+
+The error response has following attributes:
+
+- **status** (required, number, `1100`): Status code for error message.
+- **message** (required, string): Error message in English.
+
++ Request (application/json)
+
+            {
+              "apn": "internet",
+              "dialNumber": "*99#",
+              "enable": 0,
+              "id": 0,
+              "modemPort": "/dev/cdc-wdm0",
+              "name": "ppp",
+              "password": "",
+              "dns": "",
+              "ip": "",
+              "pinCode": "",
+              "username": "",  
+              "modes": "default",
+              "delay": 40
+
+            }
+
++ Response 200 (application/json)
+
+        {
+              "apn": "internet",
+              "dialNumber": "*99#",
+              "enable": 0,
+              "id": 0,
+              "modemPort": "/dev/cdc-wdm0",
+              "name": "ppp",
+              "password": "",
+              "dns": "",
+              "ip": "",
+              "pinCode": "",
+              "username": "",
+              "modes": "default",
+              "delay": 40
+            }
+
++ Response 400 (application/json)
+
+        {
+            "message": "Unable to apply!"
+        }
+
+
+
 # Group Ethernet
 Notes related resources of the **Ethernet API**
 
