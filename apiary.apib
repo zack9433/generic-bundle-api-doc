@@ -1542,6 +1542,18 @@ The request and response has following attributes:
 + Request  (application/json)
 
         {
+            "interface": "",
+        }
+
++ Response 200 (application/json)
+
+        {
+            "interface": "",
+        }
+
++ Request  (application/json)
+
+        {
             "interface": "eth1",
             "gateway": "192.168.4.254"
         }
@@ -1559,4 +1571,27 @@ The request and response has following attributes:
             "status": "40451",
             "message": "Update default gateway failed: Cellular is connected, the default gateway cannot be changed."
         }
+
+## IPRoute [/network/routers]
+### Update Router Information [PUT]
+
+The request and response has following attributes:
+
+- **name** (optional, string, `eth0`): interface name.
+- **gateway** (optional, IP address, `192.168.31.254`): gateway address.
+
++ Request  (application/json)
+
+        {
+            "name": "eth1",
+            "gateway": "192.168.4.254"
+        }
+
++ Response 200 (application/json)
+
+        {
+            "name": "eth1",
+            "gateway": "192.168.4.254"
+        }
+
 
