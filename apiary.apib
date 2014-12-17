@@ -1257,7 +1257,7 @@ The collection request/response for update has following attributes:
 - **currentStatus** (required, integer, 1): server status, 1: server is on, 0: server is off.
 - **collection** (required, object array): An object array to perform all queried entries.
 - **collection[]id** (required, integer): index
-- **collection[]name** (required, string): interfece of DHCP server
+- **collection[]name** (required, string): interfece of DHCP server, user can select eth0 or eth1
 - **collection[]enable** (required, integer): interfece DHCP server enable bit
 - **collection[]subnet** (required, string): subnet
 - **collection[]netmask** (required, string): netmask
@@ -1294,27 +1294,15 @@ Notes related resources of the **DNS API**
 
 The response has following attributes:
 
-- **dnsEnable** (required, integer): 0 for disable, 1 for enable.
+- **interface** (required, string): show the dns corresponging interface
 - **dns** (required, object array): list of current dns servers.
 
 + Response 200 (application/json)
 
         {
+            "interface": "eth0"
             "dns": ["8.8.8.8", "8.8.4.4", "192.168.50.33"]
         }
-
-### Update DNS List [PUT]
-
-+ Request  (application/json)
-
-        {
-            "dns": ["168.95.1.1"]
-        }
-
-
-+ Response 200 (application/json)
-
-        {}
 
 
 # Group Bandwidth
