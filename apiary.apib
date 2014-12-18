@@ -30,6 +30,9 @@ The Collection response has following attributes:
               "signal": "-95",
               "username": "",
               "modes": "default",
+              "enableAuth": 0,
+              "authType": "BOTH",
+              "status": "disconnected",
               "delay": 40
             },
             {
@@ -47,6 +50,9 @@ The Collection response has following attributes:
               "signal": "-95",
               "username": "",
               "modes": "default",
+              "enableAuth": 0,
+              "authType": "BOTH",
+              "status": "disconnected",
               "delay": 40
             }
         ]
@@ -76,6 +82,9 @@ The response for GET has following attributes:
 - **apn** (required, string, ``): Indicate apn of SIM card.
 - **signal** (required, number, `1`): Indicate apn of SIM card.
 - **modes** (required, string, ''): Allowed network modes, comma separated list of: all, lte, umts, gsm, cdma, td-scdma
+- **enableAuth** (required, number, `0`): Indicate the authentication need to be done before dialUp
+- **authType** (required, string, ``): Indicate type of authentication such as 'PAP','CHAP','BOTH'
+- **status** (required, string, `disconnect`): Indicate current status of connection, 'connected' / 'disconnected'
 - **delay** (required, number `31`): Seconds to wait before trying to interact with the modem (some ZTE modems require up to 30 s.)
 
 
@@ -102,6 +111,9 @@ The response for GET has following attributes:
               "signal": "-95",
               "username": "",
               "modes": "default",
+              "enableAuth": 0,
+              "status": "disconnected",
+              "authType": "",
               "delay": 40
             }
             
@@ -121,6 +133,9 @@ The request for PUT has following attributes:
 - **password** (optional, string, ``): Indicate the password to enter pap/chap.
 - **apn** (required, string, ``): Indicate apn of SIM card.
 - **modes** (required, string, ''): Allowed network modes, comma separated list of: all, lte, umts, gsm, cdma, td-scdma
+- **enableAuth** (required, number, `0`): Indicate the authentication need to be done before dialUp
+- **authType** (required, string, ``): Indicate type of authentication such as 'PAP','CHAP','BOTH'
+- **status** (required, string, `disconnect`): Indicate current status of connection, 'connected' / 'disconnected'
 - **delay** (required, number `31`): Seconds to wait before trying to interact with the modem (some ZTE modems require up to 30 s.)
 
 
@@ -145,6 +160,7 @@ The error response has following attributes:
               "ip": "",
               "pinCode": "",
               "username": "",  
+              "status": "disconnected",
               "modes": "default",
               "delay": 40
 
@@ -164,6 +180,7 @@ The error response has following attributes:
               "ip": "",
               "pinCode": "",
               "username": "",
+              "status": "disconnected",
               "modes": "default",
               "delay": 40
             }
