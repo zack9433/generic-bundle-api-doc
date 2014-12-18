@@ -21,6 +21,7 @@ The Collection response has following attributes:
               "enable": 0,
               "id": 0,
               "modemPort": "/dev/cdc-wdm0",
+              "atPort": "/dev/ttyUSB2",
               "name": "ppp",
               "password": "",
               "gateway": "",
@@ -30,6 +31,10 @@ The Collection response has following attributes:
               "signal": "-95",
               "username": "",
               "modes": "default",
+              "enableAuth": 0,
+              "authType": "BOTH",
+              "status": 0,
+              "operatorName": "",
               "delay": 40
             },
             {
@@ -38,6 +43,7 @@ The Collection response has following attributes:
               "enable": 0,
               "id": 1,
               "modemPort": "/dev/cdc-wdm1",
+              "atPort": "/dev/ttyUSB5",
               "name": "ppp",
               "password": "",
               "gateway": "",
@@ -47,6 +53,10 @@ The Collection response has following attributes:
               "signal": "-95",
               "username": "",
               "modes": "default",
+              "enableAuth": 0,
+              "authType": "BOTH",
+              "status": 0,
+              "operatorName": "",
               "delay": 40
             }
         ]
@@ -64,10 +74,11 @@ The response for GET has following attributes:
 
 - **id** (required, number, `1`): Identifier for an Cellular interface.
 - **name** (required, string, `eth0`): Indicate the interface name.
+- **modemPort** (required, string, `/dev/cdc-wcm0`): Internally use modem port device node
+- **atPort** (required, string, `/dev/ttyUSB0`): Internally use AT port device node
 - **ip** (required, IP address, `192.168.3.127`): IP address for the Cellular interface.
 - **gateway** (required, IP address, `192.168.3.254`): Gateway is a router or a proxy server that routes between networks.
 - **dns** (required, IP address array): The Domain Name System (DNS) is a hierarchical distributed naming system for computers, services, or any resource connected to the Internet or a private network.
-- **currentStatus** (required, number `1`): Current status for the Cellular interface, 0 for down and 1 for up.
 - **enable** (required, number, `1`): Indicate the link status of Cellular interface should be set to up (`1`) or down (`0`).
 - **dialNumber** (required, string, `*99#`): Dial up modem number.
 - **pinCode** (optional, string, `0000`): Use this code to auth when exits.
@@ -76,6 +87,10 @@ The response for GET has following attributes:
 - **apn** (required, string, ``): Indicate apn of SIM card.
 - **signal** (required, number, `1`): Indicate apn of SIM card.
 - **modes** (required, string, ''): Allowed network modes, comma separated list of: all, lte, umts, gsm, cdma, td-scdma
+- **enableAuth** (required, number, `0`): Indicate the authentication need to be done before dialUp
+- **authType** (required, string, ``): Indicate type of authentication such as 'PAP','CHAP','BOTH'
+- **status** (required, number, `0`): Indicate current status of connection, '0' / '1'
+- **operatorName** (optional, string, ``): Indicate current operator name if exit
 - **delay** (required, number `31`): Seconds to wait before trying to interact with the modem (some ZTE modems require up to 30 s.)
 
 
@@ -93,6 +108,7 @@ The response for GET has following attributes:
               "enable": 0,
               "id": 0,
               "modemPort": "/dev/cdc-wdm0",
+              "atPort": "/dev/ttyUSB2",
               "name": "ppp",
               "password": "",
               "gateway": "",
@@ -102,6 +118,10 @@ The response for GET has following attributes:
               "signal": "-95",
               "username": "",
               "modes": "default",
+              "enableAuth": 0,
+              "status": 0,
+              "operatorName": "",
+              "authType": "",
               "delay": 40
             }
             
@@ -113,14 +133,18 @@ The request for PUT has following attributes:
 - **id** (required, number, `1`): Identifier for an Cellular interface.
 - **name** (required, string, `eth0`): Indicate the interface name.
 - **dns** (required, IP address array): The Domain Name System (DNS) is a hierarchical distributed naming system for computers, services, or any resource connected to the Internet or a private network.
-- **currentStatus** (required, number `1`): Current status for the Cellular interface, 0 for down and 1 for up.
 - **enable** (required, number, `1`): Indicate the link status of Cellular interface should be set to up (`1`) or down (`0`).
 - **dialNumber** (required, string, `*99#`): Dial up modem number.
+- **modemPort** (required, string, `/dev/cdc-wcm0`): Internally use modem port device node
+- **atPort** (required, string, `/dev/ttyUSB0`): Internally use AT port device node
 - **pinCode** (optional, string, `0000`): Use this code to auth when exits.
 - **username** (optional, string, ``): Indicate the username to enter pap/chap.
 - **password** (optional, string, ``): Indicate the password to enter pap/chap.
 - **apn** (required, string, ``): Indicate apn of SIM card.
 - **modes** (required, string, ''): Allowed network modes, comma separated list of: all, lte, umts, gsm, cdma, td-scdma
+- **enableAuth** (required, number, `0`): Indicate the authentication need to be done before dialUp
+- **authType** (required, string, ``): Indicate type of authentication such as 'PAP','CHAP','BOTH'
+- **status** (required, string, `disconnect`): Indicate current status of connection, '1' / '0'
 - **delay** (required, number `31`): Seconds to wait before trying to interact with the modem (some ZTE modems require up to 30 s.)
 
 
@@ -139,12 +163,15 @@ The error response has following attributes:
               "enable": 0,
               "id": 0,
               "modemPort": "/dev/cdc-wdm0",
+              "atPort": "/dev/ttyUSB2",
               "name": "ppp",
               "password": "",
               "dns": "",
               "ip": "",
               "pinCode": "",
               "username": "",  
+              "status": 0,
+              "operatorName": "",
               "modes": "default",
               "delay": 40
 
@@ -158,12 +185,15 @@ The error response has following attributes:
               "enable": 0,
               "id": 0,
               "modemPort": "/dev/cdc-wdm0",
+              "atPort": "/dev/ttyUSB2",
               "name": "ppp",
               "password": "",
               "dns": "",
               "ip": "",
               "pinCode": "",
               "username": "",
+              "status": 0,
+              "operatorName": "",
               "modes": "default",
               "delay": 40
             }
