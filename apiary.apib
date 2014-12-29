@@ -1712,6 +1712,7 @@ The request for POST has following attributes:
 
 - **destinations** (required, array|string): Create job for whom. If passed an array it will automatically expand for you and create requests per destination.
 - **message** (required, SanjiMessage): A standard Sanji Message(request) must include `method`, `resource`
+- **options.timeout** (optional, integer): Set requests' timeout
 
 Reboot 3 devices `00:0c:29:1c:e8:01`, `00:0c:29:1c:e8:02`, `00:0c:29:1c:e8:03` at once.
 
@@ -1727,12 +1728,10 @@ Reboot 3 devices `00:0c:29:1c:e8:01`, `00:0c:29:1c:e8:02`, `00:0c:29:1c:e8:03` a
 
 + Response 200 (application/json)
 
-        [
           {
             "id": 123145,
             "createdAt": "2014-12-17T06:27:58.220Z",
             "finishedAt": null,
-            "timeout": 36000,
             "status": "dispatching",
             "progress": 0,
             "totalCount": 3,
@@ -1748,24 +1747,15 @@ Reboot 3 devices `00:0c:29:1c:e8:01`, `00:0c:29:1c:e8:02`, `00:0c:29:1c:e8:03` a
                   "createdAt": "2014-12-17T06:27:58.220Z",
                   "finishedAt": null,
                   "timeout": 36000,
-                  "status": "created",
                   "progress": 0,
-                  "result": null
+                  "status": "resolved",
+                  "result": {
+                    "code": 200,
+                    "resource": "/system/reboot",
+                    "data": null
+                  }
                 }
-              }
-            ]
-          },
-          {
-            "id": 345235,
-            "createdAt": "2014-12-17T06:27:58.220Z",
-            "finishedAt": null,
-            "timeout": 36000,
-            "status": "dispatching",
-            "progress": 0,
-            "totalCount": 3,
-            "finishCount": 0,
-            "errorCount": 0,
-            "requests": [
+              },
               {
                 "id": 34534,
                 "method": "post",
@@ -1775,24 +1765,11 @@ Reboot 3 devices `00:0c:29:1c:e8:01`, `00:0c:29:1c:e8:02`, `00:0c:29:1c:e8:03` a
                   "createdAt": "2014-12-17T06:27:58.220Z",
                   "finishedAt": null,
                   "timeout": 36000,
-                  "status": "created",
                   "progress": 0,
+                  "status": "created",
                   "result": null
                 }
-              }
-            ]
-          },
-          {
-            "id": 324234,
-            "createdAt": "2014-12-17T06:27:58.220Z",
-            "finishedAt": null,
-            "timeout": 36000,
-            "status": "dispatching",
-            "progress": 0,
-            "totalCount": 3,
-            "finishCount": 0,
-            "errorCount": 0,
-            "requests": [
+              },
               {
                 "id": 2323,
                 "method": "post",
@@ -1802,14 +1779,15 @@ Reboot 3 devices `00:0c:29:1c:e8:01`, `00:0c:29:1c:e8:02`, `00:0c:29:1c:e8:03` a
                   "createdAt": "2014-12-17T06:27:58.220Z",
                   "finishedAt": null,
                   "timeout": 36000,
-                  "status": "created",
                   "progress": 0,
+                  "status": "created",
                   "result": null
                 }
               }
             ]
           }
-        ]
+             
+              
 
 ## Job [/jobs/{id}]
 Single job information
@@ -1838,7 +1816,6 @@ Get job's current status and requests contains.
           "id": 123145,
           "createdAt": "2011-12-19T15:28:46.493Z",
           "finishedAt": "2011-12-19T15:55:46.493Z",
-          "timeout": 36000,
           "status": "dispatching",
           "progress": 100,
           "totalCount": 5,
@@ -1855,7 +1832,6 @@ Get job's current status and requests contains.
                 "finishedAt": null,
                 "timeout": 36000,
                 "status": "created",
-                "progress": 0,
                 "result": null
               }
             }
