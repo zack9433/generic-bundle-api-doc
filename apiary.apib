@@ -1895,12 +1895,11 @@ Basically, just extend original *Sanji Message (one-to-one)* with adding a prope
 - **resource** (string): Sanji Message's resource field.
 - **data** (object): Sanji Message's data field.
 - **__request.destination** (string): This Sanji Message is belong to whom.
-- **__request.createdAt** (object): Creatation time of request.
-- **__request.finishedAt** (object): Finish time of request.
-- **__request.status** (object): Current status.
+- **__request.createdAt** (datetime): Creatation time of request.
+- **__request.finishedAt** (datetime): Finish time of request.
+- **__request.status** (string): Current status. (created, dispatching, resolved, timeout, error)
 - **__request.progress** (object): Progress.
-- **__request.result** (object): Result of this request.
-
+- **__request.result** (object): Result of this request. (null if status != resolved)
 
 + Response 200 (application/json)
 
@@ -1924,6 +1923,7 @@ The request for POST has following attributes:
 
 - **destination** (optional, string): Create request for whom (default: localhost). If you want to send to many please create a **Job**.
 - **message** (required, SanjiMessage): A standard Sanji Message(request) must include `method`, `resource`
+- **options.timeout** (optional, integer): Set requests' timeout
 
 The response for POST has following attributes:
 - **requests** (array): IDs of requests belongs to this job.
