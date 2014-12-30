@@ -1781,3 +1781,78 @@ The request for PUT has following attributes (this is an **event** message):
         {
         }
 
+# Group IPsec server
+Notes related resources of the **IPsec server API**
+
+## IPsec server [/network/ipsecserver]
+### List IPsec server Settings [GET]
+
+The response has following attributes:
+
+- **preShareKey** (required, string): pre share key of ipsec
+
++ Response 200 (application/json)
+
+        {
+            "preShareKey": "ipsecKey"
+        }
+
+## IPsec server [/network/ipsecserver]
+### Update IPsec server Information [PUT]
+
+The request and response has following attributes:
+
+- **preShareKey** (required, string): pre share key.
+
++ Request  (application/json)
+
+        {
+            "preShareKey": "ipsecKey"
+        }
+
++ Response 200 (application/json)
+
+        {
+            "preShareKey": "ipsecKey"
+        }
+
+# Group IPsec client
+Notes related resources of the **IPsec client API**
+
+## IPsec client [/network/ipsecclient]
+### List IPsec client Settings [GET]
+
+The response has following attributes:
+
+- **serverIp** (required, string): server IP
+- **preShareKey** (required, string): pre share key of ipsec
+
++ Response 200 (application/json)
+
+        {
+            "serverIp": "192.168.1.1",
+            "preShareKey": "ipsecKey"
+        }
+
+## IPsec client [/network/ipsecclient]
+### Update IPsec client Information [PUT]
+
+The request and response has following attributes:
+
+- **serverIp** (required, string): server IP.
+- **preShareKey** (required, string): pre share key.
+
++ Request  (application/json)
+
+        {
+            "serverIp": "192.168.1.1",
+            "preShareKey": "ipsecKey"
+        }
+
++ Response 200 (application/json)
+
+        {
+            "serverIp": "192.168.1.1",
+            "preShareKey": "ipsecKey"
+        }
+
