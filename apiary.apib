@@ -904,6 +904,58 @@ The response for PUT has following attributes:
         }
 
 
+# Group ImportExport
+Notes related resources of the **ImportExport API**
+
+## ImportExport [/system/importexport]
+The importexport object allows user to import/export configuration files to/from the system.
+
+### ImportExport the system [PUT]
+The response for PUT has following attributes:
+
+- **enable** (required, number, `1`): Indicate the system will be reboot soon.
+
++ Request  (application/json)
+
+        {
+        }
+
++ Response 200 (application/json)
+
+        {
+        }
+
++ Response 400 (application/json)
+
+        {
+            "status": 1090,
+            "message": "Import configuration files failed."
+        }
+
+
+### ImportExport the system [GET]
+The response for GET has following attributes:
+
+- **enable** (required, number, `1`): Indicate the system will be reboot soon.
+
++ Request  (application/json)
+
+        {
+        }
+
++ Response 200 (application/json)
+
+        {
+        }
+
++ Response 400 (application/json)
+
+        {
+            "status": 1091,
+            "message": "Export configuration files failed."
+        }
+
+
 # Group Reboot
 Notes related resources of the **Reboot API**
 
@@ -1211,50 +1263,6 @@ The response for PUT has following attributes:
         {
             "status": 400,
             "message": "Invalid Input"
-        }
-
-# Group Migration
-Notes related resources of the **Migration API**
-
-## Migration [/system/migration]
-For exporting or importing the configurations of all bundles.
-
-### Execute the export or import [PUT]
-
-The response for PUT has following attributes:
-
-- **export** (required, number, `1`): Indicate the system will be exported for backup.
-- **import** (required, number, `1`): The system will be recovered by the imported configurations.
-
-+ Request  (application/json)
-
-        {
-            "export": 1
-        }
-
-+ Response 200 (application/json)
-
-        {
-            "export": 1
-        }
-
-+ Request  (application/json)
-
-        {
-            "import": 1,
-        }
-
-+ Response 200 (application/json)
-
-        {
-            "import": 1,
-        }
-
-+ Response 404 (application/json)
-
-        {
-            "status": 1002,
-            "message": "Resource busy!"
         }
 
 
