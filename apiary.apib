@@ -1269,18 +1269,16 @@ The response for PUT has following attributes:
 # Group Status
 Notes related resources of the **Status API**
 
-## CPU status [/system/status/cpu?push=true]
+## CPU status [/system/status/cpu]
 ### Get CPU Status data [GET]
 
 The response has following attributes:
 
-- **cpuPush** (required, integer): 0 for disable, 1 for enable server push.
 - **data** (required, object array): list of cpu status data.
 
 + Response 200 (application/json)
 
         {
-            "cpuPush": 1,
             "data": [
                 {"time": "2014/09/14 15:18:48", "value": 54.1},
                 {"time": "2014/09/14 15:19:48", "value": 40.2},
@@ -1288,37 +1286,17 @@ The response has following attributes:
             ]
         }
 
-## Stop CPU status [/system/status/cpu]
-### Stop CPU status server push [PUT]
 
-
-+ Request  (application/json)
-
-        {
-            "cpuPush": 0
-        }
-
-
-+ Response 200 (application/json)
-
-        {
-            "code": 200,
-            "cpuPush": 0
-        }
-
-
-## Memory status [/system/status/memory?push=true]
+## Memory status [/system/status/memory]
 ### Get Memory Status data [GET]
 
 The response has following attributes:
 
-- **memoryPush** (required, integer): 0 for disable, 1 for enable server push.
 - **data** (required, object array): list of memory status data.
 
 + Response 200 (application/json)
 
         {
-            "memoryPush": 1,
             "data":　[
                 {
                     "time": "2014/09/14 15:18:48",
@@ -1337,31 +1315,12 @@ The response has following attributes:
             ]
         }
 
-## Stop Memory status [/system/status/memory]
-### Stop Memory status server push [PUT]
 
-
-+ Request  (application/json)
-
-        {
-            "memoryPush": 0
-        }
-
-
-+ Response 200 (application/json)
-
-        {
-            "code": 200,
-            "memoryPush": 0
-        }
-
-
-## Disk status [/system/status/disk?push=true]
+## Disk status [/system/status/disk]
 ### Get Disk Status data [GET]
 
 The response has following attributes:
 
-- **diskPush** (required, integer): 0 for disable, 1 for enable server push.
 - **data** (required, object array): list of disk status data.
 
 + Response 200 (application/json)
@@ -1386,23 +1345,6 @@ The response has following attributes:
             ]
         }
 
-## Stop Disk status [/system/status/disk]
-### Stop Disk status server push [PUT]
-
-
-+ Request  (application/json)
-
-        {
-            "diskPush": 0
-        }
-
-
-+ Response 200 (application/json)
-
-        {
-            "code": 200,
-            "diskPush": 0
-        }
 
 ## System status [/system/status/showdata]
 ### Get System Status data [GET]
