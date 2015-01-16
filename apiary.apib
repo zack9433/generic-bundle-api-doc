@@ -1190,14 +1190,20 @@ Notes related resources of the **DNS API**
 
 The response has following attributes:
 
-- **interface** (required, string): show the dns corresponging interface
-- **dns** (required, object array): list of current dns servers.
+- **route_interface** (required, string): show the current dns corresponging interface
+- **dns** (required, object array): show current running dns servers.
+- **dns_list** (option, dictionary): show all interface and corresponding dns list 
 
 + Response 200 (application/json)
 
         {
-            "interface": "eth0"
-            "dns": ["8.8.8.8", "8.8.4.4", "192.168.50.33"]
+            "route_interface": "eth0",
+            "dns": ["8.8.8.8", "8.8.4.4", "192.168.50.33"],
+            "dns_list": {
+              "eth0": [],
+              "eth1": [],
+              "wwlan0": []
+            }
         }
 
 
@@ -1910,80 +1916,4 @@ The response for POST has following attributes:
             "progress": 0,
             "result": null
           }
-        }
-
-# Group IPsec server
-Notes related resources of the **IPsec server API**
-
-## IPsec server [/network/ipsecserver]
-### List IPsec server Settings [GET]
-
-The response has following attributes:
-
-- **preShareKey** (required, string): pre share key of ipsec
-
-+ Response 200 (application/json)
-
-        {
-            "preShareKey": "ipsecKey"
-        }
-
-## IPsec server [/network/ipsecserver]
-### Update IPsec server Information [PUT]
-
-The request and response has following attributes:
-
-- **preShareKey** (required, string): pre share key.
-
-+ Request  (application/json)
-
-        {
-            "preShareKey": "ipsecKey"
-        }
-
-+ Response 200 (application/json)
-
-        {
-           "preShareKey": "ipsecKey"
-        }
-
-
-# Group IPsec client
-Notes related resources of the **IPsec client API**
-
-## IPsec client [/network/ipsecclient]
-### List IPsec client Settings [GET]
-
-The response has following attributes:
-
-- **serverIp** (required, string): server IP
-- **preShareKey** (required, string): pre share key of ipsec 
-
-+ Response 200 (application/json)
-
-        {
-            "serverIp": "192.168.1.1",
-            "preShareKey": "ipsecKey"
-        }
-
-## IPsec client [/network/ipsecclient]
-### Update IPsec client Information [PUT]
-
-The request and response has following attributes:
-
-- **serverIp** (required, string): server IP.
-- **preShareKey** (required, string): pre share key.
-
-+ Request  (application/json)
-
-        {
-            "serverIp": "192.168.1.1",
-            "preShareKey": "ipsecKey"
-        }
-
-+ Response 200 (application/json)
-
-        {
-        "serverIp": "192.168.1.1",
-        "preShareKey": "ipsecKey"
         }
