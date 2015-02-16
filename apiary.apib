@@ -1284,13 +1284,11 @@ The response has following attributes:
 
 + Response 200 (application/json)
 
-        {
-            "data": [
-                {"time": "2014/09/14 15:18:48", "value": 54.1},
-                {"time": "2014/09/14 15:19:48", "value": 40.2},
-                {"time": "2014/09/14 15:20:48", "value": 35.9}
-            ]
-        }
+        [
+            {"time": "2014/09/14 15:18:48", "value": 54.1},
+            {"time": "2014/09/14 15:19:48", "value": 40.2},
+            {"time": "2014/09/14 15:20:48", "value": 35.9}
+        ]
 
 
 ## Memory status [/system/status/memory]
@@ -1302,24 +1300,22 @@ The response has following attributes:
 
 + Response 200 (application/json)
 
-        {
-            "data":　[
-                {
-                    "time": "2014/09/14 15:18:48",
-                    "total": "200MB",
-                    "used": "50MB",
-                    "free": "150MB",
-                    "usedPercentage": 25
-                },
-                {
-                    "time": "2014/09/14 15:19:48",
-                    "total": "200MB",
-                    "used": "50MB",
-                    "free": "150MB",
-                    "usedPercentage": 25
-                }
-            ]
-        }
+        [
+            {
+                "time": "2014/09/14 15:18:48",
+                "total": "200MB",
+                "used": "50MB",
+                "free": "150MB",
+                "usedPercentage": 25
+            },
+            {
+                "time": "2014/09/14 15:19:48",
+                "total": "200MB",
+                "used": "50MB",
+                "free": "150MB",
+                "usedPercentage": 25
+            }
+        ]
 
 
 ## Disk status [/system/status/disk]
@@ -1331,25 +1327,22 @@ The response has following attributes:
 
 + Response 200 (application/json)
 
-        {
-            "diskPush": 1,
-            "data":　[
-                {
-                    "time": "2014/09/14 15:18:48",
-                    "total": "100MB",
-                    "used": "50MB",
-                    "free": "50MB",
-                    "usedPercentage": 50
-                },
-                {
-                    "time": "2014/09/14 15:19:48",
-                    "total": "100MB",
-                    "used": "60MB",
-                    "free": "40MB",
-                    "usedPercentage": 60
-                }
-            ]
-        }
+        [
+            {
+                "time": "2014/09/14 15:18:48",
+                "total": "100MB",
+                "used": "50MB",
+                "free": "50MB",
+                "usedPercentage": 50
+            },
+            {
+                "time": "2014/09/14 15:19:48",
+                "total": "100MB",
+                "used": "60MB",
+                "free": "40MB",
+                "usedPercentage": 60
+            }
+        ]
 
 
 ## System status [/system/status/showdata]
