@@ -987,7 +987,6 @@ The response for PUT has following attributes:
             "message": "Resource busy!"
         }
 
-
 # Group Time
 Notes related resources of the **Time API**
 
@@ -1004,11 +1003,7 @@ The response for GET has following attributes:
 - **ntp.servers** (array, `pool.ntp.org`): Ntp servers.
 - **ntp.interval** (integer, `86400`): Ntp update interval in seconds.
 
-+ Response 200 (application/json)
-
-    + Header
-
-            X-My-Header: The Value
++ Response 200 (application/json; charset=utf-8)
 
     + Body
 
@@ -1026,17 +1021,19 @@ The response for GET has following attributes:
 
 The response for PUT has following attributes:
 
-- **message** (optinoal, string): If request failed, it would indicate error message.
-
-+ Request  (application/json)
++ Request  (application/json; charset=utf-8)
 
         {
+            "time": "2015-03-26T16:27:48.611441Z",
+            "timezone": "+08:00,0",
             "ntp": {
-                "enable": 0
+                "enable": 0,
+                "servers": ["pool.ntp.org"],
+                "interval": 86400
             }
         }
 
-+ Response 200 (application/json)
++ Response 200 (application/json; charset=utf-8)
 
         {
             "time": "2015-03-26T16:27:48.611441Z",
@@ -1049,7 +1046,7 @@ The response for PUT has following attributes:
         }
 
 # Group SSH
-Status related resources of the **SSH API**
+Status related resources of the **SSH Service**
 
 ## SSH [/network/ssh]
 
@@ -1057,9 +1054,9 @@ Status related resources of the **SSH API**
 
 The response for GET has following attributes:
 
-- **enable** (required, integer, 1): enable ssh daemon
+- **enable** (required, integer, 1): enable ssh service
 
-+ Response 200 (application/json)
++ Response 200 (application/json; charset=utf-8)
 
     + Body
 
@@ -1072,17 +1069,19 @@ The response for GET has following attributes:
 
 The response for PUT has following attributes:
 
-- **enable** (required, integer, 1): enable ssh daemon
+- **enable** (required, integer, 1): enable ssh service
 
-+ Request  (application/json)
++ Request  (application/json; charset=utf-8)
 
         {
             "enable": 1
         }
 
-+ Response 200 (application/json)
++ Response 200 (application/json; charset=utf-8)
 
-        {}
+        {
+            "enable": 1
+        }
 
 # Group DHCP Server
 Notes related resources of the **DHCP Server API**
