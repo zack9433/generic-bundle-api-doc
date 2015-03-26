@@ -1013,7 +1013,7 @@ The response for GET has following attributes:
     + Body
 
             {
-                "time": "2014-10-21 00:00:00",
+                "time": "2015-03-26T16:27:48.611441Z",
                 "timezone": "+08:00,0",
                 "ntp": {
                     "enable": 1,
@@ -1038,20 +1038,14 @@ The response for PUT has following attributes:
 
 + Response 200 (application/json)
 
-        {}
-
-+ Response 400 (application/json)
-
         {
-            "status": 1002,
-            "message": "Resource busy!"
-        }
-
-+ Response 500 (application/json)
-
-        {
-            "status": 1002,
-            "message": "Resource busy!"
+            "time": "2015-03-26T16:27:48.611441Z",
+            "timezone": "+08:00,0",
+            "ntp": {
+                "enable": 1,
+                "servers": ["pool.ntp.org"],
+                "interval": 86400
+            }
         }
 
 # Group SSH
