@@ -1295,12 +1295,21 @@ The response has following attributes:
 
 - **data** (required, object array): list of cpu status data.
 
-+ Response 200 (application/json)
++ Response 200 (application/json; charset=utf-8)
 
         [
-            {"time": "2014/09/14 15:18:48", "value": 54.1},
-            {"time": "2014/09/14 15:19:48", "value": 40.2},
-            {"time": "2014/09/14 15:20:48", "value": 35.9}
+            {
+                "time": "2014/09/14 15:18:48",
+                "value": 54.1
+            },
+            {
+                "time": "2014/09/14 15:19:48",
+                "value": 40.2
+            },
+            {
+                "time": "2014/09/14 15:20:48",
+                "value": 35.9
+            }
         ]
 
 
@@ -1311,7 +1320,7 @@ The response has following attributes:
 
 - **data** (required, object array): list of memory status data.
 
-+ Response 200 (application/json)
++ Response 200 (application/json; charset=utf-8)
 
         [
             {
@@ -1338,7 +1347,7 @@ The response has following attributes:
 
 - **data** (required, object array): list of disk status data.
 
-+ Response 200 (application/json)
++ Response 200 (application/json; charset=utf-8)
 
         [
             {
@@ -1369,7 +1378,7 @@ The response has following attributes:
 - **storage** (required, string): show free storage size
 
 
-+ Response 200 (application/json)
++ Response 200 (application/json; charset=utf-8)
 
         {
             "hostname": "Moxa",
@@ -1381,18 +1390,19 @@ The response has following attributes:
 ### Set system hostname [PUT]
 
 
-+ Request  (application/json)
++ Request  (application/json; charset=utf-8)
 
         {
-            "hostname": "new_hostname"
+            "hostname": "moxa"
         }
 
 
-+ Response 200 (application/json)
++ Response 200 (application/json; charset=utf-8)
 
         {
-            "hostname": "new_hostname"
+            "hostname": "MOXA-TEST-HOSTNAME"
         }
+
 
 
 # Group Watchdog
