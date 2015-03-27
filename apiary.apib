@@ -1174,7 +1174,6 @@ Suppose user want to update DHCP server of eth0 interface
             "leaseTime": "3600"
         }
 
-
 # Group DNS
 Notes related resources of the **DNS API**
 
@@ -1187,11 +1186,32 @@ The response has following attributes:
 - **dns** (required, object array): show current running dns servers.
 - **dns_list** (option, dictionary): show all interface and corresponding dns list 
 
-+ Response 200 (application/json)
++ Response 200 (application/json; charset=utf-8)
 
         {
             "route_interface": "eth0",
             "dns": ["8.8.8.8", "8.8.4.4", "192.168.50.33"],
+            "dns_list": {
+              "eth0": [],
+              "eth1": [],
+              "wwlan0": []
+            }
+        }
+
+### Update DNS Settings [PUT]
+
++ Request  (application/json; charset=utf-8)
+
+        {
+            "route_interface": "eth0",
+            "dns": ["192.168.50.33"]
+        }
+
++ Response 200 (application/json; charset=utf-8)
+
+        {
+            "route_interface": "eth0",
+            "dns": ["192.168.50.33"],
             "dns_list": {
               "eth0": [],
               "eth1": [],
