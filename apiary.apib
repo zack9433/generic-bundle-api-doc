@@ -198,8 +198,6 @@ The error response has following attributes:
             "message": "Unable to apply!"
         }
 
-
-
 # Group Ethernet
 Notes related resources of the **Ethernet API**
 
@@ -208,17 +206,17 @@ Notes related resources of the **Ethernet API**
 
 The Collection response has following attributes:
 
-+ Response 200 (application/json)
++ Response 200 (application/json; charset=utf-8)
 
         [
             {
                 "id":1,
-                "name":"eth0",
-                "ip":"192.168.3.127",
-                "mac":"FF:FF:FF:FF:FF:FF",
-                "netmask":"255.255.255.0",
-                "subnet":"192.168.3.0",
-                "gateway":"192.168.3.254",
+                "name": "eth0",
+                "ip": "192.168.3.127",
+                "mac": "FF:FF:FF:FF:FF:FF",
+                "netmask": "255.255.255.0",
+                "subnet": "192.168.3.0",
+                "gateway": "192.168.3.254",
                 "dns":["8.8.8.8", "8.8.4.4"],
                 "currentStatus":1,
                 "enable":1,
@@ -226,12 +224,12 @@ The Collection response has following attributes:
             },
             {
                 "id":2,
-                "name":"eth1",
-                "ip":"192.168.3.127",
-                "mac":"FF:FF:FF:FF:FF:FF",
-                "netmask":"255.255.255.0",
-                "subnet":"192.168.3.0",
-                "gateway":"192.168.3.254",
+                "name": "eth1",
+                "ip": "192.168.3.127",
+                "mac": "FF:FF:FF:FF:FF:FF",
+                "netmask": "255.255.255.0",
+                "subnet": "192.168.3.0",
+                "gateway": "192.168.3.254",
                 "dns":["8.8.8.8", "8.8.4.4"],
                 "currentStatus":1,
                 "enable":1,
@@ -243,42 +241,32 @@ The Collection response has following attributes:
 
 The collection request/response for update has following attributes:
 
-+ Request (application/json)
++ Request (application/json; charset=utf-8)
 
         [
             {
-                "id":1,
-                "ip":"192.168.3.127",
-                "netmask":"255.255.255.0",
-                "subnet":"192.168.3.0",
-                "gateway":"192.168.3.254",
-                "dns":["8.8.8.8", "8.8.4.4"],
-                "enable":1,
-                "enableDhcp":0
-            },
-            {
                 "id":2,
-                "ip":"192.168.3.127",
-                "netmask":"255.255.255.0",
-                "subnet":"192.168.3.0",
-                "gateway":"192.168.3.254",
+                "ip": "192.168.100.127",
+                "netmask": "255.255.255.0",
+                "subnet": "192.168.100.0",
+                "gateway": "192.168.100.254",
                 "dns":["8.8.8.8", "8.8.4.4"],
                 "enable":1,
                 "enableDhcp":0
             }
         ]
 
-+ Response 200 (application/json)
++ Response 200 (application/json; charset=utf-8)
 
         [
             {
                 "id":1,
-                "name":"eth0",
-                "ip":"192.168.3.127",
-                "mac":"FF:FF:FF:FF:FF:FF",
-                "netmask":"255.255.255.0",
-                "subnet":"192.168.3.0",
-                "gateway":"192.168.3.254",
+                "name": "eth0",
+                "ip": "192.168.3.127",
+                "mac": "FF:FF:FF:FF:FF:FF",
+                "netmask": "255.255.255.0",
+                "subnet": "192.168.3.0",
+                "gateway": "192.168.3.254",
                 "dns":["8.8.8.8", "8.8.4.4"],
                 "currentStatus":1,
                 "enable":1,
@@ -286,19 +274,18 @@ The collection request/response for update has following attributes:
             },
             {
                 "id":2,
-                "name":"eth1",
-                "ip":"192.168.3.127",
-                "mac":"FF:FF:FF:FF:FF:FF",
-                "netmask":"255.255.255.0",
-                "subnet":"192.168.3.0",
-                "gateway":"192.168.3.254",
+                "name": "eth1",
+                "ip": "192.168.100.127",
+                "mac": "FF:FF:FF:FF:FF:FF",
+                "netmask": "255.255.255.0",
+                "subnet": "192.168.100.0",
+                "gateway": "192.168.100.254",
                 "dns":["8.8.8.8", "8.8.4.4"],
                 "currentStatus":1,
                 "enable":1,
                 "enableDhcp":0
             }
         ]
-
 
 ## Ethernet [/network/ethernets/{id}]
 A single Ethernet object with all its details
@@ -322,22 +309,18 @@ The response for GET has following attributes:
 - **enable** (required, number, `1`): Indicate the link status of Ethernet interface should be set to up (`1`) or down (`0`).
 - **enableDhcp** (required, number, `0`): Enable (`1`) the dhcp client or using the static IP (`0`).
 
-+ Response 200 (application/json)
-
-    + Header
-
-            X-My-Header: The Value
++ Response 200 (application/json; charset=utf-8)
 
     + Body
 
             {
                 "id":1,
-                "name":"eth0",
-                "ip":"192.168.3.127",
-                "mac":"FF:FF:FF:FF:FF:FF",
-                "netmask":"255.255.255.0",
-                "subnet":"192.168.3.0",
-                "gateway":"192.168.3.254",
+                "name": "eth0",
+                "ip": "192.168.3.127",
+                "mac": "FF:FF:FF:FF:FF:FF",
+                "netmask": "255.255.255.0",
+                "subnet": "192.168.3.0",
+                "gateway": "192.168.3.254",
                 "dns":["8.8.8.8", "8.8.4.4"],
                 "currentStatus":1,
                 "enable":1,
@@ -363,73 +346,42 @@ The error response has following attributes:
 - **status** (required, number, `1100`): Status code for error message.
 - **message** (required, string): Error message in English.
 
-+ Request (application/json)
++ Request (application/json; charset=utf-8)
 
         {
-            "ip":"192.168.3.127",
-            "netmask":"255.255.255.0",
-            "subnet":"192.168.3.0",
-            "gateway":"192.168.3.254",
+            "id": 2,
+            "ip": "192.168.3.127",
+            "netmask": "255.255.255.0",
+            "subnet": "192.168.3.0",
+            "gateway": "192.168.3.254",
             "dns":["8.8.8.8", "8.8.4.4"],
             "enable":1,
             "enableDhcp":0
         }
 
-+ Response 200 (application/json)
++ Response 200 (application/json; charset=utf-8)
 
         {
-            "id":1,
-            "name":"eth0",
-            "ip":"192.168.3.127",
-            "mac":"FF:FF:FF:FF:FF:FF",
-            "netmask":"255.255.255.0",
-            "subnet":"192.168.3.0",
-            "gateway":"192.168.3.254",
+            "id":2,
+            "name": "eth1",
+            "ip": "192.168.100.127",
+            "mac": "FF:FF:FF:FF:FF:FF",
+            "netmask": "255.255.255.0",
+            "subnet": "192.168.100.0",
+            "gateway": "192.168.100.254",
             "dns":["8.8.8.8", "8.8.4.4"],
             "currentStatus":1,
             "enable":1,
             "enableDhcp":0
         }
 
-+ Response 404 (application/json)
++ Response 404 (application/json; charset=utf-8)
 
         {
             "status": 2101,
             "message": "Interface not found!"
         }
 
-## Ethernet's DHCP [/network/ethernets/{id}/dhcp]
-Update the dhcp client information for a single Ethernet object
-
-+ Parameters
-    + id (required, number, `1`) ... Numeric `id` of the Ethernet to perform action with. Has example value.
-
-### Update the DHCP information [PUT]
-
-The request for PUT has following attributes (this is an **event** message):
-
-- **ip** (required, IP address, `192.168.3.127`): IP address for the Ethernet interface.
-- **netmask** (required, IP address, `255.255.255.0`): Subnet mask for the Ethernet interface.
-- **subnet** (required, IP address, `192.168.3.0`): A subnet (short for "subnetwork") is an identifiably separate part of an organization's network.
-- **gateway** (required, IP address, `192.168.3.254`): Gateway is a router or a proxy server that routes between networks.
-- **dns** (required, IP address array): The Domain Name System (DNS) is a hierarchical distributed naming system for computers, services, or any resource connected to the Internet or a private network.
-
-+ Request (application/json)
-
-        {
-            "id": 1,
-            "name": "eth0",
-            "ip":"192.168.3.127",
-            "netmask":"255.255.255.0",
-            "subnet":"192.168.3.0",
-            "gateway":"192.168.3.254",
-            "dns":["8.8.8.8", "8.8.4.4"],
-        }
-
-+ Response 200 (application/json)
-
-        {
-        }
 
 # Group WiFi
 Notes related resources of the **WiFi API**
@@ -1400,7 +1352,7 @@ The response has following attributes:
 + Response 200 (application/json; charset=utf-8)
 
         {
-            "hostname": "MOXA-TEST-HOSTNAME"
+            "hostname": "moxa"
         }
 
 
