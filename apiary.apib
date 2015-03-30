@@ -121,8 +121,8 @@ The response for GET has following attributes:
               "authType": "",
               "delay": 40
             }
-            
-            
+
+
 ### Update an Cellular [PUT]
 
 The request for PUT has following attributes:
@@ -165,7 +165,7 @@ The error response has following attributes:
               "dns": "",
               "ip": "",
               "pinCode": "",
-              "username": "",  
+              "username": "",
               "status": 0,
               "operatorName": "",
               "delay": 40
@@ -376,332 +376,6 @@ The error response has following attributes:
         }
 
 + Response 404 (application/json; charset=utf-8)
-
-        {
-            "status": 2101,
-            "message": "Interface not found!"
-        }
-
-
-# Group WiFi
-Notes related resources of the **WiFi API**
-
-## WiFi Collection [/network/wifis]
-### List all WiFi Interfaces [GET]
-
-+ Response 200 (application/json)
-
-        [
-            {
-                "id":1,
-                "name":"wlan0",
-                "mode":1,
-                "enable":1,
-                "currentStatus":1,
-                "mac":"FF:FF:FF:FF:FF:FF",
-                "client": {
-                    "ip":"192.168.41.127",
-                    "netmask":"255.255.255.0",
-                    "subnet":"192.168.41.0",
-                    "gateway":"192.168.41.254",
-                    "enableDhcp": 1,
-                    "network": [
-                        {
-                            "enable": 1,
-                            "priority": 0,
-                            "mode": 2,
-                            "keyFormat": 0,
-                            "ssid": "MOXA-MAR-1",
-                            "psk": "moxamoxa",
-                            "txKey": 0,
-                            "key": ["", "", "", ""],
-                            "identity": "",
-                            "password": ""
-                        }
-                    ]
-                }
-            },
-            {
-                "id":2,
-                "name":"wlan1",
-                "mode":1,
-                "enable":0,
-                "currentStatus":0,
-                "mac":"FF:FF:FF:FF:FF:FF",
-                "client": {
-                    "ip":"192.168.42.127",
-                    "netmask":"255.255.255.0",
-                    "subnet":"192.168.42.0",
-                    "gateway":"192.168.42.254",
-                    "enableDhcp": 0,
-                    "network": []
-                }
-            }
-        ]
-
-### Update some WiFi Interfaces [PUT]
-
-The collection request/response for update has following attributes:
-
-
-+ Request (application/json)
-
-        [
-            {
-                "id":1,
-                "mode":1,
-                "enable":1,
-                "client": {
-                    "ip":"192.168.41.127",
-                    "netmask":"255.255.255.0",
-                    "subnet":"192.168.41.0",
-                    "gateway":"192.168.41.254",
-                    "enableDhcp": 1,
-                    "network": [
-                        {
-                            "enable": 1,
-                            "priority": 0,
-                            "mode": 2,
-                            "keyFormat": 0,
-                            "ssid": "MOXA-MAR-1",
-                            "psk": "moxamoxa",
-                            "txKey": 0,
-                            "key": ["", "", "", ""],
-                            "identity": "",
-                            "password": ""
-                        }
-                    ]
-                }
-            },
-            {
-                "id":2,
-                "mode":1,
-                "enable":0,
-                "client": {
-                    "ip":"192.168.42.127",
-                    "netmask":"255.255.255.0",
-                    "subnet":"192.168.42.0",
-                    "gateway":"192.168.42.254",
-                    "enableDhcp": 0,
-                    "network": []
-                }
-            }
-        ]
-
-+ Response 200 (application/json)
-
-        [
-            {
-                "id":1,
-                "name":"wlan0",
-                "mode":1,
-                "enable":1,
-                "currentStatus":1,
-                "mac":"FF:FF:FF:FF:FF:FF",
-                "client": {
-                    "ip":"192.168.41.127",
-                    "netmask":"255.255.255.0",
-                    "subnet":"192.168.41.0",
-                    "gateway":"192.168.41.254",
-                    "enableDhcp": 1,
-                    "network": [
-                        {
-                            "enable": 1,
-                            "priority": 0,
-                            "mode": 2,
-                            "keyFormat": 0,
-                            "ssid": "MOXA-MAR-1",
-                            "psk": "moxamoxa",
-                            "txKey": 0,
-                            "key": ["", "", "", ""],
-                            "identity": "",
-                            "password": ""
-                        }
-                    ]
-                }
-            },
-            {
-                "id":2,
-                "name":"wlan1",
-                "mode":1,
-                "enable":0,
-                "currentStatus":0,
-                "mac":"FF:FF:FF:FF:FF:FF",
-                "client": {
-                    "ip":"192.168.42.127",
-                    "netmask":"255.255.255.0",
-                    "subnet":"192.168.42.0",
-                    "gateway":"192.168.42.254",
-                    "enableDhcp": 0,
-                    "network": []
-                }
-            }
-        ]
-
-## WiFi [/network/wifis/{id}]
-A single WiFi object with all its details
-
-+ Parameters
-    + id (required, number, `1`) ... Numeric `id` of the Ethernet to perform action with. Has example value.
-
-### Retrieve an WiFi Interface [GET]
-
-The response for GET has following attributes:
-
-- **id** (required, number, `1`): Identifier for a Wireless interface.
-- **name** (required, string, `eth0`): Indicate the interface name.
-- **mode** (required, number, `1`): `0` for AP mode and `1` for client mode, in MXcloud, the value is always `1`.
-- **enable** (required, number, `1`): Indicate the link status of the Wireless interface should be set to up (`1`) or down (`0`).
-- **currentStatus** (required, number `1`): Current status for the Wireless interface, 0 for down and 1 for up.
-- **mac** (required, MAC, `FF:FF:FF:FF:FF:FF`): The identical MAC address.
-- **client.ssid** (optional, string, `MIRF-AP`): Current connected SSID (updated by bundle).
-- **client.signal** (optional, number, `-79`): Signal for current cnnected SSID (updated by bundle).
-- **client.ip** (required, IP address, `192.168.3.127`): IP address for the Wireless interface.
-- **client.netmask** (required, IP address, `255.255.255.0`): Subnet mask for the Wireless interface.
-- **client.subnet** (required, IP address, `192.168.3.0`): A subnet (short for "subnetwork") is an identifiably separate part of an organization's network.
-- **client.gateway** (required, IP address, `192.168.3.254`): Gateway is a router or a proxy server that routes between networks.
-- **client.enableDhcp** (required, number, `0`): Enable (`1`) the dhcp client or using the static IP (`0`).
-- **client.network[].enable** (required, number, `1`): Indicate the network status, `0` for disable and `1` for enable.
-- **client.network[].priority** (required, number, `0`): Priority to connect to the network, the larger the priority value, the sooner the network is matched against the scan results.
-- **client.network[].ssid** (required, string): A Wireless AP name to connect to.
-- **client.network[].mode** (required, enum{NONE, WEP, WPA-PSK, WPA-EAP}, `0`): Security mode of the Wireless AP.
-- **client.network[].keyFormat** (optional, enum{ASCII, HEX}, `0`): Key format for WEP or WPA-PSK.
-- **client.network[].psk** (optional, string, `moxamoxa`): Pre-shared key.
-- **client.network[].txKey** (optional, enum{0, 1, 2, 3}, `0`): Default key index for WEP.
-- **client.network[].key** (optional, string array): 4 WEP keys.
-- **client.network[].identity** (optional, string): Identity for WPA-EAP.
-- **client.network[].password** (optional, string): Password for WPA-EAP.
-
-+ Response 200 (application/json)
-
-    + Header
-
-            X-My-Header: The Value
-
-    + Body
-
-            {
-                "id":1,
-                "name":"wlan0",
-                "mode":1,
-                "enable":1,
-                "currentStatus":1,
-                "mac":"FF:FF:FF:FF:FF:FF",
-                "client": {
-                    "ssid": "MOXA-MAR-1",
-                    "signal": -79,
-                    "ip":"192.168.41.127",
-                    "netmask":"255.255.255.0",
-                    "subnet":"192.168.41.0",
-                    "gateway":"192.168.41.254",
-                    "enableDhcp": 1,
-                    "network": [
-                        {
-                            "enable": 1,
-                            "priority": 0,
-                            "ssid": "MOXA-MAR-1",
-                            "mode": 2,
-                            "keyFormat": 0,
-                            "psk": "moxamoxa",
-                            "txKey": 0,
-                            "key": ["", "", "", ""],
-                            "identity": "",
-                            "password": ""
-                        }
-                    ]
-                }
-            }
-
-### Update an WiFi Interface [PUT]
-
-The request for PUT has following attributes:
-
-- **mode** (required, number, `1`): `0` for AP mode and `1` for client mode, in MXcloud, the value is always `1`.
-- **enable** (required, number, `1`): Indicate the link status of the Wireless interface should be set to up (`1`) or down (`0`).
-- **client.ip** (required, IP address, `192.168.3.127`): IP address for the Wireless interface.
-- **client.netmask** (required, IP address, `255.255.255.0`): Subnet mask for the Wireless interface.
-- **client.subnet** (required, IP address, `192.168.3.0`): A subnet (short for "subnetwork") is an identifiably separate part of an organization's network.
-- **client.gateway** (required, IP address, `192.168.3.254`): Gateway is a router or a proxy server that routes between networks.
-- **client.enableDhcp** (required, number, `0`): Enable (`1`) the dhcp client or using the static IP (`0`).
-- **client.network[].enable** (required, number, `1`): Indicate the network status, `0` for disable and `1` for enable.
-- **client.network[].priority** (required, number, `0`): Priority to connect to the network, the larger the priority value, the sooner the network is matched against the scan results.
-- **client.network[].ssid** (required, string): A Wireless AP name to connect to.
-- **client.network[].mode** (required, enum{NONE, WEP, WPA-PSK, WPA-EAP}, `0`): Security mode of the Wireless AP.
-- **client.network[].keyFormat** (optional, enum{ASCII, HEX}, `0`): Key format for WEP or WPA-PSK.
-- **client.network[].psk** (optional, string, `moxamoxa`): Pre-shared key.
-- **client.network[].txKey** (optional, enum{0, 1, 2, 3}, `0`): Default key index for WEP.
-- **client.network[].key** (optional, string array): 4 WEP keys.
-- **client.network[].identity** (optional, string): Identity for WPA-EAP.
-- **client.network[].password** (optional, string): Password for WPA-EAP.
-
-The response for PUT is same as that for GET.
-
-The error response has following attributes:
-
-- **status** (required, number, `1100`): Status code for error message.
-- **message** (required, string): Error message in English.
-
-+ Request (application/json)
-
-        {
-            "mode":1,
-            "enable":1,
-            "client": {
-                "ip":"192.168.41.127",
-                "netmask":"255.255.255.0",
-                "subnet":"192.168.41.0",
-                "gateway":"192.168.41.254",
-                "enableDhcp": 1,
-                "network": [
-                    {
-                        "enable": 1,
-                        "priority": 0,
-                        "mode": 2,
-                        "keyFormat": 0,
-                        "ssid": "MOXA-MAR-1",
-                        "psk": "moxamoxa",
-                        "txKey": 0,
-                        "key": ["", "", "", ""],
-                        "identity": "",
-                        "password": ""
-                    }
-                ]
-            }
-        }
-
-+ Response 200 (application/json)
-
-        {
-            "id":1,
-            "name":"wlan0",
-            "mode":1,
-            "enable":1,
-            "currentStatus":1,
-            "mac":"FF:FF:FF:FF:FF:FF",
-            "client": {
-                "ip":"192.168.41.127",
-                "netmask":"255.255.255.0",
-                "subnet":"192.168.41.0",
-                "gateway":"192.168.41.254",
-                "enableDhcp": 1,
-                "network": [
-                    {
-                        "enable": 1,
-                        "priority": 0,
-                        "mode": 2,
-                        "keyFormat": 0,
-                        "ssid": "MOXA-MAR-1",
-                        "psk": "moxamoxa",
-                        "txKey": 0,
-                        "key": ["", "", "", ""],
-                        "identity": "",
-                        "password": ""
-                    }
-                ]
-            }
-        }
-
-+ Response 404 (application/json)
 
         {
             "status": 2101,
@@ -1154,7 +828,7 @@ The response has following attributes:
 
 - **route_interface** (required, string): show the current dns corresponging interface
 - **dns** (required, object array): show current running dns servers.
-- **dns_list** (option, dictionary): show all interface and corresponding dns list 
+- **dns_list** (option, dictionary): show all interface and corresponding dns list
 
 + Response 200 (application/json; charset=utf-8)
 
@@ -1561,7 +1235,7 @@ The request for PUT has following attributes (this is an **event** message):
             "gateway":"192.168.3.254",
             "dns":["8.8.8.8", "8.8.4.4"],
         }
-        
+
 + Response 200 (application/json)
 
         {
@@ -1576,18 +1250,17 @@ A set of jobs meta information.
 ### Retrieve jobs [GET]
 Get all current exist jobs.
 
-+ Response 200 (application/json)
++ Response 200 (application/json; charset=utf-8)
 
         [
           {
             "id": 123145,
             "createdAt": "2014-12-17T06:27:58.220Z",
             "finishedAt": null,
-            "timeout": 36000,
             "status": "dispatching",
             "progress": 0,
             "totalCount": 2,
-            "finishCount": 0,
+            "doneCount": 0,
             "errorCount": 0,
             "requests": [
               {
@@ -1624,11 +1297,10 @@ Get all current exist jobs.
             "id": 345235,
             "createdAt": "2014-12-17T06:27:58.220Z",
             "finishedAt": null,
-            "timeout": 36000,
             "status": "dispatching",
             "progress": 0,
             "totalCount": 1,
-            "finishCount": 0,
+            "doneCount": 0,
             "errorCount": 0,
             "requests": [
               {
@@ -1658,84 +1330,78 @@ The request for POST has following attributes:
 
 Reboot 3 devices `00:0c:29:1c:e8:01`, `00:0c:29:1c:e8:02`, `00:0c:29:1c:e8:03` at once.
 
-+ Request (application/json)
++ Request (application/json; charset=utf-8)
 
         {
           "destinations": ["00:0c:29:1c:e8:01", "00:0c:29:1c:e8:02", "00:0c:29:1c:e8:03"],
           "message": {
-            "method": "post",
-            "resource": "/system/reboot"
+            "method": "get",
+            "resource": "/system/time"
           }
         }
 
-+ Response 200 (application/json)
++ Response 200 (application/json; charset=utf-8)
 
-          {
-            "id": 123145,
-            "createdAt": "2014-12-17T06:27:58.220Z",
-            "finishedAt": null,
-            "status": "dispatching",
-            "progress": 0,
-            "totalCount": 3,
-            "finishCount": 0,
-            "errorCount": 0,
-            "requests": [
-              {
-                "id": 8330,
-                "method": "post",
-                "resource": "/system/reboot",
-                "__request": {
-                  "destination": "00:0c:29:1c:e8:01",
-                  "createdAt": "2014-12-17T06:27:58.220Z",
-                  "finishedAt": null,
-                  "timeout": 36000,
-                  "progress": 0,
-                  "status": "resolved",
-                  "result": {
-                    "code": 200,
-                    "resource": "/system/reboot",
-                    "data": null
-                  }
-                }
-              },
-              {
-                "id": 34534,
-                "method": "post",
-                "resource": "/system/reboot",
-                "__request": {
-                  "destination": "00:0c:29:1c:e8:02",
-                  "createdAt": "2014-12-17T06:27:58.220Z",
-                  "finishedAt": null,
-                  "timeout": 36000,
-                  "progress": 0,
-                  "status": "created",
-                  "result": null
-                }
-              },
-              {
-                "id": 2323,
-                "method": "post",
-                "resource": "/system/reboot",
-                "__request": {
-                  "destination": "00:0c:29:1c:e8:03",
-                  "createdAt": "2014-12-17T06:27:58.220Z",
-                  "finishedAt": null,
-                  "timeout": 36000,
-                  "progress": 0,
-                  "status": "created",
-                  "result": null
-                }
+        {
+          "id": 123145,
+          "createdAt": "2014-12-17T06:27:58.220Z",
+          "finishedAt": null,
+          "status": "dispatching",
+          "progress": 0,
+          "totalCount": 3,
+          "doneCount": 0,
+          "errorCount": 0,
+          "requests": [
+            {
+              "id": 8330,
+              "method": "post",
+              "resource": "/system/reboot",
+              "__request": {
+                "destination": "00:0c:29:1c:e8:01",
+                "createdAt": "2014-12-17T06:27:58.220Z",
+                "finishedAt": null,
+                "timeout": 36000,
+                "progress": 0,
+                "status": "resolved",
+                "result": null
               }
-            ]
-          }
-             
-              
+            },
+            {
+              "id": 34534,
+              "method": "post",
+              "resource": "/system/reboot",
+              "__request": {
+                "destination": "00:0c:29:1c:e8:02",
+                "createdAt": "2014-12-17T06:27:58.220Z",
+                "finishedAt": null,
+                "timeout": 36000,
+                "progress": 0,
+                "status": "created",
+                "result": null
+              }
+            },
+            {
+              "id": 2323,
+              "method": "post",
+              "resource": "/system/reboot",
+              "__request": {
+                "destination": "00:0c:29:1c:e8:03",
+                "createdAt": "2014-12-17T06:27:58.220Z",
+                "finishedAt": null,
+                "timeout": 36000,
+                "progress": 0,
+                "status": "created",
+                "result": null
+              }
+            }
+          ]
+        }
 
 ## Job [/jobs/{id}]
 Single job information
 
 + Parameters
-    + id (string) ... ID of the job in the form of a integer
+    + id (required, number, `12345`) ... ID of the job in the form of a integer.
 
 The response for GET has following attributes:
 
@@ -1752,7 +1418,7 @@ The response for GET has following attributes:
 ### Retrieve a job information [GET]
 Get job's current status and requests contains.
 
-+ Response 200 (application/json)
++ Response 200 (application/json; charset=utf-8)
 
         {
           "id": 123145,
@@ -1761,24 +1427,11 @@ Get job's current status and requests contains.
           "status": "dispatching",
           "progress": 100,
           "totalCount": 5,
-          "finishCount": 3,
+          "doneCount": 3,
           "errorCount": 2,
-          "requests": [
-            {
-              "id": 2323,
-              "method": "post",
-              "resource": "/system/reboot",
-              "__request": {
-                "destination": "00:0c:29:1c:e8:03",
-                "createdAt": "2014-12-17T06:27:58.220Z",
-                "finishedAt": null,
-                "timeout": 36000,
-                "status": "created",
-                "result": null
-              }
-            }
-          ]
+          "requests": [2323]
         }
+
 
 ## Request Collection [/requests]
 A set of Requests meta information.
@@ -1786,7 +1439,7 @@ A set of Requests meta information.
 ### Retrieve Request [GET]
 Get all current exist requests.
 
-+ Response 200 (application/json)
++ Response 200 (application/json; charset=utf-8)
 
         [
           {
@@ -1820,11 +1473,55 @@ Get all current exist requests.
         ]
 
 
+### Create a request [POST]
+The request for POST has following attributes:
+
+- **destination** (optional, string): Create request for whom (default: localhost). If you want to send to many please create a **Job**.
+- **message** (required, SanjiMessage): A standard Sanji Message(request) must include `method`, `resource`
+- **options.timeout** (optional, integer): Set requests' timeout
+
+The response for POST has following attributes:
+- **requests** (array): IDs of requests belongs to this job.
+
++ Request (application/json; charset=utf-8)
+
+        {
+          "destination": "cg-1122334455aa",
+          "message": {
+            "method": "get",
+            "resource": "/system/status",
+            "data": {
+              "test": "reqRequestData"
+            }
+          }
+        }
+
++ Response 200 (application/json; charset=utf-8)
+
+        {
+          "id": 2323,
+          "method": "get",
+          "resource": "/system/status",
+          "data": {
+            "test": "reqRequestData"
+          },
+          "__request": {
+            "destination": "AA-BB-CC-DD-11-22",
+            "createdAt": "2014-12-17T06:27:58.220Z",
+            "finishedAt": null,
+            "timeout": 36000,
+            "status": "created",
+            "progress": 0,
+            "result": null
+          }
+        }
+
+
 ## Request [/requests/{id}]
 Request is a command/data/event from server to client (one-to-one).
 
 + Parameters
-    + id (string) ... ID of the request in the form of a integer
+    + id (required, number, `2323`) ... ID of the request in the form of a integer.
 
 ### Retrieve a request information [GET]
 
@@ -1844,7 +1541,7 @@ Basically, just extend original *Sanji Message (one-to-one)* with adding a prope
 - **__request.result** (object): Result of this request. (null if status != resolved)
 
 
-+ Response 200 (application/json)
++ Response 200 (application/json; charset=utf-8)
 
         {
           "id": 2323,
@@ -1852,49 +1549,6 @@ Basically, just extend original *Sanji Message (one-to-one)* with adding a prope
           "resource": "/system/reboot",
           "__request": {
             "destination": "00:0c:29:1c:e8:03",
-            "createdAt": "2014-12-17T06:27:58.220Z",
-            "finishedAt": null,
-            "timeout": 36000,
-            "status": "created",
-            "progress": 0,
-            "result": null
-          }
-        }
-
-### Create a request [POST]
-The request for POST has following attributes:
-
-- **destination** (optional, string): Create request for whom (default: localhost). If you want to send to many please create a **Job**.
-- **message** (required, SanjiMessage): A standard Sanji Message(request) must include `method`, `resource`
-- **options.timeout** (optional, integer): Set requests' timeout
-
-The response for POST has following attributes:
-- **requests** (array): IDs of requests belongs to this job.
-
-+ Request (application/json)
-
-        {
-          "destination": "AA-BB-CC-DD-11-22",
-          "message": {
-            "method": "get",
-            "resource": "/system/status",
-            "data": {
-              "test": "reqRequestData"
-            }
-          }
-        }
-
-+ Response 200 (application/json)
-
-        {
-          "id": 2323,
-          "method": "get",
-          "resource": "/system/status",
-          "data": {
-            "test": "reqRequestData"
-          }
-          "__request": {
-            "destination": "AA-BB-CC-DD-11-22",
             "createdAt": "2014-12-17T06:27:58.220Z",
             "finishedAt": null,
             "timeout": 36000,
