@@ -121,8 +121,8 @@ The response for GET has following attributes:
               "authType": "",
               "delay": 40
             }
-            
-            
+
+
 ### Update an Cellular [PUT]
 
 The request for PUT has following attributes:
@@ -165,7 +165,7 @@ The error response has following attributes:
               "dns": "",
               "ip": "",
               "pinCode": "",
-              "username": "",  
+              "username": "",
               "status": 0,
               "operatorName": "",
               "delay": 40
@@ -828,7 +828,7 @@ The response has following attributes:
 
 - **route_interface** (required, string): show the current dns corresponging interface
 - **dns** (required, object array): show current running dns servers.
-- **dns_list** (option, dictionary): show all interface and corresponding dns list 
+- **dns_list** (option, dictionary): show all interface and corresponding dns list
 
 + Response 200 (application/json; charset=utf-8)
 
@@ -1235,7 +1235,7 @@ The request for PUT has following attributes (this is an **event** message):
             "gateway":"192.168.3.254",
             "dns":["8.8.8.8", "8.8.4.4"],
         }
-        
+
 + Response 200 (application/json)
 
         {
@@ -1250,18 +1250,17 @@ A set of jobs meta information.
 ### Retrieve jobs [GET]
 Get all current exist jobs.
 
-+ Response 200 (application/json)
++ Response 200 (application/json; charset=utf-8)
 
         [
           {
             "id": 123145,
             "createdAt": "2014-12-17T06:27:58.220Z",
             "finishedAt": null,
-            "timeout": 36000,
             "status": "dispatching",
             "progress": 0,
             "totalCount": 2,
-            "finishCount": 0,
+            "doneCount": 0,
             "errorCount": 0,
             "requests": [
               {
@@ -1298,11 +1297,10 @@ Get all current exist jobs.
             "id": 345235,
             "createdAt": "2014-12-17T06:27:58.220Z",
             "finishedAt": null,
-            "timeout": 36000,
             "status": "dispatching",
             "progress": 0,
             "totalCount": 1,
-            "finishCount": 0,
+            "doneCount": 0,
             "errorCount": 0,
             "requests": [
               {
@@ -1332,84 +1330,78 @@ The request for POST has following attributes:
 
 Reboot 3 devices `00:0c:29:1c:e8:01`, `00:0c:29:1c:e8:02`, `00:0c:29:1c:e8:03` at once.
 
-+ Request (application/json)
++ Request (application/json; charset=utf-8)
 
         {
           "destinations": ["00:0c:29:1c:e8:01", "00:0c:29:1c:e8:02", "00:0c:29:1c:e8:03"],
           "message": {
-            "method": "post",
-            "resource": "/system/reboot"
+            "method": "get",
+            "resource": "/system/time"
           }
         }
 
-+ Response 200 (application/json)
++ Response 200 (application/json; charset=utf-8)
 
-          {
-            "id": 123145,
-            "createdAt": "2014-12-17T06:27:58.220Z",
-            "finishedAt": null,
-            "status": "dispatching",
-            "progress": 0,
-            "totalCount": 3,
-            "finishCount": 0,
-            "errorCount": 0,
-            "requests": [
-              {
-                "id": 8330,
-                "method": "post",
-                "resource": "/system/reboot",
-                "__request": {
-                  "destination": "00:0c:29:1c:e8:01",
-                  "createdAt": "2014-12-17T06:27:58.220Z",
-                  "finishedAt": null,
-                  "timeout": 36000,
-                  "progress": 0,
-                  "status": "resolved",
-                  "result": {
-                    "code": 200,
-                    "resource": "/system/reboot",
-                    "data": null
-                  }
-                }
-              },
-              {
-                "id": 34534,
-                "method": "post",
-                "resource": "/system/reboot",
-                "__request": {
-                  "destination": "00:0c:29:1c:e8:02",
-                  "createdAt": "2014-12-17T06:27:58.220Z",
-                  "finishedAt": null,
-                  "timeout": 36000,
-                  "progress": 0,
-                  "status": "created",
-                  "result": null
-                }
-              },
-              {
-                "id": 2323,
-                "method": "post",
-                "resource": "/system/reboot",
-                "__request": {
-                  "destination": "00:0c:29:1c:e8:03",
-                  "createdAt": "2014-12-17T06:27:58.220Z",
-                  "finishedAt": null,
-                  "timeout": 36000,
-                  "progress": 0,
-                  "status": "created",
-                  "result": null
-                }
+        {
+          "id": 123145,
+          "createdAt": "2014-12-17T06:27:58.220Z",
+          "finishedAt": null,
+          "status": "dispatching",
+          "progress": 0,
+          "totalCount": 3,
+          "doneCount": 0,
+          "errorCount": 0,
+          "requests": [
+            {
+              "id": 8330,
+              "method": "post",
+              "resource": "/system/reboot",
+              "__request": {
+                "destination": "00:0c:29:1c:e8:01",
+                "createdAt": "2014-12-17T06:27:58.220Z",
+                "finishedAt": null,
+                "timeout": 36000,
+                "progress": 0,
+                "status": "resolved",
+                "result": null
               }
-            ]
-          }
-             
-              
+            },
+            {
+              "id": 34534,
+              "method": "post",
+              "resource": "/system/reboot",
+              "__request": {
+                "destination": "00:0c:29:1c:e8:02",
+                "createdAt": "2014-12-17T06:27:58.220Z",
+                "finishedAt": null,
+                "timeout": 36000,
+                "progress": 0,
+                "status": "created",
+                "result": null
+              }
+            },
+            {
+              "id": 2323,
+              "method": "post",
+              "resource": "/system/reboot",
+              "__request": {
+                "destination": "00:0c:29:1c:e8:03",
+                "createdAt": "2014-12-17T06:27:58.220Z",
+                "finishedAt": null,
+                "timeout": 36000,
+                "progress": 0,
+                "status": "created",
+                "result": null
+              }
+            }
+          ]
+        }
 
 ## Job [/jobs/{id}]
 Single job information
 
 + Parameters
-    + id (string) ... ID of the job in the form of a integer
+    + id (required, number, `12345`) ... ID of the job in the form of a integer.
 
 The response for GET has following attributes:
 
@@ -1426,7 +1418,7 @@ The response for GET has following attributes:
 ### Retrieve a job information [GET]
 Get job's current status and requests contains.
 
-+ Response 200 (application/json)
++ Response 200 (application/json; charset=utf-8)
 
         {
           "id": 123145,
@@ -1435,24 +1427,11 @@ Get job's current status and requests contains.
           "status": "dispatching",
           "progress": 100,
           "totalCount": 5,
-          "finishCount": 3,
+          "doneCount": 3,
           "errorCount": 2,
-          "requests": [
-            {
-              "id": 2323,
-              "method": "post",
-              "resource": "/system/reboot",
-              "__request": {
-                "destination": "00:0c:29:1c:e8:03",
-                "createdAt": "2014-12-17T06:27:58.220Z",
-                "finishedAt": null,
-                "timeout": 36000,
-                "status": "created",
-                "result": null
-              }
-            }
-          ]
+          "requests": [2323]
         }
+
 
 ## Request Collection [/requests]
 A set of Requests meta information.
@@ -1460,7 +1439,7 @@ A set of Requests meta information.
 ### Retrieve Request [GET]
 Get all current exist requests.
 
-+ Response 200 (application/json)
++ Response 200 (application/json; charset=utf-8)
 
         [
           {
@@ -1494,11 +1473,55 @@ Get all current exist requests.
         ]
 
 
+### Create a request [POST]
+The request for POST has following attributes:
+
+- **destination** (optional, string): Create request for whom (default: localhost). If you want to send to many please create a **Job**.
+- **message** (required, SanjiMessage): A standard Sanji Message(request) must include `method`, `resource`
+- **options.timeout** (optional, integer): Set requests' timeout
+
+The response for POST has following attributes:
+- **requests** (array): IDs of requests belongs to this job.
+
++ Request (application/json; charset=utf-8)
+
+        {
+          "destination": "cg-1122334455aa",
+          "message": {
+            "method": "get",
+            "resource": "/system/status",
+            "data": {
+              "test": "reqRequestData"
+            }
+          }
+        }
+
++ Response 200 (application/json; charset=utf-8)
+
+        {
+          "id": 2323,
+          "method": "get",
+          "resource": "/system/status",
+          "data": {
+            "test": "reqRequestData"
+          },
+          "__request": {
+            "destination": "AA-BB-CC-DD-11-22",
+            "createdAt": "2014-12-17T06:27:58.220Z",
+            "finishedAt": null,
+            "timeout": 36000,
+            "status": "created",
+            "progress": 0,
+            "result": null
+          }
+        }
+
+
 ## Request [/requests/{id}]
 Request is a command/data/event from server to client (one-to-one).
 
 + Parameters
-    + id (string) ... ID of the request in the form of a integer
+    + id (required, number, `2323`) ... ID of the request in the form of a integer.
 
 ### Retrieve a request information [GET]
 
@@ -1518,7 +1541,7 @@ Basically, just extend original *Sanji Message (one-to-one)* with adding a prope
 - **__request.result** (object): Result of this request. (null if status != resolved)
 
 
-+ Response 200 (application/json)
++ Response 200 (application/json; charset=utf-8)
 
         {
           "id": 2323,
@@ -1526,49 +1549,6 @@ Basically, just extend original *Sanji Message (one-to-one)* with adding a prope
           "resource": "/system/reboot",
           "__request": {
             "destination": "00:0c:29:1c:e8:03",
-            "createdAt": "2014-12-17T06:27:58.220Z",
-            "finishedAt": null,
-            "timeout": 36000,
-            "status": "created",
-            "progress": 0,
-            "result": null
-          }
-        }
-
-### Create a request [POST]
-The request for POST has following attributes:
-
-- **destination** (optional, string): Create request for whom (default: localhost). If you want to send to many please create a **Job**.
-- **message** (required, SanjiMessage): A standard Sanji Message(request) must include `method`, `resource`
-- **options.timeout** (optional, integer): Set requests' timeout
-
-The response for POST has following attributes:
-- **requests** (array): IDs of requests belongs to this job.
-
-+ Request (application/json)
-
-        {
-          "destination": "AA-BB-CC-DD-11-22",
-          "message": {
-            "method": "get",
-            "resource": "/system/status",
-            "data": {
-              "test": "reqRequestData"
-            }
-          }
-        }
-
-+ Response 200 (application/json)
-
-        {
-          "id": 2323,
-          "method": "get",
-          "resource": "/system/status",
-          "data": {
-            "test": "reqRequestData"
-          }
-          "__request": {
-            "destination": "AA-BB-CC-DD-11-22",
             "createdAt": "2014-12-17T06:27:58.220Z",
             "finishedAt": null,
             "timeout": 36000,
