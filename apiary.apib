@@ -533,52 +533,86 @@ The response for PUT has following attributes:
 # Group ImportExport
 Notes related resources of the **ImportExport API**
 
-## ImportExport [/system/importexport]
+## Import [/system/import]
 The importexport object allows user to import/export configuration files to/from the system.
 
-### ImportExport the system [PUT]
-The response for PUT has following attributes:
+### Import the system [POST]
+The response for POST has following attributes:
 
-- **enable** (required, number, `1`): Indicate the system will be reboot soon.
+- **reboot** (optional, number, `3`): Reboot delay time in seconds.
 
+(From web to backend)
++ Request (multipart/form-data;boundary=----WebKitFormBoundary8M3sSU13ul5lXSJm)
+    + Body
+
+            ------WebKitFormBoundary8M3sSU13ul5lXSJm
+            Content-Disposition: form-data; name="formData"
+
+
+            {"reboot": 3}
+            ------WebKitFormBoundary8M3sSU13ul5lXSJm
+
+            Content-Disposition: form-data; name="firmware"; filename="export.tar.gz"
+            Content-Type: application/x-tar-gz
+
+            data
+            ------WebKitFormBoundary8M3sSU13ul5lXSJm--
+
++ Response 200 (application/json)
+
+        {}
+
+(From backend to bundle)
 + Request  (application/json)
 
         {
+          "id": 3,
+          "resource": "/system/importexport",
+          "method": "post",
+          "data": {
+            "_file": {
+              "files": [
+                "export.tar.gz"
+              ],
+              "publicLink": {
+                "export.tar.gz": "https://192.168.31.81/api/v1/download/3e155c866fb761f464be38fcb4523351057b9547"
+              }
+            }
+          }
         }
 
 + Response 200 (application/json)
 
-        {
-        }
+        {}
 
-+ Response 400 (application/json)
+## Export [/system/export]
 
-        {
-            "status": 1090,
-            "message": "Import configuration files failed."
-        }
-
-
-### ImportExport the system [GET]
+### Export the system [GET]
+(From web to backend)
 The response for GET has following attributes:
 
-- **enable** (required, number, `1`): Indicate the system will be reboot soon.
++ Request  (application/json)
+
+        binary data goes here
+
++ Response 200 (application/octet-stream)
+
+        ```binary data goes here```
+
+### Export the system [POST]
+(From backend to bundle)
+The response for GET has following attributes:
 
 + Request  (application/json)
 
         {
+          "url": "https://server/upload"
         }
 
 + Response 200 (application/json)
 
         {
-        }
-
-+ Response 400 (application/json)
-
-        {
-            "status": 1091,
-            "message": "Export configuration files failed."
+          "url": "https://server/upload/xxxxxxx"
         }
 
 
