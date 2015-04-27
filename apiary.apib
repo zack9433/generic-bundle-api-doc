@@ -536,12 +536,13 @@ Notes related resources of the **ImportExport API**
 ## Import [/system/import]
 The importexport object allows user to import/export configuration files to/from the system.
 
-### Import the system [POST]
-The response for POST has following attributes:
+### Import the system [PUT]
+The response for PUT has following attributes:
 
 - **reboot** (optional, number, `3`): Reboot delay time in seconds.
 
 (From web to backend)
+
 + Request (multipart/form-data;boundary=----WebKitFormBoundary8M3sSU13ul5lXSJm)
     + Body
 
@@ -562,14 +563,15 @@ The response for POST has following attributes:
 
         {}
 
-(From backend to bundle)
 + Request  (application/json)
 
+        // (From backend to bundle)
         {
           "id": 3,
           "resource": "/system/importexport",
           "method": "post",
           "data": {
+            "reboot": 3,
             "_file": {
               "files": [
                 "export.tar.gz"
@@ -588,12 +590,12 @@ The response for POST has following attributes:
 ## Export [/system/export]
 
 ### Export the system [GET]
+
+The response for GET would be a file.
 (From web to backend)
-The response for GET has following attributes:
 
 + Request  (application/json)
 
-        binary data goes here
 
 + Response 200 (application/octet-stream)
 
@@ -606,7 +608,10 @@ The response for GET has following attributes:
 + Request  (application/json)
 
         {
-          "url": "https://server/upload"
+          "url": "https://server/upload",
+          "headers": {
+            "accessToken": "MOXAMOXA-TEST-SYSTEM"
+          }
         }
 
 + Response 200 (application/json)
