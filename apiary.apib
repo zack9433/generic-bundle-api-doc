@@ -537,47 +537,24 @@ Notes related resources of the **ImportExport API**
 The importexport object allows user to import/export configuration files to/from the system.
 
 ### Import the system [PUT]
-The response for PUT has following attributes:
+The request for PUT has following attributes:
 
 - **reboot** (optional, number, `3`): Reboot delay time in seconds.
-
-(From web to backend)
-
-+ Request (multipart/form-data;boundary=----WebKitFormBoundary8M3sSU13ul5lXSJm)
-    + Body
-
-            ------WebKitFormBoundary8M3sSU13ul5lXSJm
-            Content-Disposition: form-data; name="formData"
-
-
-            {"reboot": 3}
-            ------WebKitFormBoundary8M3sSU13ul5lXSJm
-
-            Content-Disposition: form-data; name="firmware"; filename="export.tar.gz"
-            Content-Type: application/x-tar-gz
-
-            data
-            ------WebKitFormBoundary8M3sSU13ul5lXSJm--
-
-+ Response 200 (application/json)
-
-        {}
+- **file.url** (required, string, `3`): Reboot delay time in seconds.
+- **file.headers** (optional, object): Headers for fetch the file if necessary.
 
 + Request  (application/json)
 
-        // (From backend to bundle)
         {
           "id": 3,
-          "resource": "/system/importexport",
-          "method": "post",
+          "resource": "/system/import",
+          "method": "put",
           "data": {
             "reboot": 3,
-            "_file": {
-              "files": [
-                "export.tar.gz"
-              ],
-              "publicLink": {
-                "export.tar.gz": "https://192.168.31.81/api/v1/download/3e155c866fb761f464be38fcb4523351057b9547"
+            "file": {
+              "url": "http://192.168.31.81:5000/api/v1/download/1234",
+              "headers": {
+                "accessToken": "MOXAMOXA-TEST-SYSTEM"
               }
             }
           }
