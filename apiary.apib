@@ -753,7 +753,7 @@ The Collection response has following attributes:
                     "netmask": "255.255.255.0",
                     "startIP": "192.168.3.100",
                     "endIP": "192.168.3.150",
-                    "dns": ["8.8.8.8", "1.1.1.1", "2.2.2.2"],
+                    "domainNameServers": ["8.8.8.8", "1.1.1.1", "2.2.2.2"],
                     "domainName": "cloud 5566",
                     "leaseTime": "3600"
                 }
@@ -783,7 +783,7 @@ The response has following attributes:
             "netmask": "255.255.255.0",
             "startIP": "192.168.3.100",
             "endIP": "192.168.3.150",
-            "dns": ["8.8.8.8", "1.1.1.1", "2.2.2.2"],
+            "domainNameServers": ["8.8.8.8", "1.1.1.1", "2.2.2.2"],
             "domainName": "cloud 5566",
             "leaseTime": "3600"
         }
@@ -801,7 +801,7 @@ The collection request/response for update has following attributes:
 - **collection[]netmask** (required, string): netmask
 - **collection[]startIP** (required, string): start IP of DHCP server
 - **collection[]endIP** (required, string): end IP of DHCP server
-- **collection[]dns** (optional, object array): an object array to save dns list
+- **collection[]domainNameServers** (optional, object array): an object array to save dns list
 - **collection[]domainName** (optional, string): DHCP server domain name
 - **collection[]leaseTime** (required, string): leasetime of DHCP server
 
@@ -817,7 +817,7 @@ Suppose user want to update DHCP server of eth0 interface
             "netmask": "255.255.255.0",
             "startIP": "192.168.3.100",
             "endIP": "192.168.3.150",
-            "dns": ["8.8.8.8", "1.1.1.1", "2.2.2.2"],
+            "domainNameServers": ["8.8.8.8", "1.1.1.1", "2.2.2.2"],
             "domainName": "cloud 7788",
             "leaseTime": "3600"
         }
@@ -833,7 +833,7 @@ Suppose user want to update DHCP server of eth0 interface
             "netmask": "255.255.255.0",
             "startIP": "192.168.3.100",
             "endIP": "192.168.3.150",
-            "dns": ["8.8.8.8", "1.1.1.1", "2.2.2.2"],
+            "domainNameServers": ["8.8.8.8", "1.1.1.1", "2.2.2.2"],
             "domainName": "cloud 5566",
             "leaseTime": "3600"
         }
