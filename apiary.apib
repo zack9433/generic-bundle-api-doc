@@ -15,50 +15,27 @@ The Collection response has following attributes:
 + Response 200 (application/json)
 
         [
-            {
-              "apn": "internet",
-              "dialNumber": "*99#",
-              "enable": 0,
-              "id": 0,
-              "modemPort": "/dev/cdc-wdm0",
-              "atPort": "/dev/ttyUSB2",
-              "name": "ppp",
-              "password": "",
-              "gateway": "",
-              "dns": "",
-              "ip": "",
-              "pinCode": "",
-              "signal": "-95",
-              "username": "",
-              "enableAuth": 0,
-              "authType": "BOTH",
-              "status": 0,
-              "operatorName": "",
-              "delay": 40
-            },
-            {
-              "apn": "internet",
-              "dialNumber": "*99#",
-              "enable": 0,
-              "id": 1,
-              "modemPort": "/dev/cdc-wdm1",
-              "atPort": "/dev/ttyUSB5",
-              "name": "ppp",
-              "password": "",
-              "gateway": "",
-              "dns": "",
-              "ip": "",
-              "pinCode": "",
-              "signal": "-95",
-              "username": "",
-              "enableAuth": 0,
-              "authType": "BOTH",
-              "status": 0,
-              "operatorName": "",
-              "delay": 40
-            }
+          {
+            "id": 1,
+            "enable": 1,
+            "pinCode": "0000",
+            "name": "wwan1",
+            "username": "",
+            "subnet": "255.255.255.252",
+            "password": "",
+            "authType": "PAP",
+            "ip": "111.70.146.125",
+            "enableAuth": 0,
+            "gateway": "111.70.146.126",
+            "signal": -96,
+            "atPort": "/dev/ttyUSB1",
+            "dns": ["168.95.1.1" , "168.95.192.1"],
+            "status": 1,
+            "apn": "internet",
+            "operatorName": "Chunghwa Telecom",
+            "modemPort": "/dev/cdc-wdm1"
+          }
         ]
-
 
 ## Cellular [/network/cellulars/{id}]
 A single Cellular object with all its details
@@ -70,57 +47,48 @@ A single Cellular object with all its details
 
 The response for GET has following attributes:
 
-- **id** (required, number, `1`): Identifier for an Cellular interface.
-- **name** (required, string, `eth0`): Indicate the interface name.
-- **modemPort** (required, string, `/dev/cdc-wcm0`): Internally use modem port device node
-- **atPort** (required, string, `/dev/ttyUSB0`): Internally use AT port device node
-- **ip** (required, IP address, `192.168.3.127`): IP address for the Cellular interface.
-- **gateway** (required, IP address, `192.168.3.254`): Gateway is a router or a proxy server that routes between networks.
-- **dns** (required, IP address array): The Domain Name System (DNS) is a hierarchical distributed naming system for computers, services, or any resource connected to the Internet or a private network.
-- **enable** (required, number, `1`): Indicate the link status of Cellular interface should be set to up (`1`) or down (`0`).
-- **dialNumber** (required, string, `*99#`): Dial up modem number.
-- **pinCode** (optional, string, `0000`): Use this code to auth when exits.
-- **username** (optional, string, ``): Indicate the username to enter pap/chap.
-- **password** (optional, string, ``): Indicate the password to enter pap/chap.
-- **apn** (required, string, ``): Indicate apn of SIM card.
-- **signal** (required, number, `1`): Indicate apn of SIM card.
-- **modes** (required, string, ''): Allowed network modes, comma separated list of: all, lte, umts, gsm, cdma, td-scdma
-- **enableAuth** (required, number, `0`): Indicate the authentication need to be done before dialUp
-- **authType** (required, string, ``): Indicate type of authentication such as 'PAP','CHAP','BOTH'
-- **status** (required, number, `0`): Indicate current status of connection, '0' / '1'
-- **operatorName** (optional, string, ``): Indicate current operator name if exit
-- **delay** (required, number `31`): Seconds to wait before trying to interact with the modem (some ZTE modems require up to 30 s.)
+- **id** (number, `1`): Identifier for an Cellular interface.
+- **name** (string, `eth0`): Indicate the interface name.
+- **modemPort** (string, `/dev/cdc-wcm1`): Internally use modem port device node
+- **atPort** (string, `/dev/ttyUSB1`): Internally use AT port device node
+- **ip** (IP address, `111.70.146.125`): IP address for the Cellular interface.
+- **gateway** (IP address, `192.168.3.254`): Gateway is a router or a proxy server that routes between networks.
+- **subnet** (IP address, `255.255.255.252`): Cellular network's subnet mask.
+- **dns** (IP address array): The Domain Name System (DNS) is a hierarchical distributed naming system for computers, services, or any resource connected to the Internet or a private network.
+- **enable** (number, `1`): Indicate the link status of Cellular interface should be set to up (`1`) or down (`0`).
+- **pinCode** (string, `0000`): Use this code to auth when exits.
+- **username** (string, ``): Indicate the username to enter pap/chap.
+- **password** (string, ``): Indicate the password to enter pap/chap.
+- **apn** (string, `internet`): Indicate apn of SIM card.
+- **signal** (number, `99`): Indicate apn of SIM card.
+- **enableAuth** (number, `0`): Indicate the authentication need to be done before dialUp
+- **authType** (string, `PAP`): Indicate type of authentication such as 'PAP','CHAP','BOTH'
+- **status** (number, `0`): Indicate current status of connection, '0' / '1'
+- **operatorName** (string, ``): Indicate current operator name if exit
 
 
-+ Response 200 (application/json)
++ Response 200 (application/json; charset=utf-8)
 
-    + Header
-
-            X-My-Header: The Value
-
-    + Body
-
-            {
-              "apn": "internet",
-              "dialNumber": "*99#",
-              "enable": 0,
-              "id": 0,
-              "modemPort": "/dev/cdc-wdm0",
-              "atPort": "/dev/ttyUSB2",
-              "name": "ppp",
-              "password": "",
-              "gateway": "",
-              "dns": "",
-              "ip": "",
-              "pinCode": "",
-              "signal": "-95",
-              "username": "",
-              "enableAuth": 0,
-              "status": 0,
-              "operatorName": "",
-              "authType": "",
-              "delay": 40
-            }
+      {
+        "id": 1,
+        "enable": 1,
+        "pinCode": "0000",
+        "name": "wwan1",
+        "username": "",
+        "subnet": "255.255.255.252",
+        "password": "",
+        "authType": "PAP",
+        "ip": "111.70.146.125",
+        "enableAuth": 0,
+        "gateway": "111.70.146.126",
+        "signal": -96,
+        "atPort": "/dev/ttyUSB1",
+        "dns": ["168.95.1.1" , "168.95.192.1"],
+        "status": 1,
+        "apn": "internet",
+        "operatorName": "Chunghwa Telecom",
+        "modemPort": "/dev/cdc-wdm1"
+      }
 
 
 ### Update an Cellular [PUT]
@@ -128,20 +96,13 @@ The response for GET has following attributes:
 The request for PUT has following attributes:
 
 - **id** (required, number, `1`): Identifier for an Cellular interface.
-- **name** (required, string, `eth0`): Indicate the interface name.
-- **dns** (required, IP address array): The Domain Name System (DNS) is a hierarchical distributed naming system for computers, services, or any resource connected to the Internet or a private network.
-- **enable** (required, number, `1`): Indicate the link status of Cellular interface should be set to up (`1`) or down (`0`).
-- **dialNumber** (required, string, `*99#`): Dial up modem number.
-- **modemPort** (required, string, `/dev/cdc-wcm0`): Internally use modem port device node
-- **atPort** (required, string, `/dev/ttyUSB0`): Internally use AT port device node
+- **enable** (optional, number, `1`): Indicate the link status of Cellular interface should be set to up (`1`) or down (`0`).
 - **pinCode** (optional, string, `0000`): Use this code to auth when exits.
 - **username** (optional, string, ``): Indicate the username to enter pap/chap.
 - **password** (optional, string, ``): Indicate the password to enter pap/chap.
-- **apn** (required, string, ``): Indicate apn of SIM card.
-- **enableAuth** (required, number, `0`): Indicate the authentication need to be done before dialUp
-- **authType** (required, string, ``): Indicate type of authentication such as 'PAP','CHAP','BOTH'
-- **status** (required, string, `disconnect`): Indicate current status of connection, '1' / '0'
-- **delay** (required, number `31`): Seconds to wait before trying to interact with the modem (some ZTE modems require up to 30 s.)
+- **apn** (optional, string, ``): Indicate apn of SIM card.
+- **enableAuth** (optional, number, `0`): Indicate the authentication need to be done before dialUp
+- **authType** (optional, string, ``): Indicate type of authentication such as 'PAP','CHAP','BOTH'
 
 
 The response for PUT is same as that for GET.
@@ -153,50 +114,45 @@ The error response has following attributes:
 
 + Request (application/json)
 
-            {
-              "apn": "internet",
-              "dialNumber": "*99#",
-              "enable": 0,
-              "id": 0,
-              "modemPort": "/dev/cdc-wdm0",
-              "atPort": "/dev/ttyUSB2",
-              "name": "ppp",
-              "password": "",
-              "dns": "",
-              "ip": "",
-              "pinCode": "",
-              "username": "",
-              "status": 0,
-              "operatorName": "",
-              "delay": 40
-
-            }
+      {
+        "id": 1,
+        "enable": 1,
+        "pinCode": "0000",
+        "username": "",
+        "password": "",
+        "authType": "PAP",
+        "enableAuth": 0,
+        "apn": "internet",
+      }
 
 + Response 200 (application/json)
 
-        {
-              "apn": "internet",
-              "dialNumber": "*99#",
-              "enable": 0,
-              "id": 0,
-              "modemPort": "/dev/cdc-wdm0",
-              "atPort": "/dev/ttyUSB2",
-              "name": "ppp",
-              "password": "",
-              "dns": "",
-              "ip": "",
-              "pinCode": "",
-              "username": "",
-              "status": 0,
-              "operatorName": "",
-              "delay": 40
-            }
+      {
+        "id": 1,
+        "enable": 1,
+        "pinCode": "0000",
+        "name": "wwan1",
+        "username": "",
+        "subnet": "255.255.255.252",
+        "password": "",
+        "authType": "PAP",
+        "ip": "111.70.146.125",
+        "enableAuth": 0,
+        "gateway": "111.70.146.126",
+        "signal": -96,
+        "atPort": "/dev/ttyUSB1",
+        "dns": ["168.95.1.1" , "168.95.192.1"],
+        "status": 1,
+        "apn": "internet",
+        "operatorName": "Chunghwa Telecom",
+        "modemPort": "/dev/cdc-wdm1"
+      }
 
 + Response 400 (application/json)
 
-        {
-            "message": "Unable to apply!"
-        }
+      {
+          "message": "Unable to apply!"
+      }
 
 # Group Ethernet
 Notes related resources of the **Ethernet API**
