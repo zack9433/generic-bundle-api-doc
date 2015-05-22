@@ -62,7 +62,7 @@ The response for GET has following attributes:
 - **apn** (string, `internet`): Indicate apn of SIM card.
 - **signal** (number, `99`): Indicate apn of SIM card.
 - **enableAuth** (number, `0`): Indicate the authentication need to be done before dialUp
-- **authType** (string, `PAP`): Indicate type of authentication such as 'PAP','CHAP','BOTH'
+- **authType** (string, `PAP`): Indicate type of authentication such as 'PAP','CHAP'
 - **status** (number, `0`): Indicate current status of connection, '0' / '1'
 - **operatorName** (string, ``): Indicate current operator name if exit
 
@@ -102,7 +102,7 @@ The request for PUT has following attributes:
 - **password** (optional, string, ``): Indicate the password to enter pap/chap.
 - **apn** (optional, string, ``): Indicate apn of SIM card.
 - **enableAuth** (optional, number, `0`): Indicate the authentication need to be done before dialUp
-- **authType** (optional, string, ``): Indicate type of authentication such as 'PAP','CHAP','BOTH'
+- **authType** (optional, string, ``): Indicate type of authentication such as 'PAP','CHAP'
 
 
 The response for PUT is same as that for GET.
