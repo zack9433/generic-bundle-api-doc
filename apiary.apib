@@ -428,7 +428,7 @@ The firmware information with all its details
 
 The response for GET has following attributes:
 
-- **version** (required, string, `1.0`): The firmware version.
+- **version** (required, string, `1.0.0`): The firmware version.
 - **server** (required, string, `www.moxa.com`): Server to download the latest version of firmware.
 
 + Response 200 (application/json)
@@ -440,7 +440,7 @@ The response for GET has following attributes:
     + Body
 
             {
-                "version": "1.0",
+                "version": "1.0.0",
                 "server": "www.moxa.com"
             }
 
@@ -484,6 +484,27 @@ The response for PUT has following attributes:
             "status": 1002,
             "message": "Resource busy!"
         }
+
+## Latest Firmware Version [/system/firmware/latest]
+The latest firmware version
+
+### Retrieve the latest firmware version [GET]
+
+The response for GET has following attributes:
+
+- **version** (required, string, `1.1.0`): The latest firmware version.
+
++ Response 200 (application/json)
+
+    + Header
+
+            X-My-Header: The Value
+
+    + Body
+
+            {
+                "version": "1.1.0"
+            }
 
 
 # Group ImportExport
@@ -1188,6 +1209,9 @@ The request and response has following attributes:
             "gateway": "192.168.4.254"
         }
 
+
+# Group Network
+Notes related resources of the **network**
 
 ## Network Interface Information [/network/interfaces]
 ### Update the interface information [PUT]
