@@ -478,21 +478,16 @@ The response for PUT has following attributes:
             "server": "www.moxa.com"
         }
 
-+ Response 404 (application/json)
+## Check Firmware Version [/system/firmware/check]
+Check the firmware version
 
-        {
-            "status": 1002,
-            "message": "Resource busy!"
-        }
-
-## Latest Firmware Version [/system/firmware/latest]
-The latest firmware version
-
-### Retrieve the latest firmware version [GET]
+### Retrieve the current and candidate firmware version [GET]
 
 The response for GET has following attributes:
 
-- **version** (required, string, `1.1.0`): The latest firmware version.
+- **current** (required, string, `1.1.0`): The current firmware version.
+- **candidate** (required, string, `1.1.0`): The candidate firmware version.
+- **isLatest** (required, integer, `0`): Is current version the latest or not.
 
 + Response 200 (application/json)
 
@@ -503,7 +498,9 @@ The response for GET has following attributes:
     + Body
 
             {
-                "version": "1.1.0"
+                "current": "1.0.0",
+                "candidate": "1.1.0",
+                "isLatest": 1
             }
 
 
