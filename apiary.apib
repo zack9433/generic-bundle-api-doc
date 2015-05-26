@@ -1218,6 +1218,28 @@ The request for PUT has following attributes (this is an **event** message):
 
 # Group Remote/Async
 
+## Remote Broker [/system/remote]
+Remote broker service
+
+The response for GET has following attributes:
+
+- **enable** (integer, `1`): Start/Stop remote broker.
+
+### Control remote broker [PUT]
+Start/Stop remote broker
+
++ Request (application/json; charset=utf-8)
+
+        {
+          "enable": 1
+        }
+
+
++ Response 200 (application/json; charset=utf-8)
+
+        {}
+
+
 ## Job Collection [/jobs]
 A set of jobs meta information.
 
@@ -1688,4 +1710,3 @@ The error response has following attributes:
             "status": 8101,
             "message": "Item not found!"
         }
-
