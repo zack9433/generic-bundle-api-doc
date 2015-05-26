@@ -173,7 +173,6 @@ The Collection response has following attributes:
                 "netmask": "255.255.255.0",
                 "subnet": "192.168.3.0",
                 "gateway": "192.168.3.254",
-                "dns":["8.8.8.8", "8.8.4.4"],
                 "currentStatus":1,
                 "enable":1,
                 "enableDhcp":0
@@ -186,7 +185,6 @@ The Collection response has following attributes:
                 "netmask": "255.255.255.0",
                 "subnet": "192.168.3.0",
                 "gateway": "192.168.3.254",
-                "dns":["8.8.8.8", "8.8.4.4"],
                 "currentStatus":1,
                 "enable":1,
                 "enableDhcp":0
@@ -206,7 +204,6 @@ The collection request/response for update has following attributes:
                 "netmask": "255.255.255.0",
                 "subnet": "192.168.100.0",
                 "gateway": "192.168.100.254",
-                "dns":["8.8.8.8", "8.8.4.4"],
                 "enable":1,
                 "enableDhcp":0
             }
@@ -223,7 +220,6 @@ The collection request/response for update has following attributes:
                 "netmask": "255.255.255.0",
                 "subnet": "192.168.3.0",
                 "gateway": "192.168.3.254",
-                "dns":["8.8.8.8", "8.8.4.4"],
                 "currentStatus":1,
                 "enable":1,
                 "enableDhcp":0
@@ -236,7 +232,6 @@ The collection request/response for update has following attributes:
                 "netmask": "255.255.255.0",
                 "subnet": "192.168.100.0",
                 "gateway": "192.168.100.254",
-                "dns":["8.8.8.8", "8.8.4.4"],
                 "currentStatus":1,
                 "enable":1,
                 "enableDhcp":0
@@ -260,7 +255,6 @@ The response for GET has following attributes:
 - **netmask** (required, IP address, `255.255.255.0`): Subnet mask for the Ethernet interface.
 - **subnet** (required, IP address, `192.168.3.0`): A subnet (short for "subnetwork") is an identifiably separate part of an organization's network.
 - **gateway** (required, IP address, `192.168.3.254`): Gateway is a router or a proxy server that routes between networks.
-- **dns** (required, IP address array): The Domain Name System (DNS) is a hierarchical distributed naming system for computers, services, or any resource connected to the Internet or a private network.
 - **currentStatus** (required, number `1`): Current status for the Ethernet interface, 0 for down and 1 for up.
 - **enable** (required, number, `1`): Indicate the link status of Ethernet interface should be set to up (`1`) or down (`0`).
 - **enableDhcp** (required, number, `0`): Enable (`1`) the dhcp client or using the static IP (`0`).
@@ -277,7 +271,6 @@ The response for GET has following attributes:
                 "netmask": "255.255.255.0",
                 "subnet": "192.168.3.0",
                 "gateway": "192.168.3.254",
-                "dns":["8.8.8.8", "8.8.4.4"],
                 "currentStatus":1,
                 "enable":1,
                 "enableDhcp":0
@@ -291,7 +284,6 @@ The request for PUT has following attributes:
 - **netmask** (required, IP address, `255.255.255.0`): Subnet mask for the Ethernet interface.
 - **subnet** (required, IP address, `192.168.3.0`): A subnet (short for "subnetwork") is an identifiably separate part of an organization's network.
 - **gateway** (required, IP address, `192.168.3.254`): Gateway is a router or a proxy server that routes between networks.
-- **dns** (required, IP address array): The Domain Name System (DNS) is a hierarchical distributed naming system for computers, services, or any resource connected to the Internet or a private network.
 - **enable** (required, number, `1`): Indicate the link status of Ethernet interface should be set to up (`1`) or down (`0`).
 - **enableDhcp** (required, number, `0`): Enable (`1`) the dhcp client or using the static IP (`0`).
 
@@ -310,7 +302,6 @@ The error response has following attributes:
             "netmask": "255.255.255.0",
             "subnet": "192.168.3.0",
             "gateway": "192.168.3.254",
-            "dns":["8.8.8.8", "8.8.4.4"],
             "enable":1,
             "enableDhcp":0
         }
@@ -325,7 +316,6 @@ The error response has following attributes:
             "netmask": "255.255.255.0",
             "subnet": "192.168.100.0",
             "gateway": "192.168.100.254",
-            "dns":["8.8.8.8", "8.8.4.4"],
             "currentStatus":1,
             "enable":1,
             "enableDhcp":0
