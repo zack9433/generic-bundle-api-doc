@@ -620,7 +620,7 @@ The response for GET has following attributes:
 The response for PUT has following attributes:
 
 + Request  (application/json; charset=utf-8)
- 
+
     + Body
 
             {
@@ -634,7 +634,7 @@ The response for PUT has following attributes:
             }
 
 + Response 200 (application/json; charset=utf-8)
-    
+
     + Body
 
             {
@@ -919,16 +919,16 @@ The response has following attributes:
 
         [
             {
-                "time": "2014/09/14 15:18:48",
-                "value": 54.1
+                "time": "2014-09-14T15:18:48Z",
+                "percent": 54.1
             },
             {
-                "time": "2014/09/14 15:19:48",
-                "value": 40.2
+                "time": "2014-09-14T15:19:48Z",
+                "percent": 40.2
             },
             {
-                "time": "2014/09/14 15:20:48",
-                "value": 35.9
+                "time": "2014-09-14T15:20:48Z",
+                "percent": 35.9
             }
         ]
 
@@ -944,17 +944,15 @@ The response has following attributes:
 
         [
             {
-                "time": "2014/09/14 15:18:48",
-                "total": "200MB",
-                "used": "50MB",
-                "free": "150MB",
+                "time": "2014-09-14T15:18:48Z",
+                "totalByte": 209715200,
+                "usedByte": 52428800,
                 "usedPercentage": 25
             },
             {
-                "time": "2014/09/14 15:19:48",
-                "total": "200MB",
-                "used": "50MB",
-                "free": "150MB",
+                "time": "2014-09-14T15:19:48Z",
+                "totalByte": 209715200,
+                "usedByte": 52428800,
                 "usedPercentage": 25
             }
         ]
@@ -971,17 +969,15 @@ The response has following attributes:
 
         [
             {
-                "time": "2014/09/14 15:18:48",
-                "total": "100MB",
-                "used": "50MB",
-                "free": "50MB",
+                "time": "2014-09-14T15:18:48Z",
+                "totalByte": 209715200,
+                "usedByte": 52428800,
                 "usedPercentage": 50
             },
             {
-                "time": "2014/09/14 15:19:48",
-                "total": "100MB",
-                "used": "60MB",
-                "free": "40MB",
+                "time": "2014-09-14T15:19:48Z",
+                "totalByte": 209715200,
+                "usedByte": 52428800,
                 "usedPercentage": 60
             }
         ]
@@ -1003,8 +999,8 @@ The response has following attributes:
         {
             "hostname": "Moxa",
             "firmware": "MXcloudv1.0",
-            "uptime": "3day, 14:55:56",
-            "storage": "556MB"
+            "uptimeSec": 312956,
+            "diskFreeByte": 583008256
         }
 
 ### Set system hostname [PUT]
