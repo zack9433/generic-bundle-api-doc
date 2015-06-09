@@ -985,8 +985,9 @@ The response has following attributes:
 
 - **hostname** (required, string): show hostname
 - **firmware** (required, string): show firmware by kversion
-- **uptime** (required, string): show up time of machine
-- **storage** (required, string): show free storage size
+- **mxcloudVersion** (required, string): MXcloud runtime application version
+- **uptime** (required, integer): show uptime of machine
+- **storage** (required, integer): show free storage size
 
 
 + Response 200 (application/json; charset=utf-8)
@@ -994,6 +995,7 @@ The response has following attributes:
         {
             "hostname": "Moxa",
             "firmware": "MXcloudv1.0",
+            "mxcloudVersion": "1.0.5-1",
             "uptimeSec": 312956,
             "diskFreeByte": 583008256
         }
