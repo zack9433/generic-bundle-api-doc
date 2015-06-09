@@ -853,8 +853,8 @@ The response for GET has following attributes:
 - **id** (required, number, `1`): Identifier for a cellular interface.
 - **enable** (required, number, `1`): Indicate the monitoring of the interface should be started (`1`) or not (`0`).
 - **interface** (required, string, "ppp0"): Indicate the monitoring interface name
-- **info** (required, number, 50000): Indicate current 3G network bandwidth (Kbits).
-- **threshold** (required, number, `50000`): Water mark to send the notification (Kbits).
+- **info** (required, number, 50000): Indicate current 3G network bandwidth (kbytes).
+- **threshold** (required, number, `50000`): Water mark to send the notification (kbytes).
 
 + Response 200 (application/json)
 
@@ -877,7 +877,7 @@ The response for PUT has following attributes:
 
 - **id** (required, number, `1`): Identifier for a cellular interface.
 - **enable** (required, number, `1`): Indicate the monitoring of the interface should be started (`1`) or not (`0`).
-- **threshold** (option, number, `50000`): Water mark to send the notification (Kbits).
+- **threshold** (option, number, `50000`): Water mark to send the notification (kbytes).
 - **reset** (option, number, 1 ): Notify bundle to reset the counter.
 
 + Request  (application/json)
