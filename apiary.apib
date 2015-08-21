@@ -1195,14 +1195,14 @@ The response has following attributes:
 # Group IP Route
 Notes related resources of the **IPRoute API**
 
-## IPRoute [/network/routes/interfaces]
+## Available Interfaces [/network/routes/interfaces]
 ### List Available Interfaces [GET]
 
 + Response 200 (application/json)
 
         ["eth0", "eth1"]
 
-## IPRoute [/network/routes/default]
+## Default Gateway [/network/routes/default]
 ### Retrieve Default Gateway [GET]
 
 The response has following attributes:
@@ -1247,6 +1247,19 @@ The request and response has following attributes:
 + Request  (application/json)
 
         {
+            "interface": "eth0",
+        }
+
++ Response 200 (application/json)
+
+        {
+            "interface": "eth0",
+            "gateway": "192.168.3.254"
+        }
+
++ Request  (application/json)
+
+        {
             "interface": "eth1",
             "gateway": "192.168.4.254"
         }
@@ -1265,28 +1278,86 @@ The request and response has following attributes:
             "message": "Update default gateway failed: Cellular is connected, the default gateway cannot be changed."
         }
 
-## IPRoute [/network/routers]
-### Update Router Information [PUT]
+## Router Database [/network/routes/db]
+
+### List Router Database by Interface [GET]
+
+The response has following attributes:
+
+- **interface** (optional, string, `eth0`): interface name.
+- **gateway** (optional, IP address, `192.168.31.254`): gateway address.
+
++ Response 200 (application/json; charset=utf-8)
+
+        [
+            {
+                "interface": "eth0",
+                "gateway": "192.168.3.254"
+            },
+            {
+                "interface": "eth1",
+                "gateway": "192.168.4.254"
+            },
+            {
+                "interface": "wwlan0",
+                "gateway": "192.168.5.254"
+            }
+        ]
+
+### Update Router Database [PUT]
 
 The request and response has following attributes:
 
-- **name** (optional, string, `eth0`): interface name.
+- **interface** (optional, string, `eth0`): interface name.
 - **gateway** (optional, IP address, `192.168.31.254`): gateway address.
 
 + Request  (application/json)
 
         {
-            "name": "eth1",
+            "interface": "eth1",
             "gateway": "192.168.4.254"
         }
 
 + Response 200 (application/json)
 
         {
-            "name": "eth1",
+            "interface": "eth1",
             "gateway": "192.168.4.254"
         }
 
++ Request  (application/json)
+
+        [
+            {
+                "interface": "eth0",
+                "gateway": "192.168.3.254"
+            },
+            {
+                "interface": "eth1",
+                "gateway": "192.168.4.254"
+            },
+            {
+                "interface": "wwlan0",
+                "gateway": "192.168.5.254"
+            }
+        ]
+
++ Response 200 (application/json; charset=utf-8)
+
+        [
+            {
+                "interface": "eth0",
+                "gateway": "192.168.3.254"
+            },
+            {
+                "interface": "eth1",
+                "gateway": "192.168.4.254"
+            },
+            {
+                "interface": "wwlan0",
+                "gateway": "192.168.5.254"
+            }
+        ]
 
 # Group Network
 Notes related resources of the **network**
