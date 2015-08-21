@@ -802,25 +802,19 @@ Suppose user want to update DHCP server of eth0 interface
 # Group DNS
 Notes related resources of the **DNS API**
 
-## DNS [/network/dns]
+## Current DNS [/network/dns]
 ### List DNS Settings [GET]
 
 The response has following attributes:
 
-- **route_interface** (required, string): show the current dns corresponging interface
+- **interface** (optional, string): show the current dns corresponging interface
 - **dns** (required, object array): show current running dns servers.
-- **dns_list** (option, dictionary): show all interface and corresponding dns list
 
 + Response 200 (application/json; charset=utf-8)
 
         {
-            "route_interface": "eth0",
-            "dns": ["8.8.8.8", "8.8.4.4", "192.168.50.33"],
-            "dns_list": {
-              "eth0": [],
-              "eth1": [],
-              "wwlan0": []
-            }
+            "interface": "eth0",
+            "dns": ["8.8.8.8", "8.8.4.4", "192.168.50.33"]
         }
 
 ### Update DNS Settings [PUT]
@@ -828,21 +822,123 @@ The response has following attributes:
 + Request  (application/json; charset=utf-8)
 
         {
-            "route_interface": "eth0",
-            "dns": ["192.168.50.33"]
+            "interface": "eth0"
         }
 
 + Response 200 (application/json; charset=utf-8)
 
         {
-            "route_interface": "eth0",
-            "dns": ["192.168.50.33"],
-            "dns_list": {
-              "eth0": [],
-              "eth1": [],
-              "wwlan0": []
-            }
+            "interface": "eth0",
+            "dns": ["8.8.8.8", "8.8.4.4", "192.168.50.33"]
         }
+
++ Request  (application/json; charset=utf-8)
+
+        {
+            "dns": ["8.8.8.8", "8.8.4.4", "192.168.50.33"]
+        }
+
++ Response 200 (application/json; charset=utf-8)
+
+        {
+            "dns": ["8.8.8.8", "8.8.4.4", "192.168.50.33"]
+        }
+
+## DNS Database [/network/dns/db]
+### List DNS Settings by Interfaces [GET]
+
+The response has following attributes:
+
+- **interface** (required, string): interface that dns servers belong to
+- **dns** (required, object array): dns servers
+
++ Response 200 (application/json; charset=utf-8)
+
+        [
+            {
+                "interface": "eth0",
+                "dns": ["8.8.8.8", "8.8.4.4", "192.168.50.33"],
+            },
+            {
+                "interface": "eth1",
+                "dns": ["8.8.8.8", "8.8.4.4", "192.168.50.33"],
+            },
+            {
+                "interface": "wwlan0",
+                "dns": ["8.8.8.8", "8.8.4.4", "192.168.50.33"],
+            }
+        ]
+
+### Update DNS Database [PUT]
+
++ Request  (application/json; charset=utf-8)
+
+        {
+            "interface": "eth0"
+            "dns": ["8.8.8.8", "8.8.4.4"]
+        }
+
++ Response 200 (application/json; charset=utf-8)
+
+        {
+            "interface": "eth0"
+            "dns": ["8.8.8.8", "8.8.4.4"]
+        }
+
++ Request  (application/json; charset=utf-8)
+
+        [
+            {
+                "interface": "eth0"
+                "dns": ["8.8.8.8", "8.8.4.4"]
+            },
+            {
+                "interface": "eth1",
+                "dns": ["8.8.8.8", "8.8.4.4", "192.168.50.33"],
+            },
+            {
+                "interface": "wwlan0",
+                "dns": ["8.8.8.8", "8.8.4.4", "192.168.50.33"],
+            }
+        ]
+
++ Response 200 (application/json; charset=utf-8)
+
+        [
+            {
+                "interface": "eth0"
+                "dns": ["8.8.8.8", "8.8.4.4"]
+            },
+            {
+                "interface": "eth1",
+                "dns": ["8.8.8.8", "8.8.4.4", "192.168.50.33"],
+            },
+            {
+                "interface": "wwlan0",
+                "dns": ["8.8.8.8", "8.8.4.4", "192.168.50.33"],
+            }
+        ]
+
+## DNS Servers of Given Interface [/network/dns/{iface}]
+### List DNS Servers of Given Interface [GET]
+
+The response has following attributes:
+
+- **dns** (required, object array): dns servers
+
++ Response 200 (application/json; charset=utf-8)
+
+        ["8.8.8.8", "8.8.4.4", "192.168.50.33"]
+
+### Update DNS Database by Interface [PUT]
+
++ Request  (application/json; charset=utf-8)
+
+        ["8.8.8.8", "8.8.4.4", "192.168.50.33"]
+
++ Response 200 (application/json; charset=utf-8)
+
+        ["8.8.8.8", "8.8.4.4", "192.168.50.33"]
 
 
 # Group Bandwidth
