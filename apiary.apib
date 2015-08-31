@@ -1009,89 +1009,13 @@ The response for PUT has following attributes:
 # Group Status
 Notes related resources of the **Status API**
 
-## CPU status [/system/status/cpu]
-### Get CPU Status data [GET]
-
-The response has following attributes:
-
-- **data** (required, object array): list of cpu status data.
-
-+ Response 200 (application/json; charset=utf-8)
-
-        [
-            {
-                "time": "2014-09-14T15:18:48Z",
-                "percent": 54.1
-            },
-            {
-                "time": "2014-09-14T15:19:48Z",
-                "percent": 40.2
-            },
-            {
-                "time": "2014-09-14T15:20:48Z",
-                "percent": 35.9
-            }
-        ]
-
-
-## Memory status [/system/status/memory]
-### Get Memory Status data [GET]
-
-The response has following attributes:
-
-- **data** (required, object array): list of memory status data.
-
-+ Response 200 (application/json; charset=utf-8)
-
-        [
-            {
-                "time": "2014-09-14T15:18:48Z",
-                "totalByte": 209715200,
-                "usedByte": 52428800,
-                "usedPercent": 25
-            },
-            {
-                "time": "2014-09-14T15:19:48Z",
-                "totalByte": 209715200,
-                "usedByte": 52428800,
-                "usedPercent": 25
-            }
-        ]
-
-
-## Disk status [/system/status/disk]
-### Get Disk Status data [GET]
-
-The response has following attributes:
-
-- **data** (required, object array): list of disk status data.
-
-+ Response 200 (application/json; charset=utf-8)
-
-        [
-            {
-                "time": "2014-09-14T15:18:48Z",
-                "totalByte": 209715200,
-                "usedByte": 52428800,
-                "usedPercent": 50
-            },
-            {
-                "time": "2014-09-14T15:19:48Z",
-                "totalByte": 209715200,
-                "usedByte": 52428800,
-                "usedPercent": 60
-            }
-        ]
-
-
-## System status [/system/status/showdata]
+## System status [/system/status]
 ### Get System Status data [GET]
 
 The response has following attributes:
 
 - **hostname** (required, string): show hostname
-- **firmware** (required, string): show firmware by kversion
-- **mxcloudVersion** (required, string): MXcloud runtime application version
+- **version** (required, string): show product version
 - **uptime** (required, integer): show uptime of machine
 - **storage** (required, integer): show free storage size
 
@@ -1100,14 +1024,12 @@ The response has following attributes:
 
         {
             "hostname": "Moxa",
-            "firmware": "MXcloudv1.0",
-            "mxcloudVersion": "1.0.5-1",
+            "version": "1.0.5-1",
             "uptimeSec": 312956,
             "diskFreeByte": 583008256
         }
 
 ### Set system hostname [PUT]
-
 
 + Request  (application/json; charset=utf-8)
 
@@ -1115,13 +1037,11 @@ The response has following attributes:
             "hostname": "moxa"
         }
 
-
 + Response 200 (application/json; charset=utf-8)
 
         {
             "hostname": "moxa"
         }
-
 
 
 # Group Watchdog
@@ -1223,6 +1143,7 @@ The request and response has following attributes:
 
 - **interface** (optional, string, `eth0`): interface to be set as the default gateway.
 - **gateway** (optional, IP address, `192.168.31.254`): gateway address.
+- **temporary** (optional, integer, `0`): `1` means the setting won't be saved into config file but applied until next change or service restarted; default to `0`.
 
 + Request  (application/json)
 
@@ -1260,15 +1181,17 @@ The request and response has following attributes:
 + Request  (application/json)
 
         {
-            "interface": "eth1",
-            "gateway": "192.168.4.254"
+            "interface": "wwan1",
+            "gateway": "192.168.5.254",
+            "temporary": 1
         }
 
 + Response 200 (application/json)
 
         {
-            "interface": "eth1",
-            "gateway": "192.168.4.254"
+            "interface": "wwan1",
+            "gateway": "192.168.5.254",
+            "temporary": 1
         }
 
 + Response 404 (application/json)
