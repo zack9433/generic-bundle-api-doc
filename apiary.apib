@@ -259,7 +259,7 @@ A single Ethernet object with all its details
 The response for GET has following attributes:
 
 - **id** (required, number, `1`): Identifier for an Ethernet interface.
-- **wan** (optional, number, `1`, default `0`): Define the interface type is WAN (`1`) or LAN (`0`)
+- **wan** (required, number, `1`, default `0`): Define the interface type is WAN (`1`) or LAN (`0`)
 - **name** (required, string, `eth0`): Indicate the interface name.
 - **ip** (required, IP address, `192.168.3.127`): IP address for the Ethernet interface.
 - **mac** (required, MAC, `FF:FF:FF:FF:FF:FF`): The identical MAC address.
@@ -298,8 +298,8 @@ The request for PUT has following attributes:
 - **ip** (required, IP address, `192.168.3.127`): IP address for the Ethernet interface.
 - **netmask** (required, IP address, `255.255.255.0`): Subnet mask for the Ethernet interface.
 - **subnet** (required, IP address, `192.168.3.0`): A subnet (short for "subnetwork") is an identifiably separate part of an organization's network.
-- **gateway** (required, IP address, `192.168.3.254`): Gateway is a router or a proxy server that routes between networks.
-- **dns** (required, IP address array): The Domain Name System (DNS) is a hierarchical distributed naming system for computers, services, or any resource connected to the Internet or a private network.
+- **gateway** (optional, IP address, `192.168.3.254`): Gateway is a router or a proxy server that routes between networks.
+- **dns** (optional, IP address array): The Domain Name System (DNS) is a hierarchical distributed naming system for computers, services, or any resource connected to the Internet or a private network.
 - **enable** (required, number, `1`): Indicate the link status of Ethernet interface should be set to up (`1`) or down (`0`).
 - **enableDhcp** (required, number, `0`): Enable (`1`) the dhcp client or using the static IP (`0`).
 
