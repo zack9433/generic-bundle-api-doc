@@ -167,6 +167,7 @@ The Collection response has following attributes:
         [
             {
                 "id":1,
+                "wan":1,
                 "name": "eth0",
                 "ip": "192.168.3.127",
                 "mac": "FF:FF:FF:FF:FF:FF",
@@ -180,6 +181,7 @@ The Collection response has following attributes:
             },
             {
                 "id":2,
+                "wan":0,
                 "name": "eth1",
                 "ip": "192.168.3.127",
                 "mac": "FF:FF:FF:FF:FF:FF",
@@ -202,6 +204,7 @@ The collection request/response for update has following attributes:
         [
             {
                 "id":2,
+                "wan":0,
                 "ip": "192.168.100.127",
                 "netmask": "255.255.255.0",
                 "subnet": "192.168.100.0",
@@ -217,6 +220,7 @@ The collection request/response for update has following attributes:
         [
             {
                 "id":1,
+                "wan":1,
                 "name": "eth0",
                 "ip": "192.168.3.127",
                 "mac": "FF:FF:FF:FF:FF:FF",
@@ -230,6 +234,7 @@ The collection request/response for update has following attributes:
             },
             {
                 "id":2,
+                "wan":0,
                 "name": "eth1",
                 "ip": "192.168.100.127",
                 "mac": "FF:FF:FF:FF:FF:FF",
@@ -254,6 +259,7 @@ A single Ethernet object with all its details
 The response for GET has following attributes:
 
 - **id** (required, number, `1`): Identifier for an Ethernet interface.
+- **wan** (optional, number, `1`, default `0`): Define the interface type is WAN (`1`) or LAN (`0`)
 - **name** (required, string, `eth0`): Indicate the interface name.
 - **ip** (required, IP address, `192.168.3.127`): IP address for the Ethernet interface.
 - **mac** (required, MAC, `FF:FF:FF:FF:FF:FF`): The identical MAC address.
@@ -271,6 +277,7 @@ The response for GET has following attributes:
 
             {
                 "id":1,
+                "wan":1,
                 "name": "eth0",
                 "ip": "192.168.3.127",
                 "mac": "FF:FF:FF:FF:FF:FF",
@@ -287,6 +294,7 @@ The response for GET has following attributes:
 
 The request for PUT has following attributes:
 
+- **wan** (optional, number, `1`, default `0`): Define the interface type is WAN (`1`) or LAN (`0`)
 - **ip** (required, IP address, `192.168.3.127`): IP address for the Ethernet interface.
 - **netmask** (required, IP address, `255.255.255.0`): Subnet mask for the Ethernet interface.
 - **subnet** (required, IP address, `192.168.3.0`): A subnet (short for "subnetwork") is an identifiably separate part of an organization's network.
@@ -306,6 +314,7 @@ The error response has following attributes:
 
         {
             "id": 2,
+            "wan":0,
             "ip": "192.168.3.127",
             "netmask": "255.255.255.0",
             "subnet": "192.168.3.0",
@@ -319,6 +328,7 @@ The error response has following attributes:
 
         {
             "id":2,
+            "wan":0,
             "name": "eth1",
             "ip": "192.168.100.127",
             "mac": "FF:FF:FF:FF:FF:FF",
@@ -899,7 +909,68 @@ The request and response has following attributes:
 
 - **interface** (optional, string, `eth0`): interface to be set as the default gateway.
 - **gateway** (optional, IP address, `192.168.31.254`): gateway address.
-- **temporary** (optional, integer, `0`): `1` means the setting won't be saved into config file but applied until next change or service restarted; default to `0`.
+
++ Request  (application/json)
+
+        {}
+
++ Response 200 (application/json)
+
+        {}
+
++ Request  (application/json)
+
+        {
+            "interface": "",
+        }
+
++ Response 200 (application/json)
+
+        {
+            "interface": "",
+        }
+
++ Request  (application/json)
+
+        {
+            "interface": "wwan0",
+        }
+
++ Response 200 (application/json)
+
+        {
+            "interface": "wwan0",
+            "gateway": "192.168.3.254"
+        }
+
++ Response 404 (application/json)
+
+        {
+            "status": "40451",
+            "message": "Update default gateway failed."
+        }
+
+## Default Gateway [/network/routes/secondary]
+### Retrieve Secondary Default Gateway [GET]
+
+The response has following attributes:
+
+- **interface** (optional, string, `eth0`): interface to be set as the default gateway.
+- **gateway** (optional, IP address, `192.168.31.254`): gateway address.
+
++ Response 200 (application/json)
+
+        {
+            "interface": "eth0",
+            "gateway": "192.168.31.254"
+        }
+
+### Update Secondary Default Gateway [PUT]
+
+The request and response has following attributes:
+
+- **interface** (optional, string, `eth0`): interface to be set as the default gateway.
+- **gateway** (optional, IP address, `192.168.31.254`): gateway address.
 
 + Request  (application/json)
 
@@ -932,29 +1003,6 @@ The request and response has following attributes:
         {
             "interface": "eth0",
             "gateway": "192.168.3.254"
-        }
-
-+ Request  (application/json)
-
-        {
-            "interface": "wwan1",
-            "gateway": "192.168.5.254",
-            "temporary": 1
-        }
-
-+ Response 200 (application/json)
-
-        {
-            "interface": "wwan1",
-            "gateway": "192.168.5.254",
-            "temporary": 1
-        }
-
-+ Response 404 (application/json)
-
-        {
-            "status": "40451",
-            "message": "Update default gateway failed: Cellular is connected, the default gateway cannot be changed."
         }
 
 ## Router Database [/network/routes/db]
