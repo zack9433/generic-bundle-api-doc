@@ -1706,3 +1706,61 @@ The error response has following attributes:
             "status": 8101,
             "message": "Item not found!"
         }
+
+# Group Serial Interface
+
+## Serial Interface Collection [/system/serial]
+
+A interface object has the following attributes:
+
+- **id** (required, integer, `1`): Interface ID.
+- **dev** (required, string, `ioLogik-E2210`): Device node path (readonly)
+- **devDisplayName** (required, string, `ioLogik-E2210`): Display name (readonly)
+- **mode** (required, string, `rs232`): Type of interface. Could be one of `rs232`, `rs485-2w`, `rs422/rs485-4w`
+
+### Get all serial interfaces [GET]
+
++ Response 200 (application/json)
+
+        [
+            {
+              "id": 1,
+              "dev": "/dev/ttyM0",
+              "devDisplayName": "PORT 1",
+              "mode": "rs232"
+            },
+            {
+              "id": 2,
+              "dev": "/dev/ttyM1",
+              "devDisplayName": "PORT 2",
+              "mode": "rs485-2w"
+            },
+            {
+              "id": 3,
+              "dev": "/dev/ttyM2",
+              "devDisplayName": "PORT 3",
+              "mode": "rs422/rs485-4w"
+            }
+        ]
+
+## Serial Interface [/system/serial/{id}]
+
++ Parameter
+    + id: 1 (required, number) - ID of the Serial Interface in form of an integer
+
+### Update a serial interface [PUT]
+
++ Request (application/json)
+
+        {
+            "mode": "rs485-2w"
+        }
+
++ Response 200 (application/json)
+
+        {
+          "id": 1,
+          "dev": "/dev/ttyM0"
+          "devDisplayName": "PORT 1",
+          "mode": "rs485-2w"
+        }
