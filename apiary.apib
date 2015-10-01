@@ -105,7 +105,10 @@ The request for PUT has following attributes:
 - **authType** (optional, string, ``): Indicate type of authentication such as 'PAP','CHAP'
 
 
-The response for PUT is same as that for GET.
+The response for PUT is same as that for GET but:
+
+- **restart** (optional, number, `0`): `1` means that view must be restarted after receiving the response.
+
 
 The error response has following attributes:
 
@@ -244,7 +247,8 @@ The collection request/response for update has following attributes:
                 "dns":["8.8.8.8", "8.8.4.4"],
                 "currentStatus":1,
                 "enable":1,
-                "enableDhcp":0
+                "enableDhcp":0,
+                "restart":1
             }
         ]
 
