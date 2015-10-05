@@ -539,7 +539,7 @@ The response for GET has following attributes:
 - **timezone** (string, `+08,00,0`): System timezone settings.
 - **ntp.enable** (boolean, `enable`): Enable/Disable Ntp client.
 - **ntp.server** (string, `pool.ntp.org`): Ntp server.
-- **ntp.interval** (integer, `86400`): Ntp update interval in seconds.
+- **ntp.interval** (integer, `86400`): Ntp update interval in seconds. (at least: 60 seconds.)
 
 + Response 200 (application/json; charset=utf-8)
 
