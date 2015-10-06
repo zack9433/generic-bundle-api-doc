@@ -1237,3 +1237,35 @@ A interface object has the following attributes:
           "devDisplayName": "PORT 1",
           "mode": "rs485-2w"
         }
+
+## System Log [/system/syslog]
+
+### Download system logs [GET]
+
+The response for GET would be a file.
+(From web to backend)
+
++ Request  (application/json)
+
++ Response 200 (application/octet-stream)
+
+        ```binary data goes here```
+
+### Download system logs [POST]
+(From backend to bundle)
+The response for GET has following attributes:
+
++ Request  (application/json)
+
+        {
+          "url": "https://server/upload",
+          "headers": {
+            "accessToken": "MOXAMOXA-TEST-SYSTEM"
+          }
+        }
+
++ Response 200 (application/json)
+
+        {
+          "url": "https://server/upload/xxxxxxx"
+        }
