@@ -353,6 +353,116 @@ The error response has following attributes:
         }
 
 
+# Group DHCP Server
+Notes related resources of the **DHCP Server API**
+
+## DHCP server Collection [/network/dhcpd]
+### List all DHCP Interfaces [GET]
+
+The Collection response has following attributes:
+
+- **currentStatus** (required, integer, 1): DHCP server status, 1: server is on, 0: server is off.
+- **collection** (required, object array): An object array to perform all queried entries.
+
++ Response 200 (application/json; charset=utf-8)
+
+        {
+            "currentStatus": 1,
+            "collection": [
+                {
+                    "id": 1,
+                    "name": "eth0",
+                    "enable": 0,
+                    "subnet": "192.168.3.0",
+                    "netmask": "255.255.255.0",
+                    "startIP": "192.168.3.100",
+                    "endIP": "192.168.3.150",
+                    "domainNameServers": ["8.8.8.8", "1.1.1.1", "2.2.2.2"],
+                    "domainName": "cloud 5566",
+                    "leaseTime": "3600"
+                }
+            ]
+        }
+
+
+## DHCP server [/network/dhcpd/{id}]
+
++ Parameters
+    + id (required, number, `1`) ... ID of the request in the form of a integer
+
+### List request DHCP Interfaces [GET]
+
+The response has following attributes:
+
+- **currentStatus** (required, integer, 1):  1: server is on, 0: server is off.
+- **collection** (required, object array): An object array to perform all queried entries.
+
++ Response 200 (application/json; charset=utf-8)
+
+        {
+            "id": 1,
+            "name": "eth0",
+            "enable": 0,
+            "subnet": "192.168.3.0",
+            "netmask": "255.255.255.0",
+            "startIP": "192.168.3.100",
+            "endIP": "192.168.3.150",
+            "domainNameServers": ["8.8.8.8", "1.1.1.1", "2.2.2.2"],
+            "domainName": "cloud 5566",
+            "leaseTime": "3600"
+        }
+
+### Update some DHCP Interfaces [PUT]
+
+The collection request/response for update has following attributes:
+
+- **currentStatus** (required, integer, 1): server status, 1: server is on, 0: server is off.
+- **collection** (required, object array): An object array to perform all queried entries.
+- **collection[]id** (required, integer): index
+- **collection[]name** (required, string): interfece of DHCP server, user can select eth0 or eth1
+- **collection[]enable** (required, integer): interfece DHCP server enable bit
+- **collection[]subnet** (required, string): subnet
+- **collection[]netmask** (required, string): netmask
+- **collection[]startIP** (required, string): start IP of DHCP server
+- **collection[]endIP** (required, string): end IP of DHCP server
+- **collection[]domainNameServers** (optional, object array): an object array to save dns list
+- **collection[]domainName** (optional, string): DHCP server domain name
+- **collection[]leaseTime** (required, string): leasetime of DHCP server
+
+Suppose user want to update DHCP server of eth0 interface
+
++ Request  (application/json; charset=utf-8)
+
+        {
+            "id": 1,
+            "name": "eth0",
+            "enable": 0,
+            "subnet": "192.168.3.0",
+            "netmask": "255.255.255.0",
+            "startIP": "192.168.3.100",
+            "endIP": "192.168.3.150",
+            "domainNameServers": ["8.8.8.8", "1.1.1.1", "2.2.2.2"],
+            "domainName": "cloud 7788",
+            "leaseTime": "3600"
+        }
+
+
++ Response 200 (application/json; charset=utf-8)
+
+        {
+            "id": 1,
+            "name": "eth0",
+            "enable": 0,
+            "subnet": "192.168.3.0",
+            "netmask": "255.255.255.0",
+            "startIP": "192.168.3.100",
+            "endIP": "192.168.3.150",
+            "domainNameServers": ["8.8.8.8", "1.1.1.1", "2.2.2.2"],
+            "domainName": "cloud 5566",
+            "leaseTime": "3600"
+        }
+
+
 # Group Firmware
 Notes related resources of the **Firmware API**
 
