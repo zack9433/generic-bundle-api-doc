@@ -88,7 +88,10 @@ The request for PUT has following attributes:
 - **pinCode** (optional, string, `0000`): Use this code to auth when exits.
 - **apn** (optional, string, ``): Indicate apn of SIM card.
 
-The response for PUT is same as that for GET.
+The response for PUT is same as that for GET but:
+
+- **restart** (optional, number, `0`): `1` means that view must be restarted after receiving the response.
+
 
 The error response has following attributes:
 
@@ -143,6 +146,7 @@ The Collection response has following attributes:
         [
             {
                 "id":1,
+                "wan":1,
                 "name": "eth0",
                 "ip": "192.168.3.127",
                 "mac": "FF:FF:FF:FF:FF:FF",
@@ -156,6 +160,7 @@ The Collection response has following attributes:
             },
             {
                 "id":2,
+                "wan":0,
                 "name": "eth1",
                 "ip": "192.168.3.127",
                 "mac": "FF:FF:FF:FF:FF:FF",
@@ -178,6 +183,7 @@ The collection request/response for update has following attributes:
         [
             {
                 "id":2,
+                "wan":0,
                 "ip": "192.168.100.127",
                 "netmask": "255.255.255.0",
                 "subnet": "192.168.100.0",
@@ -193,6 +199,7 @@ The collection request/response for update has following attributes:
         [
             {
                 "id":1,
+                "wan":1,
                 "name": "eth0",
                 "ip": "192.168.3.127",
                 "mac": "FF:FF:FF:FF:FF:FF",
@@ -206,6 +213,7 @@ The collection request/response for update has following attributes:
             },
             {
                 "id":2,
+                "wan":0,
                 "name": "eth1",
                 "ip": "192.168.100.127",
                 "mac": "FF:FF:FF:FF:FF:FF",
@@ -215,7 +223,8 @@ The collection request/response for update has following attributes:
                 "dns":["8.8.8.8", "8.8.4.4"],
                 "currentStatus":1,
                 "enable":1,
-                "enableDhcp":0
+                "enableDhcp":0,
+                "restart":1
             }
         ]
 
@@ -230,6 +239,7 @@ A single Ethernet object with all its details
 The response for GET has following attributes:
 
 - **id** (required, number, `1`): Identifier for an Ethernet interface.
+- **wan** (required, number, `1`, default `0`): Define the interface type is WAN (`1`) or LAN (`0`)
 - **name** (required, string, `eth0`): Indicate the interface name.
 - **ip** (required, IP address, `192.168.3.127`): IP address for the Ethernet interface.
 - **mac** (required, MAC, `FF:FF:FF:FF:FF:FF`): The identical MAC address.
@@ -247,6 +257,7 @@ The response for GET has following attributes:
 
             {
                 "id":1,
+                "wan":1,
                 "name": "eth0",
                 "ip": "192.168.3.127",
                 "mac": "FF:FF:FF:FF:FF:FF",
@@ -263,11 +274,12 @@ The response for GET has following attributes:
 
 The request for PUT has following attributes:
 
+- **wan** (optional, number, `1`, default `0`): Define the interface type is WAN (`1`) or LAN (`0`)
 - **ip** (required, IP address, `192.168.3.127`): IP address for the Ethernet interface.
 - **netmask** (required, IP address, `255.255.255.0`): Subnet mask for the Ethernet interface.
 - **subnet** (required, IP address, `192.168.3.0`): A subnet (short for "subnetwork") is an identifiably separate part of an organization's network.
-- **gateway** (required, IP address, `192.168.3.254`): Gateway is a router or a proxy server that routes between networks.
-- **dns** (required, IP address array): The Domain Name System (DNS) is a hierarchical distributed naming system for computers, services, or any resource connected to the Internet or a private network.
+- **gateway** (optional, IP address, `192.168.3.254`): Gateway is a router or a proxy server that routes between networks.
+- **dns** (optional, IP address array): The Domain Name System (DNS) is a hierarchical distributed naming system for computers, services, or any resource connected to the Internet or a private network.
 - **enable** (required, number, `1`): Indicate the link status of Ethernet interface should be set to up (`1`) or down (`0`).
 - **enableDhcp** (required, number, `0`): Enable (`1`) the dhcp client or using the static IP (`0`).
 
@@ -282,6 +294,7 @@ The error response has following attributes:
 
         {
             "id": 2,
+            "wan":0,
             "ip": "192.168.3.127",
             "netmask": "255.255.255.0",
             "subnet": "192.168.3.0",
@@ -295,6 +308,7 @@ The error response has following attributes:
 
         {
             "id":2,
+            "wan":0,
             "name": "eth1",
             "ip": "192.168.100.127",
             "mac": "FF:FF:FF:FF:FF:FF",
@@ -315,82 +329,113 @@ The error response has following attributes:
         }
 
 
-# Group GPS
-Notes related resources of the **GPS API** (future work will retrieve the location by GPS device, currently will be user input)
+# Group DHCP Server
+Notes related resources of the **DHCP Server API**
 
-## GPS [/system/gps]
-The GPS location information with all its details
+## DHCP server Collection [/network/dhcpd]
+### List all DHCP Interfaces [GET]
 
-### Retrieve a GPS location [GET]
+The Collection response has following attributes:
 
-The response for GET has following attributes:
+- **currentStatus** (required, integer, 1): DHCP server status, 1: server is on, 0: server is off.
+- **collection** (required, object array): An object array to perform all queried entries.
 
-- **lat** (required, number, `26.983949495`): Latitude
-- **lon** (required, number, `121.551980142`): Longitude
-- **device** (required, string, `/dev/ttyACM0`, future): Indicate the GPS device name.
-- **time** (required, string, `2014-06-06T07:04:24.000Z`, future): Timestamp of the retrieved GPS location.
-
-+ Response 200 (application/json)
-
-    + Header
-
-            X-My-Header: The Value
-
-    + Body
-
-            {
-                "lat": 26.983949495,
-                "lon": 121.551980142,
-                "device": "/dev/ttyACM0",
-                "time": "2014-06-06T07:04:24.000Z"
-            }
-
-### Update the GPS status [PUT]
-
-The response for PUT has following attributes:
-
-- **device** (required, string, `/dev/ttyACM0`, future): Indicate the GPS device name to be used.
-- **lat** (required, number, `26.983949495`): Latitude
-- **lon** (required, number, `121.551980142`): Longitude
-
-+ Request  (application/json)
++ Response 200 (application/json; charset=utf-8)
 
         {
-            "device": "/dev/ttyACM0"
+            "currentStatus": 1,
+            "collection": [
+                {
+                    "id": 1,
+                    "name": "eth0",
+                    "enable": 0,
+                    "subnet": "192.168.3.0",
+                    "netmask": "255.255.255.0",
+                    "startIP": "192.168.3.100",
+                    "endIP": "192.168.3.150",
+                    "domainNameServers": ["8.8.8.8", "1.1.1.1", "2.2.2.2"],
+                    "domainName": "cloud 5566",
+                    "leaseTime": "3600"
+                }
+            ]
         }
 
-+ Response 200 (application/json)
+
+## DHCP server [/network/dhcpd/{id}]
+
++ Parameters
+    + id (required, number, `1`) ... ID of the request in the form of a integer
+
+### List request DHCP Interfaces [GET]
+
+The response has following attributes:
+
+- **currentStatus** (required, integer, 1):  1: server is on, 0: server is off.
+- **collection** (required, object array): An object array to perform all queried entries.
+
++ Response 200 (application/json; charset=utf-8)
 
         {
-            "device": "/dev/ttyACM0"
+            "id": 1,
+            "name": "eth0",
+            "enable": 0,
+            "subnet": "192.168.3.0",
+            "netmask": "255.255.255.0",
+            "startIP": "192.168.3.100",
+            "endIP": "192.168.3.150",
+            "domainNameServers": ["8.8.8.8", "1.1.1.1", "2.2.2.2"],
+            "domainName": "cloud 5566",
+            "leaseTime": "3600"
         }
 
-+ Response 404 (application/json)
+### Update some DHCP Interfaces [PUT]
+
+The collection request/response for update has following attributes:
+
+- **currentStatus** (required, integer, 1): server status, 1: server is on, 0: server is off.
+- **collection** (required, object array): An object array to perform all queried entries.
+- **collection[]id** (required, integer): index
+- **collection[]name** (required, string): interfece of DHCP server, user can select eth0 or eth1
+- **collection[]enable** (required, integer): interfece DHCP server enable bit
+- **collection[]subnet** (required, string): subnet
+- **collection[]netmask** (required, string): netmask
+- **collection[]startIP** (required, string): start IP of DHCP server
+- **collection[]endIP** (required, string): end IP of DHCP server
+- **collection[]domainNameServers** (optional, object array): an object array to save dns list
+- **collection[]domainName** (optional, string): DHCP server domain name
+- **collection[]leaseTime** (required, string): leasetime of DHCP server
+
+Suppose user want to update DHCP server of eth0 interface
+
++ Request  (application/json; charset=utf-8)
 
         {
-            "status": 2101,
-            "message": "Device not found!"
+            "id": 1,
+            "name": "eth0",
+            "enable": 0,
+            "subnet": "192.168.3.0",
+            "netmask": "255.255.255.0",
+            "startIP": "192.168.3.100",
+            "endIP": "192.168.3.150",
+            "domainNameServers": ["8.8.8.8", "1.1.1.1", "2.2.2.2"],
+            "domainName": "cloud 7788",
+            "leaseTime": "3600"
         }
 
-+ Request  (application/json)
+
++ Response 200 (application/json; charset=utf-8)
 
         {
-            "lat": 26.983949495,
-            "lon": 121.551980142
-        }
-
-+ Response 200 (application/json)
-
-        {
-            "lat": 26.983949495,
-            "lon": 121.551980142
-        }
-
-+ Response 404 (application/json)
-
-        {
-            "status": 2201,
-            "message": "Invalid value!"
+            "id": 1,
+            "name": "eth0",
+            "enable": 0,
+            "subnet": "192.168.3.0",
+            "netmask": "255.255.255.0",
+            "startIP": "192.168.3.100",
+            "endIP": "192.168.3.150",
+            "domainNameServers": ["8.8.8.8", "1.1.1.1", "2.2.2.2"],
+            "domainName": "cloud 5566",
+            "leaseTime": "3600"
         }
 
 
@@ -404,7 +449,7 @@ The firmware information with all its details
 
 The response for GET has following attributes:
 
-- **version** (required, string, `1.0`): The firmware version.
+- **version** (required, string, `1.0.0`): The firmware version.
 - **server** (required, string, `www.moxa.com`): Server to download the latest version of firmware.
 
 + Response 200 (application/json)
@@ -416,7 +461,7 @@ The response for GET has following attributes:
     + Body
 
             {
-                "version": "1.0",
+                "version": "1.0.0",
                 "server": "www.moxa.com"
             }
 
@@ -424,25 +469,12 @@ The response for GET has following attributes:
 
 The response for PUT has following attributes:
 
-- **reset** (required, number, `1`): Indicate the system will be reset to factory default.
 - **upgrade** (required, number, `1`): The system will start to do firmware upgrading.
 - **server** (required, string, `www.moxa.com`): Server to download the latest version of firmware.
 
 + Request  (application/json)
 
         {
-            "reset": 1
-        }
-
-+ Response 200 (application/json)
-
-        {
-            "reset": 1
-        }
-
-+ Request  (application/json)
-
-        {
             "upgrade": 1,
             "server": "www.moxa.com"
         }
@@ -454,12 +486,30 @@ The response for PUT has following attributes:
             "server": "www.moxa.com"
         }
 
-+ Response 404 (application/json)
+## Check Firmware Version [/system/firmware/check]
+Check the firmware version
 
-        {
-            "status": 1002,
-            "message": "Resource busy!"
-        }
+### Retrieve the current and candidate firmware version [GET]
+
+The response for GET has following attributes:
+
+- **current** (required, string, `1.1.0`): The current firmware version.
+- **candidate** (required, string, `1.1.0`): The candidate firmware version.
+- **isLatest** (required, integer, `0`): Is current version the latest or not.
+
++ Response 200 (application/json)
+
+    + Header
+
+            X-My-Header: The Value
+
+    + Body
+
+            {
+                "current": "1.0.0",
+                "candidate": "1.1.0",
+                "isLatest": 1
+            }
 
 
 # Group ImportExport
@@ -575,7 +625,7 @@ The response for GET has following attributes:
 - **timezone** (string, `+08,00,0`): System timezone settings.
 - **ntp.enable** (boolean, `enable`): Enable/Disable Ntp client.
 - **ntp.server** (string, `pool.ntp.org`): Ntp server.
-- **ntp.interval** (integer, `86400`): Ntp update interval in seconds.
+- **ntp.interval** (integer, `86400`): Ntp update interval in seconds. (at least: 60 seconds.)
 
 + Response 200 (application/json; charset=utf-8)
 
@@ -661,137 +711,23 @@ The response for PUT has following attributes:
             "enable": 1
         }
 
-# Group DHCP Server
-Notes related resources of the **DHCP Server API**
-
-## DHCP server Collection [/network/dhcpd]
-### List all DHCP Interfaces [GET]
-
-The Collection response has following attributes:
-
-- **currentStatus** (required, integer, 1): DHCP server status, 1: server is on, 0: server is off.
-- **collection** (required, object array): An object array to perform all queried entries.
-
-+ Response 200 (application/json; charset=utf-8)
-
-        {
-            "currentStatus": 1,
-            "collection": [
-                {
-                    "id": 1,
-                    "name": "eth0",
-                    "enable": 0,
-                    "subnet": "192.168.3.0",
-                    "netmask": "255.255.255.0",
-                    "startIP": "192.168.3.100",
-                    "endIP": "192.168.3.150",
-                    "domainNameServers": ["8.8.8.8", "1.1.1.1", "2.2.2.2"],
-                    "domainName": "cloud 5566",
-                    "leaseTime": "3600"
-                }
-            ]
-        }
-
-
-## DHCP server [/network/dhcpd/{id}]
-
-+ Parameters
-    + id (required, number, `1`) ... ID of the request in the form of a integer
-
-### List request DHCP Interfaces [GET]
-
-The response has following attributes:
-
-- **currentStatus** (required, integer, 1):  1: server is on, 0: server is off.
-- **collection** (required, object array): An object array to perform all queried entries.
-
-+ Response 200 (application/json; charset=utf-8)
-
-        {
-            "id": 1,
-            "name": "eth0",
-            "enable": 0,
-            "subnet": "192.168.3.0",
-            "netmask": "255.255.255.0",
-            "startIP": "192.168.3.100",
-            "endIP": "192.168.3.150",
-            "domainNameServers": ["8.8.8.8", "1.1.1.1", "2.2.2.2"],
-            "domainName": "cloud 5566",
-            "leaseTime": "3600"
-        }
-
-### Update some DHCP Interfaces [PUT]
-
-The collection request/response for update has following attributes:
-
-- **currentStatus** (required, integer, 1): server status, 1: server is on, 0: server is off.
-- **collection** (required, object array): An object array to perform all queried entries.
-- **collection[]id** (required, integer): index
-- **collection[]name** (required, string): interfece of DHCP server, user can select eth0 or eth1
-- **collection[]enable** (required, integer): interfece DHCP server enable bit
-- **collection[]subnet** (required, string): subnet
-- **collection[]netmask** (required, string): netmask
-- **collection[]startIP** (required, string): start IP of DHCP server
-- **collection[]endIP** (required, string): end IP of DHCP server
-- **collection[]domainNameServers** (optional, object array): an object array to save dns list
-- **collection[]domainName** (optional, string): DHCP server domain name
-- **collection[]leaseTime** (required, string): leasetime of DHCP server
-
-Suppose user want to update DHCP server of eth0 interface
-
-+ Request  (application/json; charset=utf-8)
-
-        {
-            "id": 1,
-            "name": "eth0",
-            "enable": 0,
-            "subnet": "192.168.3.0",
-            "netmask": "255.255.255.0",
-            "startIP": "192.168.3.100",
-            "endIP": "192.168.3.150",
-            "domainNameServers": ["8.8.8.8", "1.1.1.1", "2.2.2.2"],
-            "domainName": "cloud 7788",
-            "leaseTime": "3600"
-        }
-
-
-+ Response 200 (application/json; charset=utf-8)
-
-        {
-            "id": 1,
-            "name": "eth0",
-            "enable": 0,
-            "subnet": "192.168.3.0",
-            "netmask": "255.255.255.0",
-            "startIP": "192.168.3.100",
-            "endIP": "192.168.3.150",
-            "domainNameServers": ["8.8.8.8", "1.1.1.1", "2.2.2.2"],
-            "domainName": "cloud 5566",
-            "leaseTime": "3600"
-        }
 
 # Group DNS
 Notes related resources of the **DNS API**
 
-## DNS [/network/dns]
+## Current DNS [/network/dns]
 ### List DNS Settings [GET]
 
 The response has following attributes:
 
-- **route_interface** (required, string): show the current dns corresponging interface
+- **interface** (optional, string): show the current dns corresponging interface
 - **dns** (required, object array): show current running dns servers.
-- **dns_list** (option, dictionary): show all interface and corresponding dns list
 
 + Response 200 (application/json; charset=utf-8)
 
         {
-            "route_interface": "eth0",
-            "dns": ["8.8.8.8", "8.8.4.4", "192.168.50.33"],
-            "dns_list": {
-              "eth0": [],
-              "eth1": [],
-              "wwlan0": []
-            }
+            "interface": "eth0",
+            "dns": ["8.8.8.8", "8.8.4.4", "192.168.50.33"]
         }
 
 ### Update DNS Settings [PUT]
@@ -799,190 +735,157 @@ The response has following attributes:
 + Request  (application/json; charset=utf-8)
 
         {
-            "route_interface": "eth0",
-            "dns": ["192.168.50.33"]
+            "interface": "eth0"
         }
 
 + Response 200 (application/json; charset=utf-8)
 
         {
-            "route_interface": "eth0",
-            "dns": ["192.168.50.33"],
-            "dns_list": {
-              "eth0": [],
-              "eth1": [],
-              "wwlan0": []
-            }
+            "interface": "eth0",
+            "dns": ["8.8.8.8", "8.8.4.4", "192.168.50.33"]
         }
 
++ Request  (application/json; charset=utf-8)
 
-# Group Bandwidth
-Notes related resources of the **Bandwidth API**
+        {
+            "dns": ["8.8.8.8", "8.8.4.4", "192.168.50.33"]
+        }
 
-## Bandwidth [/network/bandwidth]
-Monitor the cellular bandwidth and send notification if exceed the threshold.
++ Response 200 (application/json; charset=utf-8)
 
-### Retrieve the bandwidth setting and information [GET]
+        {
+            "dns": ["8.8.8.8", "8.8.4.4", "192.168.50.33"]
+        }
 
-The response for GET has following attributes:
+## DNS Database [/network/dns/db]
+### List DNS Settings by Interfaces [GET]
 
-- **id** (required, number, `1`): Identifier for a cellular interface.
-- **enable** (required, number, `1`): Indicate the monitoring of the interface should be started (`1`) or not (`0`).
-- **interface** (required, string, "ppp0"): Indicate the monitoring interface name
-- **info** (required, number, 50000): Indicate current 3G network bandwidth (kbytes).
-- **threshold** (required, number, `50000`): Water mark to send the notification (kbytes).
+The response has following attributes:
 
-+ Response 200 (application/json)
+- **interface** (required, string): interface that dns servers belong to
+- **dns** (required, object array): dns servers
 
-    + Header
++ Response 200 (application/json; charset=utf-8)
 
-            X-My-Header: The Value
-
-    + Body
-
+        [
             {
-                "enable": 0,
-                "interface": "ppp0",
-                "info": 80000,
-                "threshold": 50000
+                "interface": "eth0",
+                "dns": ["8.8.8.8", "8.8.4.4", "192.168.50.33"],
+            },
+            {
+                "interface": "eth1",
+                "dns": ["8.8.8.8", "8.8.4.4", "192.168.50.33"],
+            },
+            {
+                "interface": "wwlan0",
+                "dns": ["8.8.8.8", "8.8.4.4", "192.168.50.33"],
             }
+        ]
 
-### Update the Bandwidth monitoring setting [PUT]
+### Update DNS Database [PUT]
 
-The response for PUT has following attributes:
-
-- **id** (required, number, `1`): Identifier for a cellular interface.
-- **enable** (required, number, `1`): Indicate the monitoring of the interface should be started (`1`) or not (`0`).
-- **threshold** (option, number, `50000`): Water mark to send the notification (kbytes).
-- **reset** (option, number, 1 ): Notify bundle to reset the counter.
-
-+ Request  (application/json)
++ Request  (application/json; charset=utf-8)
 
         {
-            "enable": 1,
-            "reset": 0,
-            "threshold": 50000
+            "interface": "eth0"
+            "dns": ["8.8.8.8", "8.8.4.4"]
         }
 
-+ Response 200 (application/json)
++ Response 200 (application/json; charset=utf-8)
 
         {
-            "enable": 1,
-            "info": 123450,
-            "reset": 0,
-            "threshold": 50000
+            "interface": "eth0"
+            "dns": ["8.8.8.8", "8.8.4.4"]
         }
 
-+ Response 400 (application/json)
++ Request  (application/json; charset=utf-8)
 
-        {
-            "status": 400,
-            "message": "Invalid Input"
-        }
+        [
+            {
+                "interface": "eth0"
+                "dns": ["8.8.8.8", "8.8.4.4"]
+            },
+            {
+                "interface": "eth1",
+                "dns": ["8.8.8.8", "8.8.4.4", "192.168.50.33"],
+            },
+            {
+                "interface": "wwlan0",
+                "dns": ["8.8.8.8", "8.8.4.4", "192.168.50.33"],
+            }
+        ]
+
++ Response 200 (application/json; charset=utf-8)
+
+        [
+            {
+                "interface": "eth0"
+                "dns": ["8.8.8.8", "8.8.4.4"]
+            },
+            {
+                "interface": "eth1",
+                "dns": ["8.8.8.8", "8.8.4.4", "192.168.50.33"],
+            },
+            {
+                "interface": "wwlan0",
+                "dns": ["8.8.8.8", "8.8.4.4", "192.168.50.33"],
+            }
+        ]
+
+## DNS Servers of Given Interface [/network/dns/{iface}]
+### List DNS Servers of Given Interface [GET]
+
+The response has following attributes:
+
+- **dns** (required, object array): dns servers
+
++ Response 200 (application/json; charset=utf-8)
+
+        ["8.8.8.8", "8.8.4.4", "192.168.50.33"]
+
+### Update DNS Database by Interface [PUT]
+
++ Request  (application/json; charset=utf-8)
+
+        ["8.8.8.8", "8.8.4.4", "192.168.50.33"]
+
++ Response 200 (application/json; charset=utf-8)
+
+        ["8.8.8.8", "8.8.4.4", "192.168.50.33"]
 
 
 # Group Status
 Notes related resources of the **Status API**
 
-## CPU status [/system/status/cpu]
-### Get CPU Status data [GET]
-
-The response has following attributes:
-
-- **data** (required, object array): list of cpu status data.
-
-+ Response 200 (application/json; charset=utf-8)
-
-        [
-            {
-                "time": "2014-09-14T15:18:48Z",
-                "percent": 54.1
-            },
-            {
-                "time": "2014-09-14T15:19:48Z",
-                "percent": 40.2
-            },
-            {
-                "time": "2014-09-14T15:20:48Z",
-                "percent": 35.9
-            }
-        ]
-
-
-## Memory status [/system/status/memory]
-### Get Memory Status data [GET]
-
-The response has following attributes:
-
-- **data** (required, object array): list of memory status data.
-
-+ Response 200 (application/json; charset=utf-8)
-
-        [
-            {
-                "time": "2014-09-14T15:18:48Z",
-                "totalByte": 209715200,
-                "usedByte": 52428800,
-                "usedPercent": 25
-            },
-            {
-                "time": "2014-09-14T15:19:48Z",
-                "totalByte": 209715200,
-                "usedByte": 52428800,
-                "usedPercent": 25
-            }
-        ]
-
-
-## Disk status [/system/status/disk]
-### Get Disk Status data [GET]
-
-The response has following attributes:
-
-- **data** (required, object array): list of disk status data.
-
-+ Response 200 (application/json; charset=utf-8)
-
-        [
-            {
-                "time": "2014-09-14T15:18:48Z",
-                "totalByte": 209715200,
-                "usedByte": 52428800,
-                "usedPercent": 50
-            },
-            {
-                "time": "2014-09-14T15:19:48Z",
-                "totalByte": 209715200,
-                "usedByte": 52428800,
-                "usedPercent": 60
-            }
-        ]
-
-
-## System status [/system/status/showdata]
+## System status [/system/status]
 ### Get System Status data [GET]
 
 The response has following attributes:
 
 - **hostname** (required, string): show hostname
-- **firmware** (required, string): show firmware by kversion
-- **mxcloudVersion** (required, string): MXcloud runtime application version
+- **version** (required, string): show product version
 - **uptime** (required, integer): show uptime of machine
-- **storage** (required, integer): show free storage size
+- **diskUsage.total** (required, integer): show total storage size (unit: byte)
+- **diskUsage.used** (required, integer): show used storage size (unit: byte)
+- **diskUsage.free** (required, integer): show free storage size (unit: byte)
+- **diskUsage.percent** (required, integer): show used storage percent
 
 
 + Response 200 (application/json; charset=utf-8)
 
         {
             "hostname": "Moxa",
-            "firmware": "MXcloudv1.0",
-            "mxcloudVersion": "1.0.5-1",
+            "version": "1.0.5-1",
             "uptimeSec": 312956,
-            "diskFreeByte": 583008256
+            "diskUsage": {
+                "total": 770695168,
+                "used": 497655808,
+                "free": 217038848,
+                "percent": 64.6
+            }
         }
 
 ### Set system hostname [PUT]
-
 
 + Request  (application/json; charset=utf-8)
 
@@ -990,13 +893,11 @@ The response has following attributes:
             "hostname": "moxa"
         }
 
-
 + Response 200 (application/json; charset=utf-8)
 
         {
             "hostname": "moxa"
         }
-
 
 
 # Group Watchdog
@@ -1070,14 +971,14 @@ The response has following attributes:
 # Group IP Route
 Notes related resources of the **IPRoute API**
 
-## IPRoute [/network/routes/interfaces]
+## Available Interfaces [/network/routes/interfaces]
 ### List Available Interfaces [GET]
 
 + Response 200 (application/json)
 
         ["eth0", "eth1"]
 
-## IPRoute [/network/routes/default]
+## Default Gateway [/network/routes/default]
 ### Retrieve Default Gateway [GET]
 
 The response has following attributes:
@@ -1122,48 +1023,163 @@ The request and response has following attributes:
 + Request  (application/json)
 
         {
-            "interface": "eth1",
-            "gateway": "192.168.4.254"
+            "interface": "wwan0",
         }
 
 + Response 200 (application/json)
 
         {
-            "interface": "eth1",
-            "gateway": "192.168.4.254"
+            "interface": "wwan0",
+            "gateway": "192.168.3.254"
         }
 
 + Response 404 (application/json)
 
         {
             "status": "40451",
-            "message": "Update default gateway failed: Cellular is connected, the default gateway cannot be changed."
+            "message": "Update default gateway failed."
         }
 
-## IPRoute [/network/routers]
-### Update Router Information [PUT]
+## Default Gateway [/network/routes/secondary]
+### Retrieve Secondary Default Gateway [GET]
+
+The response has following attributes:
+
+- **interface** (optional, string, `eth0`): interface to be set as the default gateway.
+- **gateway** (optional, IP address, `192.168.31.254`): gateway address.
+
++ Response 200 (application/json)
+
+        {
+            "interface": "eth0",
+            "gateway": "192.168.31.254"
+        }
+
+### Update Secondary Default Gateway [PUT]
 
 The request and response has following attributes:
 
-- **name** (optional, string, `eth0`): interface name.
+- **interface** (optional, string, `eth0`): interface to be set as the default gateway.
+- **gateway** (optional, IP address, `192.168.31.254`): gateway address.
+
++ Request  (application/json)
+
+        {}
+
++ Response 200 (application/json)
+
+        {}
+
++ Request  (application/json)
+
+        {
+            "interface": "",
+        }
+
++ Response 200 (application/json)
+
+        {
+            "interface": "",
+        }
+
++ Request  (application/json)
+
+        {
+            "interface": "eth0",
+        }
+
++ Response 200 (application/json)
+
+        {
+            "interface": "eth0",
+            "gateway": "192.168.3.254"
+        }
+
+## Router Database [/network/routes/db]
+
+### List Router Database by Interface [GET]
+
+The response has following attributes:
+
+- **interface** (optional, string, `eth0`): interface name.
+- **gateway** (optional, IP address, `192.168.31.254`): gateway address.
+
++ Response 200 (application/json; charset=utf-8)
+
+        [
+            {
+                "interface": "eth0",
+                "gateway": "192.168.3.254"
+            },
+            {
+                "interface": "eth1",
+                "gateway": "192.168.4.254"
+            },
+            {
+                "interface": "wwlan0",
+                "gateway": "192.168.5.254"
+            }
+        ]
+
+### Update Router Database [PUT]
+
+The request and response has following attributes:
+
+- **interface** (optional, string, `eth0`): interface name.
 - **gateway** (optional, IP address, `192.168.31.254`): gateway address.
 
 + Request  (application/json)
 
         {
-            "name": "eth1",
+            "interface": "eth1",
             "gateway": "192.168.4.254"
         }
 
 + Response 200 (application/json)
 
         {
-            "name": "eth1",
+            "interface": "eth1",
             "gateway": "192.168.4.254"
         }
 
++ Request  (application/json)
 
-## Network Interface Information [/network/interfaces]
+        [
+            {
+                "interface": "eth0",
+                "gateway": "192.168.3.254"
+            },
+            {
+                "interface": "eth1",
+                "gateway": "192.168.4.254"
+            },
+            {
+                "interface": "wwlan0",
+                "gateway": "192.168.5.254"
+            }
+        ]
+
++ Response 200 (application/json; charset=utf-8)
+
+        [
+            {
+                "interface": "eth0",
+                "gateway": "192.168.3.254"
+            },
+            {
+                "interface": "eth1",
+                "gateway": "192.168.4.254"
+            },
+            {
+                "interface": "wwlan0",
+                "gateway": "192.168.5.254"
+            }
+        ]
+
+# Group Network
+Notes related resources of the **network**
+
+## Network Interface Information [/network/interface]
 ### Update the interface information [PUT]
 
 The request for PUT has following attributes (this is an **event** message):
@@ -1192,476 +1208,152 @@ The request for PUT has following attributes (this is an **event** message):
         }
 
 
-# Group Remote/Async
+# Group Serial Interface
 
-## Job Collection [/jobs]
-A set of jobs meta information.
+## Serial Interface Collection [/system/serial]
 
-### Retrieve jobs [GET]
-Get all current exist jobs.
+A interface object has the following attributes:
 
-+ Response 200 (application/json; charset=utf-8)
+- **id** (required, integer, `1`): Interface ID.
+- **dev** (required, string, `ioLogik-E2210`): Device node path (readonly)
+- **devDisplayName** (required, string, `ioLogik-E2210`): Display name (readonly)
+- **mode** (required, string, `rs232`): Type of interface. Could be one of `rs232`, `rs485-2w`, `rs422/rs485-4w`
 
-        [
-          {
-            "id": 123145,
-            "createdAt": "2014-12-17T06:27:58.220Z",
-            "finishedAt": null,
-            "status": "dispatching",
-            "progress": 0,
-            "totalCount": 2,
-            "doneCount": 0,
-            "errorCount": 0,
-            "requests": [
-              {
-                "id": 2323,
-                "method": "post",
-                "resource": "/system/reboot",
-                "__request": {
-                  "destination": "00:0c:29:1c:e8:03",
-                  "createdAt": "2014-12-17T06:27:58.220Z",
-                  "finishedAt": null,
-                  "timeout": 36000,
-                  "status": "created",
-                  "progress": 0,
-                  "result": null
-                }
-              },
-              {
-                "id": 4444,
-                "method": "post",
-                "resource": "/system/reboot",
-                "__request": {
-                  "destination": "00:0c:29:1c:e8:04",
-                  "createdAt": "2014-12-17T06:27:58.220Z",
-                  "finishedAt": null,
-                  "timeout": 36000,
-                  "status": "created",
-                  "progress": 0,
-                  "result": null
-                }
-              }
-            ]
-          },
-          {
-            "id": 345235,
-            "createdAt": "2014-12-17T06:27:58.220Z",
-            "finishedAt": null,
-            "status": "dispatching",
-            "progress": 0,
-            "totalCount": 1,
-            "doneCount": 0,
-            "errorCount": 0,
-            "requests": [
-              {
-                "id": 5111,
-                "method": "get",
-                "resource": "/network/cellulars",
-                "__request": {
-                  "destination": "01:0c:29:1c:e8:04",
-                  "createdAt": "2014-12-17T06:27:58.220Z",
-                  "finishedAt": null,
-                  "timeout": 36000,
-                  "status": "created",
-                  "progress": 0,
-                  "result": null
-                }
-              }
-            ]
-          }
-        ]
-
-### Create a job [POST]
-The request for POST has following attributes:
-
-- **destinations** (required, array|string): Create job for whom. If passed an array it will automatically expand for you and create requests per destination.
-- **message** (required, SanjiMessage): A standard Sanji Message(request) must include `method`, `resource`
-- **options.timeout** (optional, integer): Set requests' timeout
-
-Reboot 3 devices `00:0c:29:1c:e8:01`, `00:0c:29:1c:e8:02`, `00:0c:29:1c:e8:03` at once.
-
-+ Request (application/json; charset=utf-8)
-
-        {
-          "destinations": ["00:0c:29:1c:e8:01", "00:0c:29:1c:e8:02", "00:0c:29:1c:e8:03"],
-          "message": {
-            "method": "get",
-            "resource": "/system/time"
-          }
-        }
-
-+ Response 200 (application/json; charset=utf-8)
-
-        {
-          "id": 123145,
-          "createdAt": "2014-12-17T06:27:58.220Z",
-          "finishedAt": null,
-          "status": "dispatching",
-          "progress": 0,
-          "totalCount": 3,
-          "doneCount": 0,
-          "errorCount": 0,
-          "requests": [
-            {
-              "id": 8330,
-              "method": "post",
-              "resource": "/system/reboot",
-              "__request": {
-                "destination": "00:0c:29:1c:e8:01",
-                "createdAt": "2014-12-17T06:27:58.220Z",
-                "finishedAt": null,
-                "timeout": 36000,
-                "progress": 0,
-                "status": "resolved",
-                "result": null
-              }
-            },
-            {
-              "id": 34534,
-              "method": "post",
-              "resource": "/system/reboot",
-              "__request": {
-                "destination": "00:0c:29:1c:e8:02",
-                "createdAt": "2014-12-17T06:27:58.220Z",
-                "finishedAt": null,
-                "timeout": 36000,
-                "progress": 0,
-                "status": "created",
-                "result": null
-              }
-            },
-            {
-              "id": 2323,
-              "method": "post",
-              "resource": "/system/reboot",
-              "__request": {
-                "destination": "00:0c:29:1c:e8:03",
-                "createdAt": "2014-12-17T06:27:58.220Z",
-                "finishedAt": null,
-                "timeout": 36000,
-                "progress": 0,
-                "status": "created",
-                "result": null
-              }
-            }
-          ]
-        }
-
-## Job [/jobs/{id}]
-Single job information
-
-+ Parameters
-    + id (required, number, `12345`) ... ID of the job in the form of a integer.
-
-The response for GET has following attributes:
-
-- **progress** (integer, `0`): Current progres of all requests in this job.
-- **status** (string, `pending`): Job's current status.
-- **timeout** (integer, `infinity`): Set job's timeout.
-- **createdAt** (string, `currenttime`): Job's creation time.
-- **finishedAt** (string, `null`): Job's finish time.
-- **totalCount** (integer): Total count of requests.
-- **doneCount** (integer): Done count of requests.
-- **errorCount** (integer): Error count of requests.
-- **requests** (array): Requests in this job.
-
-### Retrieve a job information [GET]
-Get job's current status and requests contains.
-
-+ Response 200 (application/json; charset=utf-8)
-
-        {
-          "id": 123145,
-          "createdAt": "2011-12-19T15:28:46.493Z",
-          "finishedAt": "2011-12-19T15:55:46.493Z",
-          "status": "dispatching",
-          "progress": 100,
-          "totalCount": 5,
-          "doneCount": 3,
-          "errorCount": 2,
-          "requests": [2323]
-        }
-
-
-## Request Collection [/requests]
-A set of Requests meta information.
-
-### Retrieve Request [GET]
-Get all current exist requests.
-
-+ Response 200 (application/json; charset=utf-8)
-
-        [
-          {
-            "id": 2323,
-            "method": "post",
-            "resource": "/system/reboot",
-            "__request": {
-              "destination": "00:0c:29:1c:e8:03",
-              "createdAt": "2014-12-17T06:27:58.220Z",
-              "finishedAt": null,
-              "timeout": 36000,
-              "status": "created",
-              "progress": 0,
-              "result": null
-            }
-          },
-          {
-            "id": 12414,
-            "method": "post",
-            "resource": "/system/reboot",
-            "__request": {
-              "destination": "00:0c:29:1c:e8:04",
-              "createdAt": "2014-12-17T06:27:58.220Z",
-              "finishedAt": null,
-              "timeout": 36000,
-              "status": "created",
-              "progress": 0,
-              "result": null
-            }
-          }
-        ]
-
-
-### Create a request [POST]
-The request for POST has following attributes:
-
-- **destination** (optional, string): Create request for whom (default: localhost). If you want to send to many please create a **Job**.
-- **message** (required, SanjiMessage): A standard Sanji Message(request) must include `method`, `resource`
-- **options.timeout** (optional, integer): Set requests' timeout
-
-The response for POST has following attributes:
-- **requests** (array): IDs of requests belongs to this job.
-
-+ Request (application/json; charset=utf-8)
-
-        {
-          "destination": "cg-1122334455aa",
-          "message": {
-            "method": "get",
-            "resource": "/system/status",
-            "data": {
-              "test": "reqRequestData"
-            }
-          }
-        }
-
-+ Response 200 (application/json; charset=utf-8)
-
-        {
-          "id": 2323,
-          "method": "get",
-          "resource": "/system/status",
-          "data": {
-            "test": "reqRequestData"
-          },
-          "__request": {
-            "destination": "AA-BB-CC-DD-11-22",
-            "createdAt": "2014-12-17T06:27:58.220Z",
-            "finishedAt": null,
-            "timeout": 36000,
-            "status": "created",
-            "progress": 0,
-            "result": null
-          }
-        }
-
-
-## Request [/requests/{id}]
-Request is a command/data/event from server to client (one-to-one).
-
-+ Parameters
-    + id (required, number, `2323`) ... ID of the request in the form of a integer.
-
-### Retrieve a request information [GET]
-
-The response for GET has following attributes:
-
-Basically, just extend original *Sanji Message (one-to-one)* with adding a property: `__request` for dispatching/monitoring it.
-
-- **id** (integer): Sanji Message ID.
-- **method** (enum): Sanji Message's method field.
-- **resource** (string): Sanji Message's resource field.
-- **data** (object): Sanji Message's data field.
-- **__request.destination** (string): This Sanji Message is belong to whom.
-- **__request.createdAt** (datetime): Creatation time of request.
-- **__request.finishedAt** (datetime): Finish time of request.
-- **__request.status** (string): Current status. (created, dispatching, resolved, timeout, error)
-- **__request.progress** (object): Progress.
-- **__request.result** (object): Result of this request. (null if status != resolved)
-
-
-+ Response 200 (application/json; charset=utf-8)
-
-        {
-          "id": 2323,
-          "method": "post",
-          "resource": "/system/reboot",
-          "__request": {
-            "destination": "00:0c:29:1c:e8:03",
-            "createdAt": "2014-12-17T06:27:58.220Z",
-            "finishedAt": null,
-            "timeout": 36000,
-            "status": "created",
-            "progress": 0,
-            "result": null
-          }
-        }
-
-
-# Group Schedule
-Notes related resources of the **Schedule API**
-
-## Schedule Collection [/system/schedule]
-### List all scheduled items [GET]
-
-The Collection response has following attributes:
+### Get all serial interfaces [GET]
 
 + Response 200 (application/json)
 
         [
             {
-                "id":1,
-                "enable": 0,
-                "alias": "reboot",
-                "command": "reboot",
-                "schedule": "0 0 1 1,3,5,7,9,11 *",
-                "executer": "root"
+              "id": 1,
+              "dev": "/dev/ttyM0",
+              "devDisplayName": "PORT 1",
+              "mode": "rs232"
             },
             {
-                "id":2,
-                "enable": 0,
-                "alias": "upgrade",
-                "command": "upgrade-firmware",
-                "schedule": "0 0 1 2,6,10 *",
-                "executer": "root"
+              "id": 2,
+              "dev": "/dev/ttyM1",
+              "devDisplayName": "PORT 2",
+              "mode": "rs485-2w"
+            },
+            {
+              "id": 3,
+              "dev": "/dev/ttyM2",
+              "devDisplayName": "PORT 3",
+              "mode": "rs422/rs485-4w"
             }
         ]
 
-### Update some scheduled items [PUT]
+## Serial Interface [/system/serial/{id}]
 
-The collection request/response for update has following attributes:
++ Parameter
+    + id: 1 (required, number) - ID of the Serial Interface in form of an integer
 
-+ Request (application/json)
-
-        [
-            {
-                "id":1,
-                "enable": 0,
-                "alias": "reboot",
-                "command": "reboot",
-                "schedule": "0 0 3 1,3,5,7,9,11 *",
-                "executer": "root"
-            },
-            {
-                "id":2,
-                "enable": 0,
-                "alias": "upgrade",
-                "command": "upgrade-firmware",
-                "schedule": "0 0 2 2,6,10 *",
-                "executer": "root"
-            }
-        ]
-
-+ Response 200 (application/json)
-
-        [
-            {
-                "id":1,
-                "enable": 0,
-                "alias": "reboot",
-                "command": "reboot",
-                "schedule": "0 0 3 1,3,5,7,9,11 *",
-                "executer": "root"
-            },
-            {
-                "id":2,
-                "enable": 0,
-                "alias": "upgrade",
-                "command": "upgrade-firmware",
-                "schedule": "0 0 2 2,6,10 *",
-                "executer": "root"
-            }
-        ]
-
-
-## Schedule [/system/schedule/{id}]
-A single Schedule object with all its details
-
-+ Parameters
-    + id (required, number, `1`) ... Numeric `id` of the Scheduled item to perform action with. Has example value.
-
-### Retrieve an Scheduled item [GET]
-
-The response for GET has following attributes:
-
-- **id** (required, number, `1`): Identifier for a scheduled item.
-- **enable** (required, number, `1`): Indicate if the item should be scheduled (`1`) or not (`0`).
-- **alias** (optional, string, `reboot`): Indicate the alias of the scheduled item.
-- **command** (required, string, `reboot`): Indicate the command to be scheduled.
-- **schedule** (required, string, `0 0 1 * *`): Schedule time with crontab format.
-- **executer** (required, string, `root`): Executer for the scheduled item.
-
-+ Response 200 (application/json)
-
-    + Header
-
-            X-My-Header: The Value
-
-    + Body
-
-            {
-                "id":1,
-                "enable": 0,
-                "alias": "reboot",
-                "command": "reboot",
-                "schedule": "0 0 3 1,3,5,7,9,11 *",
-                "executer": "root"
-            }
-
-### Update an Scheduled Item [PUT]
-
-The request for PUT has following attributes:
-
-- **id** (required, number, `1`): Identifier for a scheduled item.
-- **enable** (required, number, `1`): Indicate if the item should be scheduled (`1`) or not (`0`).
-- **alias** (optional, string, `reboot`): Indicate the alias of the scheduled item.
-- **command** (required, string, `reboot`): Indicate the command to be scheduled.
-- **schedule** (required, string, `0 0 1 * *`): Schedule time with crontab format.
-- **executer** (required, string, `root`): Executer for the scheduled item.
-
-The response for PUT is same as that for GET.
-
-The error response has following attributes:
-
-- **status** (required, number, `1100`): Status code for error message.
-- **message** (required, string): Error message in English.
+### Update a serial interface [PUT]
 
 + Request (application/json)
 
         {
-            "enable": 0,
-            "alias": "reboot",
-            "command": "reboot",
-            "schedule": "0 0 3 1,3,5,7,9,11 *",
-            "executer": "root"
+            "mode": "rs485-2w"
         }
 
 + Response 200 (application/json)
 
         {
-            "id":1,
-            "enable": 0,
-            "alias": "reboot",
-            "command": "reboot",
-            "schedule": "0 0 3 1,3,5,7,9,11 *",
-            "executer": "root"
+          "id": 1,
+          "dev": "/dev/ttyM0",
+          "devDisplayName": "PORT 1",
+          "mode": "rs485-2w"
         }
 
-+ Response 404 (application/json)
+# Group Serial Interface
+
+## Serial Interface Collection [/system/serial]
+
+A interface object has the following attributes:
+
+- **id** (required, integer, `1`): Interface ID.
+- **dev** (required, string, `ioLogik-E2210`): Device node path (readonly)
+- **devDisplayName** (required, string, `ioLogik-E2210`): Display name (readonly)
+- **mode** (required, string, `rs232`): Type of interface. Could be one of `rs232`, `rs485-2w`, `rs422/rs485-4w`
+
+### Get all serial interfaces [GET]
+
++ Response 200 (application/json)
+
+        [
+            {
+              "id": 1,
+              "dev": "/dev/ttyM0",
+              "devDisplayName": "PORT 1",
+              "mode": "rs232"
+            },
+            {
+              "id": 2,
+              "dev": "/dev/ttyM1",
+              "devDisplayName": "PORT 2",
+              "mode": "rs485-2w"
+            },
+            {
+              "id": 3,
+              "dev": "/dev/ttyM2",
+              "devDisplayName": "PORT 3",
+              "mode": "rs422/rs485-4w"
+            }
+        ]
+
+## Serial Interface [/system/serial/{id}]
+
++ Parameter
+    + id: 1 (required, number) - ID of the Serial Interface in form of an integer
+
+### Update a serial interface [PUT]
+
++ Request (application/json)
 
         {
-            "status": 8101,
-            "message": "Item not found!"
+            "mode": "rs485-2w"
         }
 
++ Response 200 (application/json)
+
+        {
+          "id": 1,
+          "dev": "/dev/ttyM0"
+          "devDisplayName": "PORT 1",
+          "mode": "rs485-2w"
+        }
+
+# Group System Log
+
+## System Log [/system/syslog]
+
+### Download system logs [GET]
+
+The response for GET would be a file.
+(From web to backend)
+
++ Request  (application/json)
+
++ Response 200 (application/octet-stream)
+
+        ```binary data goes here```
+
+### Download system logs [POST]
+(From backend to bundle)
+The response for GET has following attributes:
+
++ Request  (application/json)
+
+        {
+          "url": "https://server/upload",
+          "headers": {
+            "accessToken": "MOXAMOXA-TEST-SYSTEM"
+          }
+        }
+
++ Response 200 (application/json)
+
+        {
+          "url": "https://server/upload/xxxxxxx"
+        }
