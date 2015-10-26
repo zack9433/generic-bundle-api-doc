@@ -8,7 +8,7 @@ Notes API is a *short texts saving* service similar to its physical paper presen
 Notes related resources of the **Cellular API**
 
 ## Cellular Collection [/network/cellulars]
-### List all Cellulars [GET]
+### List all Cellular Configurations [GET]
 
 The Collection response has following attributes:
 
@@ -17,25 +17,22 @@ The Collection response has following attributes:
         [
           {
             "id": 1,
-            "enable": 1,
-            "pinCode": "0000",
             "name": "wwan1",
-            "username": "",
-            "subnet": "255.255.255.252",
-            "password": "",
-            "authType": "PAP",
-            "ip": "111.70.146.125",
-            "enableAuth": 0,
-            "gateway": "111.70.146.126",
             "signal": -96,
-            "atPort": "/dev/ttyUSB1",
-            "dns": ["168.95.1.1" , "168.95.192.1"],
-            "status": 1,
-            "apn": "internet",
             "operatorName": "Chunghwa Telecom",
-            "modemPort": "/dev/cdc-wdm1"
+
+            "connected": true,
+            "ip": "111.70.146.125",
+            "subnet": "255.255.255.252",
+            "gateway": "111.70.146.126",
+            "dns": ["168.95.1.1" , "168.95.192.1"],
+
+            "enable": true,
+            "apn": "internet",
+            "pinCode": "0000"
           }
         ]
+
 
 ## Cellular [/network/cellulars/{id}]
 A single Cellular object with all its details
@@ -48,62 +45,48 @@ A single Cellular object with all its details
 The response for GET has following attributes:
 
 - **id** (number, `1`): Identifier for an Cellular interface.
-- **name** (string, `eth0`): Indicate the interface name.
-- **modemPort** (string, `/dev/cdc-wcm1`): Internally use modem port device node
-- **atPort** (string, `/dev/ttyUSB1`): Internally use AT port device node
-- **ip** (IP address, `111.70.146.125`): IP address for the Cellular interface.
-- **gateway** (IP address, `192.168.3.254`): Gateway is a router or a proxy server that routes between networks.
-- **subnet** (IP address, `255.255.255.252`): Cellular network's subnet mask.
-- **dns** (IP address array): The Domain Name System (DNS) is a hierarchical distributed naming system for computers, services, or any resource connected to the Internet or a private network.
-- **enable** (number, `1`): Indicate the link status of Cellular interface should be set to up (`1`) or down (`0`).
-- **pinCode** (string, `0000`): Use this code to auth when exits.
-- **username** (string, ``): Indicate the username to enter pap/chap.
-- **password** (string, ``): Indicate the password to enter pap/chap.
-- **apn** (string, `internet`): Indicate apn of SIM card.
-- **signal** (number, `99`): Indicate apn of SIM card.
-- **enableAuth** (number, `0`): Indicate the authentication need to be done before dialUp
-- **authType** (string, `PAP`): Indicate type of authentication such as 'PAP','CHAP'
-- **status** (number, `0`): Indicate current status of connection, '0' / '1'
-- **operatorName** (string, ``): Indicate current operator name if exit
+- **name** (string, `wwan0`): Interface name.
+- **signal** (number, `99`): Cellular RF signal strength, in `dbm`.
+- **operatorName** (string, ``): Indicate current operator name if exist.
 
+- **connected** (boolean, `true`): Indicate current status of connection.
+- **ip** (IP address, `111.70.146.125`): IP address. `""` when not connected.
+- **subnet** (IP address, `255.255.255.252`): Subnet mask. `""` when not connected.
+- **gateway** (IP address, `192.168.3.254`): Gateway IP address. `""` when not connected.
+- **dns** (IP address array): A list of DNS IP addresses. `[]` when not connected.
+
+- **enable** (boolean, `true`): Enable Cellular Networking.
+- **apn** (string, `internet`): APN used when dialing up to Cellular Network.
+- **pinCode** (string, `0000`): PIN code of SIM card. Takes no effect when SIM card PIN weren't not set.
 
 + Response 200 (application/json; charset=utf-8)
 
-      {
-        "id": 1,
-        "enable": 1,
-        "pinCode": "0000",
-        "name": "wwan1",
-        "username": "",
-        "subnet": "255.255.255.252",
-        "password": "",
-        "authType": "PAP",
-        "ip": "111.70.146.125",
-        "enableAuth": 0,
-        "gateway": "111.70.146.126",
-        "signal": -96,
-        "atPort": "/dev/ttyUSB1",
-        "dns": ["168.95.1.1" , "168.95.192.1"],
-        "status": 1,
-        "apn": "internet",
-        "operatorName": "Chunghwa Telecom",
-        "modemPort": "/dev/cdc-wdm1"
-      }
+        {
+            "id": 1,
+            "name": "wwan1",
+            "signal": -96,
+            "operatorName": "Chunghwa Telecom",
+
+            "connected": true,
+            "ip": "111.70.146.125",
+            "subnet": "255.255.255.252",
+            "gateway": "111.70.146.126",
+            "dns": ["168.95.1.1" , "168.95.192.1"],
+
+            "enable": true,
+            "apn": "internet",
+            "pinCode": "0000"
+        }
 
 
-### Update an Cellular [PUT]
+### Update Cellular Configuration [PUT]
 
 The request for PUT has following attributes:
 
-- **id** (required, number, `1`): Identifier for an Cellular interface.
-- **enable** (optional, number, `1`): Indicate the link status of Cellular interface should be set to up (`1`) or down (`0`).
+- **id** (required, number, `1`): Identifier for an Cellular interface. Should match `id` in URL.
+- **enable** (optional, boolean, `true`): Enable/disable Cellular connection.
 - **pinCode** (optional, string, `0000`): Use this code to auth when exits.
-- **username** (optional, string, ``): Indicate the username to enter pap/chap.
-- **password** (optional, string, ``): Indicate the password to enter pap/chap.
 - **apn** (optional, string, ``): Indicate apn of SIM card.
-- **enableAuth** (optional, number, `0`): Indicate the authentication need to be done before dialUp
-- **authType** (optional, string, ``): Indicate type of authentication such as 'PAP','CHAP'
-
 
 The response for PUT is same as that for GET.
 
@@ -114,45 +97,38 @@ The error response has following attributes:
 
 + Request (application/json)
 
-      {
-        "id": 1,
-        "enable": 1,
-        "pinCode": "0000",
-        "username": "",
-        "password": "",
-        "authType": "PAP",
-        "enableAuth": 0,
-        "apn": "internet",
-      }
+        {
+            "id": 1,
+            "enable": true,
+            "apn": "internet",
+            "pinCode": "0000"
+        }
 
 + Response 200 (application/json)
 
-      {
-        "id": 1,
-        "enable": 1,
-        "pinCode": "0000",
-        "name": "wwan1",
-        "username": "",
-        "subnet": "255.255.255.252",
-        "password": "",
-        "authType": "PAP",
-        "ip": "111.70.146.125",
-        "enableAuth": 0,
-        "gateway": "111.70.146.126",
-        "signal": -96,
-        "atPort": "/dev/ttyUSB1",
-        "dns": ["168.95.1.1" , "168.95.192.1"],
-        "status": 1,
-        "apn": "internet",
-        "operatorName": "Chunghwa Telecom",
-        "modemPort": "/dev/cdc-wdm1"
-      }
+        {
+            "id": 1,
+            "name": "wwan1",
+            "signal": -96,
+            "operatorName": "Chunghwa Telecom",
+
+            "connected": true,
+            "ip": "111.70.146.125",
+            "subnet": "255.255.255.252",
+            "gateway": "111.70.146.126",
+            "dns": ["168.95.1.1" , "168.95.192.1"],
+
+            "enable": true,
+            "apn": "internet",
+            "pinCode": "0000"
+        }
 
 + Response 400 (application/json)
 
-      {
-          "message": "Unable to apply!"
-      }
+        {
+            "status": 1100,
+            "message": "Unable to apply!"
+        }
 
 # Group Ethernet
 Notes related resources of the **Ethernet API**
