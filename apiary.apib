@@ -23,7 +23,7 @@ The Collection response has following attributes:
 
             "connected": true,
             "ip": "111.70.146.125",
-            "subnet": "255.255.255.252",
+            "netmask": "255.255.255.252",
             "gateway": "111.70.146.126",
             "dns": ["168.95.1.1" , "168.95.192.1"],
 
@@ -58,7 +58,7 @@ The response for GET has following attributes:
 
 - **connected** (boolean, `true`): Indicate current status of connection.
 - **ip** (IP address, `111.70.146.125`): IP address. `""` when not connected.
-- **subnet** (IP address, `255.255.255.252`): Subnet mask. `""` when not connected.
+- **netmask** (IP address, `255.255.255.252`): Subnet mask. `""` when not connected.
 - **gateway** (IP address, `192.168.3.254`): Gateway IP address. `""` when not connected.
 - **dns** (IP address array): A list of DNS IP addresses. `[]` when not connected.
 
@@ -80,7 +80,7 @@ The response for GET has following attributes:
 
             "connected": true,
             "ip": "111.70.146.125",
-            "subnet": "255.255.255.252",
+            "netmask": "255.255.255.252",
             "gateway": "111.70.146.126",
             "dns": ["168.95.1.1" , "168.95.192.1"],
 
@@ -144,7 +144,7 @@ The error response has following attributes:
 
             "connected": true,
             "ip": "111.70.146.125",
-            "subnet": "255.255.255.252",
+            "netmask": "255.255.255.252",
             "gateway": "111.70.146.126",
             "dns": ["168.95.1.1" , "168.95.192.1"],
 
