@@ -53,7 +53,7 @@ The response for GET has following attributes:
 
 - **id** (number, `1`): Identifier for an Cellular interface.
 - **name** (string, `wwan0`): Interface name.
-- **signal** (number, `99`): Cellular RF signal strength, in `dbm`.
+- **signal** (number, `-99`): Cellular RF signal strength, in `dbm`. Value `0` indicates no SIM card found.
 - **operatorName** (string, ``): Indicate current operator name if exist.
 
 - **connected** (boolean, `true`): Indicate current status of connection.
