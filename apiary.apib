@@ -1496,3 +1496,88 @@ The error response has following attributes:
               "message": "Unable to apply!"
         }
 
+
+# Group Service
+Notes related resources of the **Service API**
+
+## Service Collection [/system/services]
+### List all Services [GET]
+
+The Collection response has following attributes:
+
++ Response 200 (application/json)
+
+        [
+          {
+            "id": 1,
+            "enable": true,
+            "name": "ssh",
+            "status": true
+          },
+          {
+            "id": 2,
+            "enable": true,
+            "name": "rsyslog",
+            "status": true
+          }
+        ]
+
+## Service [/system/services/{name}]
+A single Service object with all its details
+
++ Parameters
+    + name (required, number, `ssh`) ... The unique service name.
+
+
+### Retrieve an Service [GET]
+
+The response for GET has following attributes:
+
+- **id** (number, `1`): Identifier for an Service item.
+- **enable** (boolean, `true`): Indicate to enable (`true`) or disable (`false`) the service.
+- **name** (string, `http`): Indicate the service name.
+- **status** (boolean, `true`): Indicate the current status of service.
+
++ Response 200 (application/json; charset=utf-8)
+
+        {
+            "id": 1,
+            "enable": true,
+            "name": "ssh",
+            "status": true
+        }
+
+
+### Update an Service [PUT]
+
+The request for PUT has following attributes:
+
+- **enable** (required, boolean, `true`): Indicate to enable (`true`) or disable (`false`) the service.
+
+
+The error response has following attributes:
+
+- **status** (required, number, `1100`): Status code for error message.
+- **message** (required, string): Error message in English.
+
++ Request (application/json)
+
+        {
+            "enable": true
+        }
+
++ Response 200 (application/json)
+
+        {
+            "id": 1,
+            "enable": true,
+            "name": "ssh",
+            "status": true
+        }
+
++ Response 400 (application/json)
+
+        {
+              "message": "No such service."
+        }
+
