@@ -1613,3 +1613,33 @@ The error response has following attributes:
               "message": "No such service."
         }
 
+
+## System Mode [/system/mode]
+
+- **enableMode** (required, string): Avaliable modes: `cellular-router`, `modbus-application`
+
+### Set system mode [PUT]
+
++ Request (application/json)
+
+        {
+          "enableMode": "cellular-router"
+        }
+
+The response for PUT has following attributes:
+
++ Response 200 (application/json)
+
+        {
+          "enableMode": "cellular-router"
+        }
+
+### Get system mode [GET]
+
+The response for GET has following attributes:
+
++ Response 200 (application/json)
+
+        {
+          "enableMode": "cellular-router"
+        }
