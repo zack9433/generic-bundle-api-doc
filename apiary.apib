@@ -669,44 +669,6 @@ The response for PUT has following attributes:
                 }
             }
 
-# Group SSH
-Status related resources of the **SSH Service**
-
-## SSH [/network/ssh]
-
-### Retreive SSH Settings [GET]
-
-The response for GET has following attributes:
-
-- **enable** (required, integer, 1): enable ssh service
-
-+ Response 200 (application/json; charset=utf-8)
-
-    + Body
-
-            {
-                "enable": 1
-            }
-
-
-### Update system time properties [PUT]
-
-The response for PUT has following attributes:
-
-- **enable** (required, integer, 1): enable ssh service
-
-+ Request  (application/json; charset=utf-8)
-
-        {
-            "enable": 1
-        }
-
-+ Response 200 (application/json; charset=utf-8)
-
-        {
-            "enable": 1
-        }
-
 
 # Group DNS
 Notes related resources of the **DNS API**
@@ -861,10 +823,10 @@ The response has following attributes:
 - **hostname** (required, string): show hostname
 - **version** (required, string): show product version
 - **uptime** (required, integer): show uptime of machine
-- **diskUsage.total** (required, integer): show total storage size (unit: byte)
-- **diskUsage.used** (required, integer): show used storage size (unit: byte)
-- **diskUsage.free** (required, integer): show free storage size (unit: byte)
-- **diskUsage.percent** (required, integer): show used storage percent
+- **diskUsage.[disk].total** (required, integer): show total storage size (unit: byte)
+- **diskUsage.[disk].used** (required, integer): show used storage size (unit: byte)
+- **diskUsage.[disk].free** (required, integer): show free storage size (unit: byte)
+- **diskUsage.[disk].percent** (required, integer): show used storage percent
 
 
 + Response 200 (application/json; charset=utf-8)
@@ -874,10 +836,18 @@ The response has following attributes:
             "version": "1.0.5-1",
             "uptimeSec": 312956,
             "diskUsage": {
-                "total": 770695168,
-                "used": 497655808,
-                "free": 217038848,
-                "percent": 64.6
+                "system": {
+                    "total": 770695168,
+                    "used": 497655808,
+                    "free": 217038848,
+                    "percent": 64.6
+                },
+                "sd": {
+                    "total": 770695168,
+                    "used": 497655808,
+                    "free": 217038848,
+                    "percent": 64.6
+                }
             }
         }
 
