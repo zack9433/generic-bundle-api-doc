@@ -8,7 +8,7 @@ Notes API is a *short texts saving* service similar to its physical paper presen
 Notes related resources of the **Cellular API**
 
 ## Cellular Collection [/network/cellulars]
-### List all Cellulars [GET]
+### List all Cellular Configurations [GET]
 
 The Collection response has following attributes:
 
@@ -17,25 +17,29 @@ The Collection response has following attributes:
         [
           {
             "id": 1,
-            "enable": 1,
-            "pinCode": "0000",
             "name": "wwan1",
-            "username": "",
-            "subnet": "255.255.255.252",
-            "password": "",
-            "authType": "PAP",
-            "ip": "111.70.146.125",
-            "enableAuth": 0,
-            "gateway": "111.70.146.126",
             "signal": -96,
-            "atPort": "/dev/ttyUSB1",
-            "dns": ["168.95.1.1" , "168.95.192.1"],
-            "status": 1,
-            "apn": "internet",
             "operatorName": "Chunghwa Telecom",
-            "modemPort": "/dev/cdc-wdm1"
+
+            "connected": true,
+            "ip": "111.70.146.125",
+            "netmask": "255.255.255.252",
+            "gateway": "111.70.146.126",
+            "dns": ["168.95.1.1" , "168.95.192.1"],
+
+            "enable": true,
+            "apn": "internet",
+            "pinCode": "0000",
+
+            "keepalive":
+            {
+              "enable": true,
+              "targetHost": "8.8.8.8",
+              "intervalSec": 60
+            }
           }
         ]
+
 
 ## Cellular [/network/cellulars/{id}]
 A single Cellular object with all its details
@@ -48,114 +52,120 @@ A single Cellular object with all its details
 The response for GET has following attributes:
 
 - **id** (number, `1`): Identifier for an Cellular interface.
-- **name** (string, `eth0`): Indicate the interface name.
-- **modemPort** (string, `/dev/cdc-wcm1`): Internally use modem port device node
-- **atPort** (string, `/dev/ttyUSB1`): Internally use AT port device node
-- **ip** (IP address, `111.70.146.125`): IP address for the Cellular interface.
-- **gateway** (IP address, `192.168.3.254`): Gateway is a router or a proxy server that routes between networks.
-- **subnet** (IP address, `255.255.255.252`): Cellular network's subnet mask.
-- **dns** (IP address array): The Domain Name System (DNS) is a hierarchical distributed naming system for computers, services, or any resource connected to the Internet or a private network.
-- **enable** (number, `1`): Indicate the link status of Cellular interface should be set to up (`1`) or down (`0`).
-- **pinCode** (string, `0000`): Use this code to auth when exits.
-- **username** (string, ``): Indicate the username to enter pap/chap.
-- **password** (string, ``): Indicate the password to enter pap/chap.
-- **apn** (string, `internet`): Indicate apn of SIM card.
-- **signal** (number, `99`): Indicate apn of SIM card.
-- **enableAuth** (number, `0`): Indicate the authentication need to be done before dialUp
-- **authType** (string, `PAP`): Indicate type of authentication such as 'PAP','CHAP'
-- **status** (number, `0`): Indicate current status of connection, '0' / '1'
-- **operatorName** (string, ``): Indicate current operator name if exit
+- **name** (string, `wwan0`): Interface name.
+- **signal** (number, `-99`): Cellular RF signal strength, in `dbm`. Value `0` indicates no SIM card found.
+- **operatorName** (string, ``): Indicate current operator name if exist.
 
+- **connected** (boolean, `true`): Indicate current status of connection.
+- **ip** (IP address, `111.70.146.125`): IP address. `""` when not connected.
+- **netmask** (IP address, `255.255.255.252`): Subnet mask. `""` when not connected.
+- **gateway** (IP address, `192.168.3.254`): Gateway IP address. `""` when not connected.
+- **dns** (IP address array): A list of DNS IP addresses. `[]` when not connected.
+
+- **enable** (boolean, `true`): Enable Cellular Networking.
+- **apn** (string, `internet`): APN used when dialing up to Cellular Network.
+- **pinCode** (string, `0000`): PIN code of SIM card. Takes no effect when SIM card PIN weren't not set.
+- **keepalive** (object): Keep-alive configuration.
+    - **enable** (boolean, `true`): Enable/disable Cellular connection keep-alive by ping.
+    - **targetHost** (string, `8.8.8.8`): IP address to ping.
+    - **intervalSec** (number, `60`): Check alive interval.
 
 + Response 200 (application/json; charset=utf-8)
 
-      {
-        "id": 1,
-        "enable": 1,
-        "pinCode": "0000",
-        "name": "wwan1",
-        "username": "",
-        "subnet": "255.255.255.252",
-        "password": "",
-        "authType": "PAP",
-        "ip": "111.70.146.125",
-        "enableAuth": 0,
-        "gateway": "111.70.146.126",
-        "signal": -96,
-        "atPort": "/dev/ttyUSB1",
-        "dns": ["168.95.1.1" , "168.95.192.1"],
-        "status": 1,
-        "apn": "internet",
-        "operatorName": "Chunghwa Telecom",
-        "modemPort": "/dev/cdc-wdm1"
-      }
+        {
+            "id": 1,
+            "name": "wwan1",
+            "signal": -96,
+            "operatorName": "Chunghwa Telecom",
+
+            "connected": true,
+            "ip": "111.70.146.125",
+            "netmask": "255.255.255.252",
+            "gateway": "111.70.146.126",
+            "dns": ["168.95.1.1" , "168.95.192.1"],
+
+            "enable": true,
+            "apn": "internet",
+            "pinCode": "0000",
+
+            "keepalive":
+            {
+              "enable": true,
+              "targetHost": "8.8.8.8",
+              "intervalSec": 60
+            }
+        }
 
 
-### Update an Cellular [PUT]
+### Update Cellular Configuration [PUT]
 
 The request for PUT has following attributes:
 
-- **id** (required, number, `1`): Identifier for an Cellular interface.
-- **enable** (optional, number, `1`): Indicate the link status of Cellular interface should be set to up (`1`) or down (`0`).
-- **pinCode** (optional, string, `0000`): Use this code to auth when exits.
-- **username** (optional, string, ``): Indicate the username to enter pap/chap.
-- **password** (optional, string, ``): Indicate the password to enter pap/chap.
-- **apn** (optional, string, ``): Indicate apn of SIM card.
-- **enableAuth** (optional, number, `0`): Indicate the authentication need to be done before dialUp
-- **authType** (optional, string, ``): Indicate type of authentication such as 'PAP','CHAP'
-
+- **id** (required, number, `1`): Identifier for an Cellular interface. Should match `id` in URL.
+- **enable** (required, boolean, `true`): Enable/disable Cellular connection.
+- **pinCode** (required, string, `0000`): Use this code to auth when exits.
+- **apn** (required, string, ``): Indicate apn of SIM card.
+- **keepalive** (required, object): Keep-alive configuration.
+    - **enable** (required, boolean, `true`): Enable/disable Cellular connection keep-alive by ping.
+    - **targetHost** (required, string, `8.8.8.8`): IP address to ping.
+    - **intervalSec** (required, number, `60`): Check alive interval. Criteria `60 <= v < 86400`.
 
 The response for PUT is same as that for GET but:
 
 - **restart** (optional, number, `0`): `1` means that view must be restarted after receiving the response.
 
-
 The error response has following attributes:
 
-- **status** (required, number, `1100`): Status code for error message.
 - **message** (required, string): Error message in English.
 
 + Request (application/json)
 
-      {
-        "id": 1,
-        "enable": 1,
-        "pinCode": "0000",
-        "username": "",
-        "password": "",
-        "authType": "PAP",
-        "enableAuth": 0,
-        "apn": "internet",
-      }
+        {
+            "id": 1,
+            "enable": true,
+            "apn": "internet",
+            "pinCode": "0000",
+
+            "keepalive":
+            {
+              "enable": true,
+              "targetHost": "8.8.8.8",
+              "intervalSec": 60
+            }
+        }
 
 + Response 200 (application/json)
 
-      {
-        "id": 1,
-        "enable": 1,
-        "pinCode": "0000",
-        "name": "wwan1",
-        "username": "",
-        "subnet": "255.255.255.252",
-        "password": "",
-        "authType": "PAP",
-        "ip": "111.70.146.125",
-        "enableAuth": 0,
-        "gateway": "111.70.146.126",
-        "signal": -96,
-        "atPort": "/dev/ttyUSB1",
-        "dns": ["168.95.1.1" , "168.95.192.1"],
-        "status": 1,
-        "apn": "internet",
-        "operatorName": "Chunghwa Telecom",
-        "modemPort": "/dev/cdc-wdm1"
-      }
+        {
+            "id": 1,
+            "name": "wwan1",
+            "signal": -96,
+            "operatorName": "Chunghwa Telecom",
+
+            "connected": true,
+            "ip": "111.70.146.125",
+            "netmask": "255.255.255.252",
+            "gateway": "111.70.146.126",
+            "dns": ["168.95.1.1" , "168.95.192.1"],
+
+            "enable": true,
+            "apn": "internet",
+            "pinCode": "0000",
+
+            "keepalive":
+            {
+              "enable": true,
+              "targetHost": "8.8.8.8",
+              "intervalSec": 60
+            }
+
+        }
 
 + Response 400 (application/json)
 
-      {
-          "message": "Unable to apply!"
-      }
+        {
+            "message": "Unable to apply!"
+        }
 
 # Group Ethernet
 Notes related resources of the **Ethernet API**
@@ -350,6 +360,116 @@ The error response has following attributes:
         {
             "status": 2101,
             "message": "Interface not found!"
+        }
+
+
+# Group DHCP Server
+Notes related resources of the **DHCP Server API**
+
+## DHCP server Collection [/network/dhcpd]
+### List all DHCP Interfaces [GET]
+
+The Collection response has following attributes:
+
+- **currentStatus** (required, integer, 1): DHCP server status, 1: server is on, 0: server is off.
+- **collection** (required, object array): An object array to perform all queried entries.
+
++ Response 200 (application/json; charset=utf-8)
+
+        {
+            "currentStatus": 1,
+            "collection": [
+                {
+                    "id": 1,
+                    "name": "eth0",
+                    "enable": 0,
+                    "subnet": "192.168.3.0",
+                    "netmask": "255.255.255.0",
+                    "startIP": "192.168.3.100",
+                    "endIP": "192.168.3.150",
+                    "domainNameServers": ["8.8.8.8", "1.1.1.1", "2.2.2.2"],
+                    "domainName": "cloud 5566",
+                    "leaseTime": "3600"
+                }
+            ]
+        }
+
+
+## DHCP server [/network/dhcpd/{id}]
+
++ Parameters
+    + id (required, number, `1`) ... ID of the request in the form of a integer
+
+### List request DHCP Interfaces [GET]
+
+The response has following attributes:
+
+- **currentStatus** (required, integer, 1):  1: server is on, 0: server is off.
+- **collection** (required, object array): An object array to perform all queried entries.
+
++ Response 200 (application/json; charset=utf-8)
+
+        {
+            "id": 1,
+            "name": "eth0",
+            "enable": 0,
+            "subnet": "192.168.3.0",
+            "netmask": "255.255.255.0",
+            "startIP": "192.168.3.100",
+            "endIP": "192.168.3.150",
+            "domainNameServers": ["8.8.8.8", "1.1.1.1", "2.2.2.2"],
+            "domainName": "cloud 5566",
+            "leaseTime": "3600"
+        }
+
+### Update some DHCP Interfaces [PUT]
+
+The collection request/response for update has following attributes:
+
+- **currentStatus** (required, integer, 1): server status, 1: server is on, 0: server is off.
+- **collection** (required, object array): An object array to perform all queried entries.
+- **collection[]id** (required, integer): index
+- **collection[]name** (required, string): interfece of DHCP server, user can select eth0 or eth1
+- **collection[]enable** (required, integer): interfece DHCP server enable bit
+- **collection[]subnet** (required, string): subnet
+- **collection[]netmask** (required, string): netmask
+- **collection[]startIP** (required, string): start IP of DHCP server
+- **collection[]endIP** (required, string): end IP of DHCP server
+- **collection[]domainNameServers** (optional, object array): an object array to save dns list
+- **collection[]domainName** (optional, string): DHCP server domain name
+- **collection[]leaseTime** (required, string): leasetime of DHCP server
+
+Suppose user want to update DHCP server of eth0 interface
+
++ Request  (application/json; charset=utf-8)
+
+        {
+            "id": 1,
+            "name": "eth0",
+            "enable": 0,
+            "subnet": "192.168.3.0",
+            "netmask": "255.255.255.0",
+            "startIP": "192.168.3.100",
+            "endIP": "192.168.3.150",
+            "domainNameServers": ["8.8.8.8", "1.1.1.1", "2.2.2.2"],
+            "domainName": "cloud 7788",
+            "leaseTime": "3600"
+        }
+
+
++ Response 200 (application/json; charset=utf-8)
+
+        {
+            "id": 1,
+            "name": "eth0",
+            "enable": 0,
+            "subnet": "192.168.3.0",
+            "netmask": "255.255.255.0",
+            "startIP": "192.168.3.100",
+            "endIP": "192.168.3.150",
+            "domainNameServers": ["8.8.8.8", "1.1.1.1", "2.2.2.2"],
+            "domainName": "cloud 5566",
+            "leaseTime": "3600"
         }
 
 
@@ -1093,7 +1213,7 @@ The request and response has following attributes:
 # Group Network
 Notes related resources of the **network**
 
-## Network Interface Information [/network/interfaces]
+## Network Interface Information [/network/interface]
 ### Update the interface information [PUT]
 
 The request for PUT has following attributes (this is an **event** message):
@@ -1238,6 +1358,8 @@ A interface object has the following attributes:
           "mode": "rs485-2w"
         }
 
+# Group System Log
+
 ## System Log [/system/syslog]
 
 ### Download system logs [GET]
@@ -1269,3 +1391,225 @@ The response for GET has following attributes:
         {
           "url": "https://server/upload/xxxxxxx"
         }
+
+
+
+
+# Group Port Mapping
+Notes related resources of the **Port Mapping API**
+
+## PortMapping Collection [/network/portmapping]
+### List all Port Mappings [GET]
+
+The Collection response has following attributes:
+
++ Response 200 (application/json)
+
+        [
+          {
+            "id": 1,
+            "enable": true,
+            "service": "http",
+            "portStart": 80,
+            "portEnd": 80,
+            "destIP": "192.168.5.123",
+            "protocol": "both"
+          }
+        ]
+
+### Create a PortMapping Rule [POST]
+#
+The response for POST has following attributes:
+
++ Request  (application/json)
+
+        {
+            "enable": true,
+            "service": "modbus-1",
+            "portStart": 502,
+            "portEnd": 502,
+            "destIP": "192.168.5.124",
+            "protocol": "tcp"
+        }
+
++ Response 200 (application/json)
+
+        {
+            "id": 2,
+            "enable": true,
+            "service": "modbus-1",
+            "portStart": 502,
+            "portEnd": 502,
+            "destIP": "192.168.5.124",
+            "protocol": "tcp"
+        }
+
+
+## PortMapping [/network/portmapping/{id}]
+A single PortMapping object with all its details
+
++ Parameters
+    + id (required, number, `1`) ... Numeric `id` of the PortMapping to perform action with. Has example value.
+
+### Retrieve a PortMapping rule [GET]
+
+The response for GET has following attributes:
+
+- **id** (number, `1`): Identifier for an Port Mapping item.
+- **enable** (boolean, `true`): Indicate to enable (`true`) or disable (`false`) the rule.
+- **service** (string, `http`): Indicate the service for Port Mapping.
+- **portStart** (number, `80`): Start port.
+- **portEnd** (number, `80`): End port.
+- **destIp** (IP address, `111.70.146.125`): Destination IP address for the Port Mapping.
+- **protocol** (string, `tcp`): could be one of `tcp`, `udp`, or `both`.
+
++ Response 200 (application/json; charset=utf-8)
+
+        {
+            "id": 1,
+            "enable": true,
+            "service": "http",
+            "portStart": 80,
+            "portEnd": 80,
+            "destIP": "192.168.5.123",
+            "protocol": "both"
+        }
+
+
+### Update an PortMapping [PUT]
+
+The request for PUT has following attributes:
+
+- **id** (required, number, `1`): Identifier for an Port Mapping item.
+- **enable** (required, boolean, `true`): Indicate to enable (`true`) or disable (`false`) the rule.
+- **service** (optional, string, `http`): Indicate the service for Port Mapping.
+- **portStart** (required, number, `80`): Start port.
+- **portEnd** (optional, number, `80`): End port, same as start port if not defined.
+- **destIp** (required, IP address, `111.70.146.125`): Destination IP address for the Port Mapping.
+- **protocol** (required, string, `tcp`): could be one of `tcp`, `udp`, or `both`.
+
+
+The error response has following attributes:
+
+- **status** (required, number, `1100`): Status code for error message.
+- **message** (required, string): Error message in English.
+
++ Request (application/json)
+
+        {
+            "id": 1,
+            "enable": true,
+            "service": "http",
+            "portStart": 80,
+            "portEnd": 80,
+            "destIP": "192.168.5.123",
+            "protocol": "both"
+        }
+
++ Response 200 (application/json)
+
+        {
+            "id": 1,
+            "enable": true,
+            "service": "http",
+            "portStart": 80,
+            "portEnd": 80,
+            "destIP": "192.168.5.123",
+            "protocol": "both"
+        }
+
++ Response 400 (application/json)
+
+        {
+              "message": "Unable to apply!"
+        }
+
+### Delete a PortMapping Rule [DELETE]
+
++ Response 200 (application/json)
+
+
+# Group Service
+Notes related resources of the **Service API**
+
+## Service Collection [/system/services]
+### List all Services [GET]
+
+The Collection response has following attributes:
+
++ Response 200 (application/json)
+
+        [
+          {
+            "id": 1,
+            "enable": true,
+            "name": "ssh",
+            "status": true
+          },
+          {
+            "id": 2,
+            "enable": true,
+            "name": "rsyslog",
+            "status": true
+          }
+        ]
+
+## Service [/system/services/{name}]
+A single Service object with all its details
+
++ Parameters
+    + name (required, number, `ssh`) ... The unique service name.
+
+
+### Retrieve an Service [GET]
+
+The response for GET has following attributes:
+
+- **id** (number, `1`): Identifier for an Service item.
+- **enable** (boolean, `true`): Indicate to enable (`true`) or disable (`false`) the service.
+- **name** (string, `http`): Indicate the service name.
+- **status** (boolean, `true`): Indicate the current status of service.
+
++ Response 200 (application/json; charset=utf-8)
+
+        {
+            "id": 1,
+            "enable": true,
+            "name": "ssh",
+            "status": true
+        }
+
+
+### Update an Service [PUT]
+
+The request for PUT has following attributes:
+
+- **enable** (required, boolean, `true`): Indicate to enable (`true`) or disable (`false`) the service.
+
+
+The error response has following attributes:
+
+- **status** (required, number, `1100`): Status code for error message.
+- **message** (required, string): Error message in English.
+
++ Request (application/json)
+
+        {
+            "enable": true
+        }
+
++ Response 200 (application/json)
+
+        {
+            "id": 1,
+            "enable": true,
+            "name": "ssh",
+            "status": true
+        }
+
++ Response 400 (application/json)
+
+        {
+              "message": "No such service."
+        }
+
