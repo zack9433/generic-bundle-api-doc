@@ -823,32 +823,47 @@ The response has following attributes:
 - **hostname** (required, string): show hostname
 - **version** (required, string): show product version
 - **uptime** (required, integer): show uptime of machine
-- **diskUsage.[disk].total** (required, integer): show total storage size (unit: byte)
-- **diskUsage.[disk].used** (required, integer): show used storage size (unit: byte)
-- **diskUsage.[disk].free** (required, integer): show free storage size (unit: byte)
-- **diskUsage.[disk].percent** (required, integer): show used storage percent
+- **memory** (required, integer): system memory size (unit: byte)
+- **disks[].name** (required, string): disk alias
+- **disks[].mount** (required, string): mount point
+- **disks[].device** (required, string): disk device
+- **disks[].usage.total** (required, integer): show total storage size (unit: byte)
+- **disks[].usage.used** (required, integer): show used storage size (unit: byte)
+- **disks[].usage.free** (required, integer): show free storage size (unit: byte)
+- **disks[].usage.percent** (required, integer): show used storage percent
 
 
 + Response 200 (application/json; charset=utf-8)
 
         {
             "hostname": "Moxa",
-            "version": "1.0.5-1",
+            "version": "1.1.0-1",
             "uptimeSec": 312956,
-            "diskUsage": {
-                "system": {
-                    "total": 770695168,
-                    "used": 497655808,
-                    "free": 217038848,
-                    "percent": 64.6
+            "memory": 257286144,
+            "disk": [
+                {
+                    "name": "system",
+                    "mount": "/",
+                    "device": "rootfs",
+                    "usage": {
+                        "total": 770695168,
+                        "used": 497655808,
+                        "free": 217038848,
+                        "percent": 64.6
+                    }
                 },
-                "sd": {
-                    "total": 770695168,
-                    "used": 497655808,
-                    "free": 217038848,
-                    "percent": 64.6
+                {
+                    "name": "sd1",
+                    "mount": "/media/sd-mmcblk1p1",
+                    "device": "/dev/mmcblk1p1",
+                    "usage": {
+                        "total": 770695168,
+                        "used": 497655808,
+                        "free": 217038848,
+                        "percent": 64.6
+                    }
                 }
-            }
+            ]
         }
 
 ### Set system hostname [PUT]
