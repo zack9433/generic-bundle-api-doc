@@ -479,7 +479,7 @@ Notes related resources of the **Firmware API**
 ## Firmware Upgrade [/system/firmware]
 The firmware information with all its details
 
-### Firmware Upgrade [PUT]
+### Firmware Upgrade [POST]
 The request for PUT has following attributes:
 
 - **delay** (optional, number, `3`): Delay time in seconds before execute the upgrading process.
@@ -490,8 +490,8 @@ The request for PUT has following attributes:
 
         {
           "id": 3,
-          "resource": "/system/import",
-          "method": "put",
+          "resource": "/system/firmware",
+          "method": "post",
           "data": {
             "delay": 3,
             "file": {
@@ -678,29 +678,42 @@ Notes related resources of the **DNS API**
 
 The response has following attributes:
 
-- **interface** (optional, string): show the current dns corresponging interface
+- **source** (optional, string): show the current dns corresponging source (maybe network interface or fixed DNS)
 - **dns** (required, object array): show current running dns servers.
+- **enableFixed** (required, bool): using fixed DNS (`true`) or by interface (`false`)
+- **fixedDNS** (required, object array): show fixed dns servers.
 
 + Response 200 (application/json; charset=utf-8)
 
         {
-            "interface": "eth0",
+            "enableFixed": false,
+            "fixedDNS": [],
+            "source": "eth0",
             "dns": ["8.8.8.8", "8.8.4.4", "192.168.50.33"]
         }
 
 ### Update DNS Settings [PUT]
 
+The request for PUT has following attributes:
+
+- **source** (optional, string, "fixed"): show the current dns corresponging interface
+- **dns** (optional, string array, `["8.8.8.8", "8.8.4.4"]`): show current running dns servers.
+- **enableFixed** (required, bool, `false`): using fixed DNS (`true`) or by interface (`false`), `false` if not given
+- **fixedDNS** (optional, object array, `[]`): fixed dns servers.
+
 + Request  (application/json; charset=utf-8)
 
         {
-            "interface": "eth0"
+            "source": "eth0"
         }
 
 + Response 200 (application/json; charset=utf-8)
 
         {
-            "interface": "eth0",
-            "dns": ["8.8.8.8", "8.8.4.4", "192.168.50.33"]
+            "enableFixed": false,
+            "source": "eth0",
+            "dns": ["8.8.8.8", "8.8.4.4", "192.168.50.33"],
+            "fixedDNS": []
         }
 
 + Request  (application/json; charset=utf-8)
@@ -712,31 +725,54 @@ The response has following attributes:
 + Response 200 (application/json; charset=utf-8)
 
         {
+            "enableFixed": false,
+            "fixedDNS": [],
             "dns": ["8.8.8.8", "8.8.4.4", "192.168.50.33"]
         }
 
++ Request  (application/json; charset=utf-8)
+
+        {
+            "enableFixed": true,
+            "fixedDNS": ["8.8.8.8", "8.8.4.4"]
+        }
+
++ Response 200 (application/json; charset=utf-8)
+
+        {
+            "enableFixed": true,
+            "source": "fixed",
+            "dns": ["8.8.8.8", "8.8.4.4"],
+            "fixedDNS": ["8.8.8.8", "8.8.4.4"]
+        }
+
++ Request  (application/json; charset=utf-8)
 ## DNS Database [/network/dns/db]
 ### List DNS Settings by Interfaces [GET]
 
 The response has following attributes:
 
-- **interface** (required, string): interface that dns servers belong to
+- **source** (required, string): interface that dns servers belong to
 - **dns** (required, object array): dns servers
 
 + Response 200 (application/json; charset=utf-8)
 
         [
             {
-                "interface": "eth0",
-                "dns": ["8.8.8.8", "8.8.4.4", "192.168.50.33"],
+                "source": "fixed",
+                "dns": ["8.8.8.8", "8.8.4.4"],
             },
             {
-                "interface": "eth1",
-                "dns": ["8.8.8.8", "8.8.4.4", "192.168.50.33"],
+                "source": "eth0",
+                "dns": ["192.168.50.36", "192.168.50.33"],
             },
             {
-                "interface": "wwlan0",
-                "dns": ["8.8.8.8", "8.8.4.4", "192.168.50.33"],
+                "source": "eth1",
+                "dns": ["8.8.8.8", "8.8.4.4"],
+            },
+            {
+                "source": "wwlan0",
+                "dns": ["168.95.1.1"]
             }
         ]
 
@@ -745,14 +781,14 @@ The response has following attributes:
 + Request  (application/json; charset=utf-8)
 
         {
-            "interface": "eth0"
+            "source": "eth0"
             "dns": ["8.8.8.8", "8.8.4.4"]
         }
 
 + Response 200 (application/json; charset=utf-8)
 
         {
-            "interface": "eth0"
+            "source": "eth0"
             "dns": ["8.8.8.8", "8.8.4.4"]
         }
 
@@ -760,15 +796,15 @@ The response has following attributes:
 
         [
             {
-                "interface": "eth0"
+                "source": "eth0"
                 "dns": ["8.8.8.8", "8.8.4.4"]
             },
             {
-                "interface": "eth1",
+                "source": "eth1",
                 "dns": ["8.8.8.8", "8.8.4.4", "192.168.50.33"],
             },
             {
-                "interface": "wwlan0",
+                "source": "wwlan0",
                 "dns": ["8.8.8.8", "8.8.4.4", "192.168.50.33"],
             }
         ]
@@ -777,20 +813,20 @@ The response has following attributes:
 
         [
             {
-                "interface": "eth0"
+                "source": "eth0"
                 "dns": ["8.8.8.8", "8.8.4.4"]
             },
             {
-                "interface": "eth1",
+                "source": "eth1",
                 "dns": ["8.8.8.8", "8.8.4.4", "192.168.50.33"],
             },
             {
-                "interface": "wwlan0",
+                "source": "wwlan0",
                 "dns": ["8.8.8.8", "8.8.4.4", "192.168.50.33"],
             }
         ]
 
-## DNS Servers of Given Interface [/network/dns/{iface}]
+## DNS Servers of Given Interface [/network/dns/{source}]
 ### List DNS Servers of Given Interface [GET]
 
 The response has following attributes:
@@ -799,17 +835,17 @@ The response has following attributes:
 
 + Response 200 (application/json; charset=utf-8)
 
-        ["8.8.8.8", "8.8.4.4", "192.168.50.33"]
+        ["8.8.8.8", "8.8.4.4"]
 
 ### Update DNS Database by Interface [PUT]
 
 + Request  (application/json; charset=utf-8)
 
-        ["8.8.8.8", "8.8.4.4", "192.168.50.33"]
+        ["8.8.8.8", "8.8.4.4"]
 
 + Response 200 (application/json; charset=utf-8)
 
-        ["8.8.8.8", "8.8.4.4", "192.168.50.33"]
+        ["8.8.8.8", "8.8.4.4"]
 
 
 # Group Status
