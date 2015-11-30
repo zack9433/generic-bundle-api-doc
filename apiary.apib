@@ -18,8 +18,11 @@ The Collection response has following attributes:
           {
             "id": 1,
             "name": "wwan1",
+            "mode": "umts",
             "signal": -96,
             "operatorName": "Chunghwa Telecom",
+            "iccId": "",
+            "imei": "356853050370859",
 
             "connected": true,
             "ip": "111.70.146.125",
@@ -53,8 +56,11 @@ The response for GET has following attributes:
 
 - **id** (number, `1`): Identifier for an Cellular interface.
 - **name** (string, `wwan0`): Interface name.
+- **mode** (string, `umts`): Given cellular connection mode. Could be one of `"umts"`, `"lte"`.
 - **signal** (number, `-99`): Cellular RF signal strength, in `dbm`. Value `0` indicates no SIM card found.
 - **operatorName** (string, ``): Indicate current operator name if exist.
+- **iccId** (string, `""`): ICC ID of SIM card.
+- **imei** (string, `"356853050370859"`): IMEI of cellular module.
 
 - **connected** (boolean, `true`): Indicate current status of connection.
 - **ip** (IP address, `111.70.146.125`): IP address. `""` when not connected.
@@ -75,8 +81,11 @@ The response for GET has following attributes:
         {
             "id": 1,
             "name": "wwan1",
+            "mode": "umts",
             "signal": -96,
             "operatorName": "Chunghwa Telecom",
+            "iccId": "",
+            "imei": "356853050370859",
 
             "connected": true,
             "ip": "111.70.146.125",
@@ -139,8 +148,11 @@ The error response has following attributes:
         {
             "id": 1,
             "name": "wwan1",
+            "mode": "umts",
             "signal": -96,
             "operatorName": "Chunghwa Telecom",
+            "iccId": "",
+            "imei": "356853050370859",
 
             "connected": true,
             "ip": "111.70.146.125",
