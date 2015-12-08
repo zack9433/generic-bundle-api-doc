@@ -1561,12 +1561,6 @@ The Collection response has following attributes:
             "enable": true,
             "name": "rsyslog",
             "status": true
-          },
-          {
-            "id": 3,
-            "enable": false,
-            "name": "web-access-via-wan",
-            "status": true
           }
         ]
 
@@ -1659,3 +1653,48 @@ The response for GET has following attributes:
         {
           "enableMode": ""
         }
+
+
+# Group Firewall for WAN
+Notes related resources of the **Firewall API**
+
+## HTTPS [/network/firewall/wan/https]
+Firewall for HTTPS status on WAN
+
+### Retrieve the Setting [GET]
+
+The response for GET has following attributes:
+
+- **enable** (boolean, `true`): Indicate to enable (`true`) or disable (`false`) the https access via WAN.
+
++ Response 200 (application/json; charset=utf-8)
+
+        {
+            "enable": true
+        }
+
+
+### Update the Setting [PUT]
+
+The request for PUT has following attributes:
+
+- **enable** (required, boolean, `true`): Indicate to enable (`true`) or disable (`false`) the https access via WAN.
+
+
+The error response has following attributes:
+
+- **status** (required, number, `1100`): Status code for error message.
+- **message** (required, string): Error message in English.
+
++ Request (application/json)
+
+        {
+            "enable": false
+        }
+
++ Response 200 (application/json)
+
+        {
+            "enable": false
+        }
+
