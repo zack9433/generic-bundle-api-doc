@@ -1413,7 +1413,6 @@ The response for GET has following attributes:
 
 
 
-
 # Group Port Mapping
 Notes related resources of the **Port Mapping API**
 
@@ -1437,7 +1436,7 @@ The Collection response has following attributes:
         ]
 
 ### Create a PortMapping Rule [POST]
-#
+
 The response for POST has following attributes:
 
 + Request  (application/json)
@@ -1474,7 +1473,7 @@ A single PortMapping object with all its details
 
 The response for GET has following attributes:
 
-- **id** (number, `1`): Identifier for an Port Mapping item.
+- **id** (number, `1`): Identifier for a Port Mapping item.
 - **enable** (boolean, `true`): Indicate to enable (`true`) or disable (`false`) the rule.
 - **service** (string, `http`): Indicate the service for Port Mapping.
 - **portStart** (number, `80`): Start port.
@@ -1495,11 +1494,11 @@ The response for GET has following attributes:
         }
 
 
-### Update an PortMapping [PUT]
+### Update a PortMapping [PUT]
 
 The request for PUT has following attributes:
 
-- **id** (required, number, `1`): Identifier for an Port Mapping item.
+- **id** (required, number, `1`): Identifier for a Port Mapping item.
 - **enable** (required, boolean, `true`): Indicate to enable (`true`) or disable (`false`) the rule.
 - **service** (optional, string, `http`): Indicate the service for Port Mapping.
 - **portStart** (required, number, `80`): Start port.
@@ -1544,6 +1543,149 @@ The error response has following attributes:
         }
 
 ### Delete a PortMapping Rule [DELETE]
+
++ Response 200 (application/json)
+
+
+
+# Group Simple Source NAT
+Notes related resources of the **Port Mapping API**
+
+## Simple Source NAT Collection [/network/ssnat]
+### List all SSNAT entries [GET]
+
+The Collection response has following attributes:
+
++ Response 200 (application/json)
+
+        [
+          {
+            "id": 1,
+            "enable": true,
+            "service": "http",
+            "protocol": "both",
+            "intIP": "192.168.5.123",
+            "portStart": 80,
+            "portEnd": 80,
+            "outInterface": "wan"
+          }
+        ]
+
+### Create an SSNAT Rule [POST]
+#
+The response for POST has following attributes:
+
++ Request  (application/json)
+
+        {
+            "enable": true,
+            "service": "modbus-1",
+            "portStart": 502,
+            "portEnd": 502,
+            "intIP": "192.168.5.124",
+            "protocol": "tcp",
+            "outInterface": "wan"
+        }
+
++ Response 200 (application/json)
+
+        {
+            "id": 2,
+            "enable": true,
+            "service": "modbus-1",
+            "portStart": 502,
+            "portEnd": 502,
+            "intIP": "192.168.5.124",
+            "protocol": "tcp",
+            "outInterface": "wan"
+        }
+
+
+## SSNAT [/network/ssnat/{id}]
+A single SSNAT object with all its details
+
++ Parameters
+    + id (required, number, `1`) ... Numeric `id` of the PortMapping to perform action with. Has example value.
+
+### Retrieve an SSNAT rule [GET]
+
+The response for GET has following attributes:
+
+- **id** (number, `1`): Identifier for an SSNAT item.
+- **enable** (boolean, `true`): Indicate to enable (`true`) or disable (`false`) the rule.
+- **service** (string, `http`): Indicate the service for Port Mapping.
+- **portStart** (number, `80`): Start port.
+- **portEnd** (number, `80`): End port.
+- **intIp** (IP address, `111.70.146.125`): Internal (source) IP address for the source NAT.
+- **protocol** (string, `tcp`): could be one of `tcp`, `udp`, or `both`.
+- **outInterface** (string, `wan`): could the interface name or "wan" to indicate a WAN interface.
+
++ Response 200 (application/json; charset=utf-8)
+
+        {
+            "id": 1,
+            "enable": true,
+            "service": "http",
+            "portStart": 80,
+            "portEnd": 80,
+            "intIP": "192.168.5.123",
+            "protocol": "both",
+            "outInterface": "wan"
+        }
+
+
+### Update an SSNAT [PUT]
+
+The request for PUT has following attributes:
+
+- **id** (required, number, `1`): Identifier for an SSNAT item.
+- **enable** (required, boolean, `true`): Indicate to enable (`true`) or disable (`false`) the rule.
+- **service** (optional, string, `http`): Indicate the service for Port Mapping.
+- **portStart** (required, number, `80`): Start port.
+- **portEnd** (optional, number, `80`): End port, same as start port if not defined.
+- **intIp** (required, IP address, `111.70.146.125`): Internal (source) IP address for the source NAT.
+- **protocol** (required, string, `tcp`): could be one of `tcp`, `udp`, or `both`.
+- **outInterface** (required, string, `wan`): could the interface name or "wan" to indicate a WAN interface.
+
+
+The error response has following attributes:
+
+- **status** (required, number, `1100`): Status code for error message.
+- **message** (required, string): Error message in English.
+
++ Request (application/json)
+
+        {
+            "id": 1,
+            "enable": true,
+            "service": "http",
+            "portStart": 80,
+            "portEnd": 80,
+            "intIP": "192.168.5.123",
+            "protocol": "both",
+            "outInterface": "wan"
+        }
+
++ Response 200 (application/json)
+
+        {
+            "id": 1,
+            "enable": true,
+            "service": "http",
+            "portStart": 80,
+            "portEnd": 80,
+            "intIP": "192.168.5.123",
+            "protocol": "both",
+            "outInterface": "wan"
+        }
+
++ Response 400 (application/json)
+
+        {
+              "message": "Unable to apply!"
+        }
+
+### Delete an SSNAT Rule [DELETE]
 
 + Response 200 (application/json)
 
