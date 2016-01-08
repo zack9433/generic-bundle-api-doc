@@ -23,6 +23,7 @@ The Collection response has following attributes:
             "operatorName": "Chunghwa Telecom",
             "iccId": "",
             "imei": "356853050370859",
+            "pinRetryRemain": 3,
 
             "status": "connected",
             "ip": "111.70.146.125",
@@ -65,6 +66,7 @@ The response for GET has following attributes:
 - **operatorName** (string, ``): Indicate current operator name if exist.
 - **iccId** (string, `""`): ICC ID of SIM card.
 - **imei** (string, `"356853050370859"`): IMEI of cellular module.
+- **pinRetryRemain** (number, `3`): PIN Retry remaining.
 
 - **status** (string, `connected`): Indicate current status of cellular connection. Could be one of "nosim", "pin", "noservice", "ready", "connected", "connecting", "connect-failed".
 - **ip** (IP address, `111.70.146.125`): IP address. `""` when not connected.
@@ -93,6 +95,7 @@ The response for GET has following attributes:
             "operatorName": "Chunghwa Telecom",
             "iccId": "",
             "imei": "356853050370859",
+            "pinRetryRemain": 3,
 
             "status": "connected",
             "ip": "111.70.146.125",
@@ -164,6 +167,7 @@ The error response has following attributes:
             "operatorName": "Chunghwa Telecom",
             "iccId": "",
             "imei": "356853050370859",
+            "pinRetryRemain": 3,
 
             "status": "connected",
             "ip": "111.70.146.125",
