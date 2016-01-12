@@ -644,22 +644,26 @@ The system time information include NTP client settings
 
 The response for GET has following attributes:
 
+- **type** (string, `manual`): method to update system time; should be one of `manual`, `ntp`, or `cellular`.
 - **time** (string, `2014-10-21 00:00:00`): Current system time. (iso 8601)
 - **timezone** (string, `+08,00,0`): System timezone settings.
-- **ntp.enable** (boolean, `enable`): Enable/Disable Ntp client.
 - **ntp.server** (string, `pool.ntp.org`): Ntp server.
 - **ntp.interval** (integer, `86400`): Ntp update interval in seconds. (at least: 60 seconds.)
+- **cellular.interval** (integer, `86400`):  Update interval in seconds from cellular base station. (at least: 60 seconds.)
 
 + Response 200 (application/json; charset=utf-8)
 
     + Body
 
             {
+                "type": "ntp",
                 "time": "2015-03-26T16:27:48.611441Z",
                 "timezone": "+08:00,0",
                 "ntp": {
-                    "enable": 1,
                     "server": "pool.ntp.org",
+                    "interval": 86400
+                },
+                "cellular": {
                     "interval": 86400
                 }
             }
@@ -673,11 +677,14 @@ The response for PUT has following attributes:
     + Body
 
             {
+                "type": "ntp",
                 "time": "2015-03-26T16:27:48.611441Z",
                 "timezone": "+08:00,0",
                 "ntp": {
-                    "enable": 0,
                     "server": "pool.ntp.org",
+                    "interval": 86400
+                },
+                "cellular": {
                     "interval": 86400
                 }
             }
@@ -687,11 +694,14 @@ The response for PUT has following attributes:
     + Body
 
             {
+                "type": "ntp"
                 "time": "2015-03-26T16:27:48.611441Z",
                 "timezone": "+08:00,0",
                 "ntp": {
-                    "enable": 1,
                     "server": "pool.ntp.org",
+                    "interval": 86400
+                },
+                "cellular": {
                     "interval": 86400
                 }
             }
