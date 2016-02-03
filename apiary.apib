@@ -21,6 +21,8 @@ The Collection response has following attributes:
             "mode": "umts",
             "signal": -96,
             "operatorName": "Chunghwa Telecom",
+            "lac": "F339",
+            "cellId": "3194",
             "iccId": "",
             "imei": "356853050370859",
             "pinRetryRemain": 3,
@@ -64,6 +66,8 @@ The response for GET has following attributes:
 - **mode** (string, `umts`): Given cellular connection mode. Could be one of `"umts"`, `"lte"`.
 - **signal** (number, `-99`): Cellular RF signal strength, in `dbm`. Value `0` indicates no SIM card found.
 - **operatorName** (string, ``): Indicate current operator name if exist.
+- **lac** (string, `F339`): Location area code.
+- **cellId** (string, `3194`): Cell ID.
 - **iccId** (string, `""`): ICC ID of SIM card.
 - **imei** (string, `"356853050370859"`): IMEI of cellular module.
 - **pinRetryRemain** (number, `3`): PIN Retry remaining.
@@ -93,6 +97,8 @@ The response for GET has following attributes:
             "mode": "umts",
             "signal": -96,
             "operatorName": "Chunghwa Telecom",
+            "lac": "F339",
+            "cellId": "3194",
             "iccId": "",
             "imei": "356853050370859",
             "pinRetryRemain": 3,
@@ -165,6 +171,8 @@ The error response has following attributes:
             "mode": "umts",
             "signal": -96,
             "operatorName": "Chunghwa Telecom",
+            "lac": "F339",
+            "cellId": "3194",
             "iccId": "",
             "imei": "356853050370859",
             "pinRetryRemain": 3,
